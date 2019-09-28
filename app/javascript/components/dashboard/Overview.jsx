@@ -1,7 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Numerics } from '../../helpers/main'
+import Progress from '../shared/Progress'
 
 class Overview extends React.Component {
+  percentages() {
+    return this.props.categories.map((category) => {
+      return { percentage: 10, color: category.color }
+    })
+  }
+
   render() {
     return (
       <div>
@@ -11,8 +19,15 @@ class Overview extends React.Component {
           <li className="ml-40"><a href="#">By Year</a></li>
         </ul>
 
-        <div className="border p-15 br-5">
+        <div className="border p-25 br-5">
           September
+
+          <div className="flex flex-space-between flex-baseline">
+            <div><h1>{Numerics.centsToDollars(123412)}</h1></div>
+            <b>{Numerics.centsToDollars(3123)} remaining</b>
+          </div>
+
+          <Progress data={this.percentages()} />
         </div>
       </div>
     );
@@ -20,11 +35,11 @@ class Overview extends React.Component {
 }
 
 Overview.defaultProps = {
-  name: 'David'
+  categories: []
 }
 
 Overview.propTypes = {
-  name: PropTypes.string
+  categories: PropTypes.array
 }
 
 export default Overview;

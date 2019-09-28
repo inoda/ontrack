@@ -24,7 +24,7 @@ class Main extends React.Component {
     return (
       <div>
         <div className="container">
-          <Overview />
+          <Overview categories={this.state.categories} />
         </div>
 
         <div className="bg-art mt-100">

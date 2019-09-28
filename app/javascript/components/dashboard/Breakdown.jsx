@@ -25,6 +25,9 @@ class Breakdown extends React.Component {
     return (
       <div>
         {this.props.categories.map((value, idx) => { return this.renderCategory(value, idx) })}
+        <div className="category-tile border-none">
+          <div className="add">+ Add a category</div>
+        </div>
       </div>
     );
   }

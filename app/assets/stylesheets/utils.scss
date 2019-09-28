@@ -9,11 +9,15 @@
   justify-content: space-between;
 }
 
+.flex-baseline {
+  align-items: baseline;
+}
+
 
 // Spacing
 
-.p-15 {
-  padding: 15px;
+.p-25 {
+  padding: 25px;
 }
 
 .pv-100 {
@@ -38,6 +42,10 @@
 
 .br-5 {
   border-radius: 5px;
+}
+
+.border-none {
+  border: none;
 }
 
 
