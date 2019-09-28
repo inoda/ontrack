@@ -11,7 +11,7 @@ class Overview extends React.Component {
           <li className="ml-40"><a href="#">By Year</a></li>
         </ul>
 
-        <div className="border p-15">
+        <div className="border p-15 br-5">
           September
         </div>
       </div>

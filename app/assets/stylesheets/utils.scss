@@ -5,9 +5,8 @@
   align-items: center;
 }
 
-.border {
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.flex-space-between {
+  justify-content: space-between;
 }
 
 
@@ -17,6 +16,33 @@
   padding: 15px;
 }
 
+.pv-100 {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
 .ml-40 {
   margin-left: 40px;
+}
+
+
+// Borders
+
+.border {
+  border: 1px solid #ccc;
+}
+
+.br-5 {
+  border-radius: 5px;
+}
+
+
+// Text
+
+.text-muted {
+  color: #929292;
 }

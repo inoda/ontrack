@@ -3,12 +3,21 @@
   color: #333;
 }
 
+body {
+  margin: 0;
+}
+
 .container {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.bg-art {
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
 }
 
 a {
