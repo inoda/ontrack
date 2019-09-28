@@ -1,0 +1,19 @@
+* {
+  font-family: 'Nunito', sans-serif;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  &:hover {
+    color: #000;
+    font-weight: 600;
+  }
+}
