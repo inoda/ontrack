@@ -13,13 +13,7 @@ class Overview extends React.Component {
   render() {
     return (
       <div>
-        <ul className="flex">
-          <li><a href="#">By Week</a></li>
-          <li className="ml-40"><a href="#">By Month</a></li>
-          <li className="ml-40"><a href="#">By Year</a></li>
-        </ul>
-
-        <div className="border p-25 br-5">
+        <div>
           September
 
           <div className="flex flex-space-between flex-baseline">
