@@ -7,6 +7,8 @@
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 a {
@@ -16,4 +18,9 @@ a {
     color: #000;
     font-weight: 600;
   }
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
 }
