@@ -12,10 +12,14 @@ class CategoriesList extends React.Component {
 
   openCategoryCreate = () => { this.setState({ showCategoryCreateModal: true }); }
   closeCategoryCreate = () => { this.setState({ showCategoryCreateModal: false }); }
+  openCategorySave = () => {
+    this.closeCategoryCreate();
+    this.props.onChange();
+  }
 
   renderCategoryCreateModal() {
     if (!this.state.showCategoryCreateModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryCreate} />;
+    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.openCategorySave} />;
   }
 
   renderCategory(category, idx) {
@@ -40,7 +44,8 @@ CategoriesList.defaultProps = {
 }
 
 CategoriesList.propTypes = {
-  categoriesWithExpensesAndSpend: PropTypes.array
+  categoriesWithExpensesAndSpend: PropTypes.array,
+  onChange: PropTypes.func
 }
 
 export default CategoriesList;

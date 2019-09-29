@@ -9,7 +9,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
       categories: [],
       expenses: [],
     };
@@ -19,13 +18,12 @@ class Main extends React.Component {
     this.loadData();
   }
 
-  loadData() {
-    this.setState({ loaded: false });
+  loadData = () => {
     Categories.list().then(
       (resp) => {
         this.setState({ categories: resp });
         Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
-          (resp) => { this.setState({ expenses: resp, loaded: true }); },
+          (resp) => { this.setState({ expenses: resp }); },
           (error) => { console.log(error); },
         )
       },
@@ -44,8 +42,6 @@ class Main extends React.Component {
   }
 
   render() {
-    if (!this.state.loaded) { return <div></div>; }
-
     return (
       <div>
         <div className="container">
@@ -57,7 +53,7 @@ class Main extends React.Component {
             <button className="btn btn-round btn-dark pos-abs mt-neg-20">+ add an expense</button>
           </div>
           <div className="container pv-100">
-            <CategoriesList categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
+            <CategoriesList categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} onChange={this.loadData} />
           </div>
         </div>
       </div>

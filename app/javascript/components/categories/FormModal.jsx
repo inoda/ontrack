@@ -20,9 +20,8 @@ class FormModal extends React.Component {
   handleColorChange = (color) => { this.setState({ color: color }); }
   handleSubmit = (e) => {
     e.preventDefault();
-
     Categories.create({ color: this.state.color, name: this.state.name, goal: this.state.goal }).then(
-      (resp) => { console.log(resp) },
+      (resp) => { this.props.onSave(resp) },
       (error) => { console.log(error); },
     )
   }
@@ -67,6 +66,7 @@ FormModal.defaultProps = {
 
 FormModal.propTypes = {
   onClose: PropTypes.func,
+  onSave: PropTypes.func,
 }
 
 export default FormModal;
