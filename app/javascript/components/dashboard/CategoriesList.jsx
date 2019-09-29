@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Numerics } from '../../helpers/main'
-import Progress from '../shared/Progress'
 import Modal from '../shared/Modal'
 import CategoryTile from './CategoryTile'
+import CategoryFormModal from '../categories/FormModal'
 
 class CategoriesList extends React.Component {
   constructor(props) {
@@ -11,20 +10,12 @@ class CategoriesList extends React.Component {
     this.state = { showCategoryCreateModal: false };
   }
 
-  openCategoryCreate = () => {
-    this.setState({ showCategoryCreateModal: true });
-  }
-
-  closeCategoryCreate = () => {
-    this.setState({ showCategoryCreateModal: false });
-  }
+  openCategoryCreate = () => { this.setState({ showCategoryCreateModal: true }); }
+  closeCategoryCreate = () => { this.setState({ showCategoryCreateModal: false }); }
 
   renderCategoryCreateModal() {
     if (!this.state.showCategoryCreateModal) { return '' }
-    return (
-      <Modal onClose={this.closeCategoryCreate} title="Create Category">
-      </Modal>
-    );
+    return <CategoryFormModal onClose={this.closeCategoryCreate} />;
   }
 
   renderCategory(category, idx) {
