@@ -56,10 +56,6 @@
   border-radius: 5px;
 }
 
-.border-none {
-  border: none;
-}
-
 
 // Text
 
@@ -69,4 +65,19 @@
 
 .text-center {
   text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+
+// state
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+.hover-dim:hover {
+  opacity: 0.9;
 }

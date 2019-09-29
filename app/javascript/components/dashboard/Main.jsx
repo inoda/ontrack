@@ -25,9 +25,7 @@ class Main extends React.Component {
       (resp) => {
         this.setState({ categories: resp });
         Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
-          (resp) => {
-            this.setState({ expenses: resp, loaded: true });
-          },
+          (resp) => { this.setState({ expenses: resp, loaded: true }); },
           (error) => { console.log(error); },
         )
       },

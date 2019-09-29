@@ -13,14 +13,16 @@
   cursor: pointer;
   box-sizing: border-box;
   outline: 0;
+  color: #333;
+  background-color: #eee;
+
+  &:hover {
+    background-color: #a7a7a7;
+  }
 }
 
 .btn.btn-round {
   border-radius: 20px;
-}
-
-.btn:hover {
-  color: #888;
 }
 
 .btn.btn-dark {
