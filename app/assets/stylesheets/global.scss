@@ -25,6 +25,7 @@ a {
   color: #333;
   text-decoration: none;
   &:hover {
+    cursor: pointer;
     color: #000;
     font-weight: 600;
   }

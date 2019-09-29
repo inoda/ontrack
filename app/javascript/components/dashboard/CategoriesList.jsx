@@ -12,18 +12,18 @@ class CategoriesList extends React.Component {
 
   openCategoryCreate = () => { this.setState({ showCategoryCreateModal: true }); }
   closeCategoryCreate = () => { this.setState({ showCategoryCreateModal: false }); }
-  openCategorySave = () => {
+  onCategorySave = () => {
     this.closeCategoryCreate();
     this.props.onChange();
   }
 
   renderCategoryCreateModal() {
     if (!this.state.showCategoryCreateModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.openCategorySave} />;
+    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.onCategorySave} />;
   }
 
   renderCategory(category, idx) {
-    return <CategoryTile key={idx} categoryWithExpensesAndSpend={category} />;
+    return <CategoryTile key={idx} categoryWithExpensesAndSpend={category} onChange={this.props.onChange} />;
   }
 
   render() {

@@ -9,18 +9,26 @@ class FormModal extends React.Component {
     super(props);
     this.state = {
       colorPickerOpen: false,
-      color: '',
-      name: '',
-      goal: ''
+      color: this.props.category ? this.props.category.color : '#fffff',
+      name: this.props.category ? this.props.category.name : '',
+      goal: this.props.category && this.props.category.annual_goal ? this.props.category.annual_goal : ''
     };
   }
 
-  handleNameChange = (e) => { this.setState({ name: e.target.value.trim() }); }
+  handleNameChange = (e) => { this.setState({ name: e.target.value }); }
   handleGoalChange = (e) => { this.setState({ goal: e.target.value.trim() }); }
   handleColorChange = (color) => { this.setState({ color: color }); }
   handleSubmit = (e) => {
     e.preventDefault();
-    Categories.create({ color: this.state.color, name: this.state.name, goal: this.state.goal }).then(
+
+    let apiCall = null;
+    if (this.props.category.id) {
+      apiCall = Categories.update(this.props.category.id, { color: this.state.color, name: this.state.name.trim(), goal: this.state.goal })
+    } else {
+      apiCall = Categories.create({ color: this.state.color, name: this.state.name.trim(), goal: this.state.goal })
+    }
+
+    apiCall.then(
       (resp) => { this.props.onSave(resp) },
       (error) => { console.log(error); },
     )
@@ -42,7 +50,7 @@ class FormModal extends React.Component {
 
           <div className="input-group">
             <label>Color</label>
-            <ColorPicker onChange={this.handleColorChange} />
+            <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} />
           </div>
 
           <div className="input-group">
