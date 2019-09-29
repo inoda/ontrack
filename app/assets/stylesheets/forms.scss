@@ -1,6 +1,6 @@
 .input-group {
   margin-bottom: 20px;
-  
+
   label {
     display: inline-block;
     margin-bottom: 5px;
@@ -18,6 +18,13 @@
     outline: none;
     padding: 7px;
   }
+}
+
+.form-actions {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .color-picker {
