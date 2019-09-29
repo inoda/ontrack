@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
 
@@ -39,7 +40,7 @@ class Overview extends React.Component {
     return (
       <div>
         <div>
-          September
+          {moment().format('MMMM')}
 
           <div className="flex flex-space-between flex-baseline">
             <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>

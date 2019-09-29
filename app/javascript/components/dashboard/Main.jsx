@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import Overview from './Overview'
 import CategoriesList from './CategoriesList'
-import moment from 'moment'
 import { Categories, Expenses } from '../../api/main'
 
 class Main extends React.Component {
