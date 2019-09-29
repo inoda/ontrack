@@ -13,6 +13,10 @@
   align-items: baseline;
 }
 
+.pos-abs {
+  position: absolute;
+}
+
 
 // Spacing
 
@@ -27,6 +31,10 @@
 
 .mt-100 {
   margin-top: 100px;
+}
+
+.mt-neg-20 {
+  margin-top: -20px;
 }
 
 .mb-10 {
@@ -56,5 +64,9 @@
 // Text
 
 .text-muted {
-  color: #929292;
+  color: #152036;
+}
+
+.text-center {
+  text-align: center;
 }

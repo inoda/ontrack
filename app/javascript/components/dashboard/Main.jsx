@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Overview from './Overview'
-import Breakdown from './Breakdown'
+import CategoriesList from './CategoriesList'
 import moment from 'moment'
 import { Categories, Expenses } from '../../api/main'
 
@@ -55,8 +55,11 @@ class Main extends React.Component {
         </div>
 
         <div className="bg-art mt-100">
+          <div className="container">
+            <button className="btn btn-round btn-dark pos-abs mt-neg-20">+ add an expense</button>
+          </div>
           <div className="container pv-100">
-            <Breakdown categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
+            <CategoriesList categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
           </div>
         </div>
       </div>

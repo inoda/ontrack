@@ -4,7 +4,7 @@ import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
 import CategoryTile from './CategoryTile'
 
-class Breakdown extends React.Component {
+class CategoriesList extends React.Component {
   renderCategory(category, idx) {
     return <CategoryTile key={idx} categoryWithExpensesAndSpend={category} />;
   }
@@ -21,12 +21,12 @@ class Breakdown extends React.Component {
   }
 }
 
-Breakdown.defaultProps = {
+CategoriesList.defaultProps = {
   categoriesWithExpensesAndSpend: []
 }
 
-Breakdown.propTypes = {
+CategoriesList.propTypes = {
   categoriesWithExpensesAndSpend: PropTypes.array
 }
 
-export default Breakdown;
+export default CategoriesList;

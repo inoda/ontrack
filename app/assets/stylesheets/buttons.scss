@@ -1,0 +1,33 @@
+.btn {
+  display: inline-block;
+  height: 38px;
+  font-size: 1em;
+  padding: 0 30px;
+  text-align: center;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+.btn.btn-round {
+  border-radius: 20px;
+}
+
+.btn:hover {
+  color: #888;
+}
+
+.btn.btn-dark {
+  color: #fff;
+  background-color: #333;
+
+  &:hover {
+    background-color: #01003a;
+  }
+}
