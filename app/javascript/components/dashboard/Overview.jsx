@@ -29,7 +29,7 @@ class Overview extends React.Component {
 
   goalComparisonDisplay() {
     if (this.hasCategoryWithNoGoal()) {
-      return <a href="#">Finish setting goals</a>
+      return <span className="text-small">Finish setting goals to see progress</span>
     } else {
       const diff = this.totalMonthlyGoal() - this.totalSpend();
       return (diff >= 0) ? <b>{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over}</b>;
