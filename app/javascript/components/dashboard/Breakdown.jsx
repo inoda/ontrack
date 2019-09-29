@@ -2,29 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
+import CategoryTile from './CategoryTile'
 
 class Breakdown extends React.Component {
   renderCategory(category, idx) {
-    return (
-      <div key={idx} className="category-tile" style={{ borderColor: category.color }}>
-        <div className="flex flex-space-between">
-          <div>
-            <b>{category.name}</b>
-            <div className="text-muted">$100 remaining</div>
-          </div>
-
-          <h2>{Numerics.centsToDollars(category.annual_goal)}</h2>
-        </div>
-
-        <Progress data={[{ percentage: 45 }]} small={true} />
-      </div>
-    );
+    return <CategoryTile key={idx} categoryWithExpensesAndSpend={category} />;
   }
 
   render() {
     return (
       <div>
-        {this.props.categories.map((value, idx) => { return this.renderCategory(value, idx) })}
+        {this.props.categoriesWithExpensesAndSpend.map((value, idx) => { return this.renderCategory(value, idx) })}
         <div className="category-tile border-none">
           <div className="add">+ Add a category</div>
         </div>
@@ -34,11 +22,11 @@ class Breakdown extends React.Component {
 }
 
 Breakdown.defaultProps = {
-  categories: []
+  categoriesWithExpensesAndSpend: []
 }
 
 Breakdown.propTypes = {
-  categories: PropTypes.array
+  categoriesWithExpensesAndSpend: PropTypes.array
 }
 
 export default Breakdown;

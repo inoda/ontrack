@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_210020) do
     t.text "description", null: false
     t.integer "amount", null: false
     t.integer "category_id", null: false
+    t.datetime "paid_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

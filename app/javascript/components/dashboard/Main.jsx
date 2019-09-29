@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Overview from './Overview'
 import Breakdown from './Breakdown'
+import moment from 'moment'
 import { Categories, Expenses } from '../../api/main'
 
 class Main extends React.Component {
@@ -15,27 +16,47 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    Categories.list().then(
-      (resp) => { this.setState({ categories: resp }) },
-      (error) => { console.log(error); },
-    )
+    this.loadData();
+  }
 
-    Expenses.list().then(
-      (resp) => { this.setState({ expenses: resp }); console.log(this.state.expenses) },
+  loadData() {
+    this.setState({ loaded: false });
+    Categories.list().then(
+      (resp) => {
+        this.setState({ categories: resp });
+        Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
+          (resp) => {
+            this.setState({ expenses: resp, loaded: true });
+          },
+          (error) => { console.log(error); },
+        )
+      },
       (error) => { console.log(error); },
     )
   }
 
+  categoriesWithExpensesAndSpend() {
+    let categories = [];
+    this.state.categories.forEach((category) => {
+      category.expenses = this.state.expenses.filter((expense) => expense.category_id == category.id);
+      category.spend = category.expenses.reduce((sum, exp) => sum + exp.amount, 0);
+      categories.push(category);
+    });
+    return categories;
+  }
+
   render() {
+    if (!this.state.loaded) { return <div></div>; }
+
     return (
       <div>
         <div className="container">
-          <Overview categories={this.state.categories} />
+          <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
         </div>
 
         <div className="bg-art mt-100">
           <div className="container pv-100">
-            <Breakdown categories={this.state.categories} />
+            <Breakdown categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
           </div>
         </div>
       </div>

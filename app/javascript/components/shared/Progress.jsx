@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class Progress extends React.Component {
   renderData(value, idx) {
     return (
-      <div className="progress" key={idx} style={{ width: `${value.percentage}%`, backgroundColor: value.color ? value.color : '#b3b3b3' }}>
+      <div className="progress" key={idx} style={{ width: `${value.percentage}%`, backgroundColor: value.color ? value.color : '#828282' }}>
       </div>
     );
   }

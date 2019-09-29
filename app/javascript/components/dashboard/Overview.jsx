@@ -5,7 +5,7 @@ import Progress from '../shared/Progress'
 
 class Overview extends React.Component {
   percentages() {
-    return this.props.categories.map((category) => {
+    return this.props.categoriesWithExpensesAndSpend.map((category) => {
       return { percentage: 10, color: category.color }
     })
   }
@@ -29,11 +29,11 @@ class Overview extends React.Component {
 }
 
 Overview.defaultProps = {
-  categories: []
+  categoriesWithExpensesAndSpend: []
 }
 
 Overview.propTypes = {
-  categories: PropTypes.array
+  categoriesWithExpensesAndSpend: PropTypes.array
 }
 
 export default Overview;
