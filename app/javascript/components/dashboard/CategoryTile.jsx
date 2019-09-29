@@ -11,12 +11,7 @@ class CategoryTile extends React.Component {
   goalComparisonDisplay() {
     if (!this.props.categoryWithExpensesAndSpend.annual_goal) { return 'No goal set'; }
     const diff = this.monthlyGoal() - this.props.categoryWithExpensesAndSpend.spend;
-
-    if (diff >= 0) {
-      return `${Numerics.centsToDollars(diff)} remaining`;
-    } else {
-      return `${Numerics.centsToDollars(Math.abs(diff))} over`;
-    }
+    return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
 
   normalizedPercentage() {
