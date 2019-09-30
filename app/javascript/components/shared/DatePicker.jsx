@@ -1,0 +1,33 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+class Picker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { startDate: this.props.value };
+  }
+
+  handleChange = (val) => {
+    this.setState({ startDate: val });
+    this.props.onChange(val);
+  }
+
+  render() {
+    return (
+      <DatePicker onChange={this.handleChange} selected={this.state.startDate} />
+    );
+  }
+}
+
+Picker.defaultProps = {
+  value: new Date(),
+}
+
+Picker.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.object,
+}
+
+export default Picker;

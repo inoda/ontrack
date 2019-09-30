@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../shared/Modal'
+import DatePicker from '../shared/DatePicker'
 import { Expenses } from '../../api/main'
 
 class FormModal extends React.Component {
@@ -10,17 +11,17 @@ class FormModal extends React.Component {
       description: '',
       category_id: this.props.categories.length ? this.props.categories[0].id : '',
       amount: 0,
-      paidAt: '',
+      paidAt: new Date(),
     };
   }
 
   handleDescriptionChange = (e) => { this.setState({ description: e.target.value }); }
   handleAmountChange = (e) => { this.setState({ amount: e.target.value.trim() }); }
-  handlePaidAtChange = (e) => { this.setState({ paidAt: e.target.value }); }
+  handlePaidAtChange = (val) => { this.setState({ paidAt: val }); }
   handleCategoryChange = (e) => { this.setState({ category_id: e.target.value }); }
   handleSubmit = (e) => {
     e.preventDefault();
-    Expenses.create({ description: this.state.description.trim(), category_id: this.state.category_id, amount: this.state.amount, paidAt: this.state.paidAt }).then(
+    Expenses.create({ description: this.state.description.trim(), category_id: this.state.category_id, amount: this.state.amount, paid_at: this.state.paidAt }).then(
       (resp) => { this.props.onSave(resp) },
       (error) => { console.log(error); },
     )
@@ -56,7 +57,7 @@ class FormModal extends React.Component {
 
         <div className="input-group">
           <label>Paid At</label>
-          <input type="text" value={this.state.paidAt} onChange={this.handlePaidAtChange}></input>
+          <DatePicker onChange={this.handlePaidAtChange} />
         </div>
 
         <div className="form-actions">
