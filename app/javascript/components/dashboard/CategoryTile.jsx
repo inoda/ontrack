@@ -43,7 +43,7 @@ class CategoryTile extends React.Component {
         {this.renderCategoryEditModal()}
         <div className="flex flex-space-between">
           <div>
-            <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}>Edit</a>
+            <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><i className="fa fa-edit ml-2"></i></a>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
           </div>
 

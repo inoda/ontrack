@@ -9,9 +9,9 @@ class FormModal extends React.Component {
     super(props);
     this.state = {
       colorPickerOpen: false,
-      color: this.props.category ? this.props.category.color : '#fffff',
-      name: this.props.category ? this.props.category.name : '',
-      goal: this.props.category && this.props.category.annual_goal ? this.props.category.annual_goal : ''
+      color: this.props.category.color,
+      name: this.props.category.name,
+      goal: this.props.category.annual_goal,
     };
   }
 
@@ -69,7 +69,11 @@ class FormModal extends React.Component {
 }
 
 FormModal.defaultProps = {
-  category: {}
+  category: {
+    color: '#fffff',
+    name: '',
+    annual_goal: '',
+  }
 }
 
 FormModal.propTypes = {
