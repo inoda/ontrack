@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :expenses, only: [:index]
+      resources :expenses, only: [:index, :create]
       resources :categories, only: [:index, :create, :update]
     end
   end

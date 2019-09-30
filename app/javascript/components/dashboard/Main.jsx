@@ -3,18 +3,27 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import Overview from './Overview'
 import CategoriesList from './CategoriesList'
+import ExpenseFormModal from '../expenses/FormModal'
 import { Categories, Expenses } from '../../api/main'
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showExpenseCreateModal: false,
       categories: [],
       expenses: [],
     };
   }
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  openExpenseCreate = () => { this.setState({ showExpenseCreateModal: true }); }
+  closeExpenseCreate = () => { this.setState({ showExpenseCreateModal: false }); }
+  onExpenseSave = () => {
+    this.closeExpenseCreate();
     this.loadData();
   }
 
@@ -41,16 +50,23 @@ class Main extends React.Component {
     return categories;
   }
 
+  renderExpenseCreateModal() {
+    if (!this.state.showExpenseCreateModal) { return '' }
+    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={this.state.categories} />;
+  }
+
   render() {
     return (
       <div>
+        {this.renderExpenseCreateModal()}
+
         <div className="container">
           <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
         </div>
 
         <div className="bg-art mt-100">
           <div className="container">
-            <button className="btn btn-round btn-dark pos-abs mt-neg-20">+ add an expense</button>
+            <button className="btn btn-round btn-dark pos-abs mt-neg-20 z-5" onClick={this.openExpenseCreate}>+ add an expense</button>
           </div>
           <div className="container pv-100">
             <CategoriesList categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} onChange={this.loadData} />
