@@ -21,16 +21,14 @@ class ColorPicker extends React.Component {
 
   colors() {
     if (this.props.colors.length) { return this.props.colors; }
-    let allColors = ['#B80000', '#DB3E00', '#FCCB00', '#008B02', '#006B76', '#1273DE', '#004DCF', '#5300EB', '#EB9694', '#FAD0C3', '#D0021B', '#F5A623', '#F8E71C', '#8B572A', '#7ED321', '#417505', '#BD10E0', '#9013FE', '#4A90E2', '#50E3C2', '#B8E986', '#000000', '#4A4A4A', '#9B9B9B'].slice(0, 10);
-    if (this.state.initialColor.length) { allColors.unshift(this.state.initialColor); }
+    let allColors = ['#B80000', '#FCCB00', '#008B02', '#006B76', '#1273DE', '#004DCF', '#5300EB', '#EB9694', '#FAD0C3', '#D0021B', '#F5A623', '#F8E71C', '#8B572A', '#7ED321', '#417505', '#BD10E0', '#9013FE', '#4A90E2', '#50E3C2', '#B8E986', '#000000', '#4A4A4A', '#9B9B9B'];
 
     let availColors = []
+    if (this.state.initialColor.length) { availColors.push(this.state.initialColor); }
     for (let color of allColors) {
       if (availColors.length == this.props.colorsToShow) { break; }
-      if (availColors.map((el) => { return el.toLowerCase(); }).includes(color.toLowerCase())) { continue; }
-      if (this.props.omitColors.length) {
-        if (this.props.omitColors.map((el) => { return el.toLowerCase(); }).includes(color.toLowerCase())) { continue;}
-      }
+      if (availColors.map((el) => { return el.toLowerCase() }).includes(color.toLowerCase())) { continue; }
+      if (this.props.omitColors.length && this.props.omitColors.map((el) => { return el.toLowerCase() }).includes(color.toLowerCase())) { continue;}
       availColors.push(color);
     }
 
