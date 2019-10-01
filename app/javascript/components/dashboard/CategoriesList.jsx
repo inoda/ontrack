@@ -18,6 +18,10 @@ class CategoriesList extends React.Component {
     this.props.onChange();
   }
 
+  colorsToSkip() {
+    return this.props.categoriesWithExpensesAndSpend.map((cat) => { return cat.color });
+  }
+
   chunkedCategories() {
     const categoriesAndAddButton = this.props.categoriesWithExpensesAndSpend.concat('addButton')
     return Arr.chunk(categoriesAndAddButton, 2);
@@ -37,7 +41,7 @@ class CategoriesList extends React.Component {
         </div>
       );
     } else {
-      markup = <CategoryTile categoryWithExpensesAndSpend={category} onChange={this.props.onChange} />;
+      markup = <CategoryTile categoryWithExpensesAndSpend={category} onChange={this.props.onChange} colorsToSkip={this.colorsToSkip()} />;
     }
 
     return <div className="six columns" key={idx}>{markup}</div>;

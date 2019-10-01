@@ -11,7 +11,7 @@ class FormModal extends React.Component {
       colorPickerOpen: false,
       color: this.props.category.color,
       name: this.props.category.name,
-      goal: this.props.category.annual_goal,
+      goal: this.props.category.annual_goal || '',
     };
   }
 
@@ -50,7 +50,7 @@ class FormModal extends React.Component {
 
           <div className="input-group">
             <label>Color</label>
-            <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} />
+            <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} />
           </div>
 
           <div className="input-group">
@@ -69,8 +69,9 @@ class FormModal extends React.Component {
 }
 
 FormModal.defaultProps = {
+  colorsToSkip: [],
   category: {
-    color: '#fffff',
+    color: '',
     name: '',
     annual_goal: '',
   }
@@ -79,6 +80,8 @@ FormModal.defaultProps = {
 FormModal.propTypes = {
   onClose: PropTypes.func,
   onSave: PropTypes.func,
+  category: PropTypes.object,
+  colorsToSkip: PropTypes.array
 }
 
 export default FormModal;

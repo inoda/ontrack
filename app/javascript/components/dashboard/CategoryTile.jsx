@@ -34,7 +34,7 @@ class CategoryTile extends React.Component {
 
   renderCategoryEditModal() {
     if (!this.state.showCategoryEditModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryEdit} onSave={this.onCategorySave} category={this.props.categoryWithExpensesAndSpend} />;
+    return <CategoryFormModal onClose={this.closeCategoryEdit} onSave={this.onCategorySave} category={this.props.categoryWithExpensesAndSpend} colorsToSkip={this.props.colorsToSkip} />;
   }
 
   render() {
@@ -57,11 +57,13 @@ class CategoryTile extends React.Component {
 }
 
 CategoryTile.defaultProps = {
-  categoryWithExpensesAndSpend: {}
+  categoryWithExpensesAndSpend: {},
+  colorsToSkip: []
 }
 
 CategoryTile.propTypes = {
   categoryWithExpensesAndSpend: PropTypes.object,
+  colorsToSkip: PropTypes.array,
   onChange: PropTypes.func
 }
 

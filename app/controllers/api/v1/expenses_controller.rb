@@ -8,7 +8,7 @@ module Api; module V1
 
     def create
       expense = ::Expense.new(description: params[:description], category_id: params[:category_id], amount: params[:amount], paid_at: params[:paid_at])
-      successful = expense.save!
+      successful = expense.save
       render json: expense, status: successful ? 200 : 500
     end
   end
