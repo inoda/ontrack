@@ -37,7 +37,7 @@ class CategoriesList extends React.Component {
     if (category == 'addButton') {
       markup = (
         <div className="category-tile hover-dim hover-pointer" onClick={this.openCategoryCreate}>
-          <div className="add">+ Add a category</div>
+          <div className="new">+ Add a category</div>
         </div>
       );
     } else {

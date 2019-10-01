@@ -3,17 +3,24 @@ import PropTypes from 'prop-types'
 import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
 import CategoryFormModal from '../categories/FormModal'
+import ExpenseFormModal from '../expenses/FormModal'
 
 class CategoryTile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showCategoryEditModal: false };
+    this.state = { showCategoryEditModal: false, showExpenseCreateModal: false };
   }
 
   openCategoryEdit = () => { this.setState({ showCategoryEditModal: true }); }
   closeCategoryEdit = () => { this.setState({ showCategoryEditModal: false }); }
+  openExpenseCreate = () => { this.setState({ showExpenseCreateModal: true }); }
+  closeExpenseCreate = () => { this.setState({ showExpenseCreateModal: false }); }
   onCategorySave = () => {
     this.closeCategoryEdit();
+    this.props.onChange();
+  }
+  onExpenseSave = () => {
+    this.closeExpenseCreate();
     this.props.onChange();
   }
 
@@ -37,10 +44,16 @@ class CategoryTile extends React.Component {
     return <CategoryFormModal onClose={this.closeCategoryEdit} onSave={this.onCategorySave} category={this.props.categoryWithExpensesAndSpend} colorsToSkip={this.props.colorsToSkip} />;
   }
 
+  renderExpenseCreateModal() {
+    if (!this.state.showExpenseCreateModal) { return '' }
+    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={[this.props.categoryWithExpensesAndSpend]} />;
+  }
+
   render() {
     return (
       <div className="category-tile" style={{ borderColor: this.props.categoryWithExpensesAndSpend.color }}>
         {this.renderCategoryEditModal()}
+        {this.renderExpenseCreateModal()}
         <div className="flex flex-space-between">
           <div>
             <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><i className="fa fa-edit ml-2"></i></a>
@@ -51,6 +64,10 @@ class CategoryTile extends React.Component {
         </div>
 
         <Progress data={[{ percentage: this.normalizedPercentage() }]} small={true} />
+
+        <div className='add-expense'>
+          <i className="fa fa-receipt" onClick={this.openExpenseCreate}></i>
+        </div>
       </div>
     );
   }

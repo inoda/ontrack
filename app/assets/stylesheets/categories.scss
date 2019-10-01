@@ -3,13 +3,35 @@
   border-radius: 10px;
   padding: 20px;
   background: white;
-  margin-top: 30px;
+  margin-top: 40px;
   box-shadow: 2px 2px #717171;
-  height: 90px;
+  height: 110px;
+  position: relative;
 
-  .add {
+  .new {
     text-align: center;
     margin-top: 35px;
     font-weight: 600;
+  }
+
+  .add-expense {
+    position: absolute;
+    bottom: -20px;
+    text-align: center;
+    left: -20px;
+    right: 0;
+
+    i {
+      border: 1px solid #eee;
+      height: 45px;
+      width: 45px;
+      line-height: 45px;
+      background: white;
+      border-radius: 100%;
+      &:hover {
+        background: #eee;
+        cursor: pointer;
+      }
+    }
   }
 }
