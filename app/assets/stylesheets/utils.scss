@@ -95,6 +95,9 @@
   cursor: pointer;
 }
 
-.hover-dim:hover {
-  opacity: 0.9;
+.dim-til-hover {
+  opacity: 0.8;
+  &:hover {
+    opacity: 0.9;
+  }
 }
