@@ -29,7 +29,7 @@ class CategoriesList extends React.Component {
 
   renderCategoryCreateModal() {
     if (!this.state.showCategoryCreateModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.onCategorySave} />;
+    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.onCategorySave} colorsToSkip={this.colorsToSkip()} />;
   }
 
   renderCategory(category, idx) {
