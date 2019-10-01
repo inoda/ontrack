@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../shared/Modal'
 import DatePicker from '../shared/DatePicker'
+import CurrencyInput from '../shared/CurrencyInput'
 import { Expenses } from '../../api/main'
 
 class FormModal extends React.Component {
@@ -16,7 +17,7 @@ class FormModal extends React.Component {
   }
 
   handleDescriptionChange = (e) => { this.setState({ description: e.target.value }); }
-  handleAmountChange = (e) => { this.setState({ amount: e.target.value.trim() }); }
+  handleAmountChange = (num) => { this.setState({ amount: num }); }
   handlePaidAtChange = (val) => { this.setState({ paidAt: val }); }
   handleCategoryChange = (e) => { this.setState({ category_id: e.target.value }); }
   handleSubmit = (e) => {
@@ -40,7 +41,7 @@ class FormModal extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="input-group">
           <label className="required">Amount</label>
-          <input type="text" value={this.state.amount} onChange={this.handleAmountChange}></input>
+          <CurrencyInput initialValue={this.state.amount} onChange={this.handleAmountChange} />
         </div>
 
         <div className="row">
