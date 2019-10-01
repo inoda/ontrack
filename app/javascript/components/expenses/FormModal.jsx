@@ -39,29 +39,31 @@ class FormModal extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="input-group">
-          <label>Description</label>
-          <input type="text" value={this.state.description} onChange={this.handleDescriptionChange}></input>
-        </div>
-
-        <div className="input-group">
-          <label>Category</label>
-          <select value={this.state.category_id} onChange={this.handleCategoryChange}>
-            {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
-          </select>
-        </div>
-
-        <div className="input-group">
-          <label>Amount</label>
+          <label className="required">Amount</label>
           <input type="text" value={this.state.amount} onChange={this.handleAmountChange}></input>
         </div>
 
+        <div className="row">
+          <div className="input-group seven columns">
+            <label className="required">Category</label>
+            <select value={this.state.category_id} onChange={this.handleCategoryChange}>
+              {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+            </select>
+          </div>
+
+          <div className="input-group five columns">
+            <label className="required">Date</label>
+            <DatePicker onChange={this.handlePaidAtChange} />
+          </div>
+        </div>
+
         <div className="input-group">
-          <label>Paid At</label>
-          <DatePicker onChange={this.handlePaidAtChange} />
+          <label className="required">Description</label>
+          <input type="text" value={this.state.description} onChange={this.handleDescriptionChange}></input>
         </div>
 
         <div className="form-actions">
-          <button type="button" className="btn" onClick={this.props.onClose}>Cancel</button>
+          <a onClick={this.props.onClose}>Cancel</a>
           <button type="submit" className="btn btn-dark">Save</button>
         </div>
       </form>

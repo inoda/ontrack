@@ -14,7 +14,8 @@
     "react": "^16.10.1",
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.10.1",
-    "turbolinks": "^5.2.0"
+    "react-text-mask": "^5.4.3",
+    "text-mask-addons": "^3.8.0"
   },
   "version": "0.1.0",
   "devDependencies": {

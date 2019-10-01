@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../shared/Modal'
 import ColorPicker from '../shared/ColorPicker'
+import CurrencyInput from '../shared/CurrencyInput'
 import { Categories } from '../../api/main'
 
 class FormModal extends React.Component {
@@ -11,12 +12,12 @@ class FormModal extends React.Component {
       colorPickerOpen: false,
       color: this.props.category.color,
       name: this.props.category.name,
-      goal: this.props.category.annual_goal || '',
+      goal: this.props.category.annual_goal || 0,
     };
   }
 
   handleNameChange = (e) => { this.setState({ name: e.target.value }); }
-  handleGoalChange = (e) => { this.setState({ goal: e.target.value.trim() }); }
+  handleGoalChange = (num) => { this.setState({ goal: num }) }
   handleColorChange = (color) => { this.setState({ color: color }); }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +59,7 @@ class FormModal extends React.Component {
           <div className="row">
             <div className="input-group">
               <label>Annual Goal</label>
-              <input type="text" value={this.state.goal} onChange={this.handleGoalChange}></input>
+              <CurrencyInput initialValue={this.state.goal} onChange={this.handleGoalChange} />
             </div>
           </div>
 
@@ -77,7 +78,7 @@ FormModal.defaultProps = {
   category: {
     color: '',
     name: '',
-    annual_goal: '',
+    annual_goal: 0,
   }
 }
 
