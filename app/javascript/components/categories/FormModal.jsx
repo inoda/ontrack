@@ -43,23 +43,27 @@ class FormModal extends React.Component {
     return (
       <Modal title={`${this.action()} Category`} onClose={this.props.onClose}>
         <form onSubmit={this.handleSubmit}>
-          <div className="input-group">
-            <label>Name</label>
-            <input type="text" value={this.state.name} onChange={this.handleNameChange}></input>
+          <div className="row">
+            <div className="input-group nine columns">
+              <label className="required">Name</label>
+              <input type="text" value={this.state.name} onChange={this.handleNameChange}></input>
+            </div>
+
+            <div className="input-group three columns">
+              <label className="required">Color</label>
+              <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} />
+            </div>
           </div>
 
-          <div className="input-group">
-            <label>Color</label>
-            <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} />
-          </div>
-
-          <div className="input-group">
-            <label>Annual Goal</label>
-            <input type="text" value={this.state.goal} onChange={this.handleGoalChange}></input>
+          <div className="row">
+            <div className="input-group">
+              <label>Annual Goal</label>
+              <input type="text" value={this.state.goal} onChange={this.handleGoalChange}></input>
+            </div>
           </div>
 
           <div className="form-actions">
-            <button type="button" className="btn" onClick={this.props.onClose}>Cancel</button>
+            <a onClick={this.props.onClose}>Cancel</a>
             <button type="submit" className="btn btn-dark">Save</button>
           </div>
         </form>

@@ -7,7 +7,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, .7);
   display: table;
-  transition: opacity .3s ease;
 
   .modal-wrapper {
     display: table-cell;
@@ -27,17 +26,21 @@
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
   }
 
   .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .close {
+      margin-top: -50px;
+      font-size: 25px;
+    }
   }
 
   .modal-body {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 }
 
@@ -45,11 +48,12 @@ body.modal-open {
   overflow: hidden;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .modal-mask {
     .modal-container {
       margin: 0 auto;
       height: 100vh;
+      max-width: 100%;
     }
   }
 }

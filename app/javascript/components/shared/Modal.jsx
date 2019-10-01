@@ -21,9 +21,9 @@ class Modal extends React.Component {
             <div className="modal-header">
               <h3>{this.props.title}</h3>
 
-              <button className="btn" onClick={this.props.onClose}>
+              <a className="close" onClick={this.props.onClose}>
                 <i className="fa fa-times"></i>
-              </button>
+              </a>
             </div>
 
             <div className="modal-body">

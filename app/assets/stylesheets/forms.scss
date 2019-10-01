@@ -1,6 +1,12 @@
 .input-group {
   margin-bottom: 20px;
 
+  .required::after {
+    content: " *";
+    color: #d86a6a;
+    font-size: 12px;
+  }
+
   label {
     display: block;
     margin-bottom: 5px;
@@ -26,5 +32,8 @@
   margin-top: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  > * {
+    margin-left: 30px;
+  }
 }
