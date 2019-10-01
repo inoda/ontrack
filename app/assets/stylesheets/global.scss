@@ -17,7 +17,7 @@ body {
 }
 
 .bg-art {
-  background-image: url('/assets/background.jpg');
+  background-image: url(asset_path('background.jpg'));
   background-size: cover;
 }
 
