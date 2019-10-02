@@ -17,11 +17,11 @@ body {
 }
 
 .bg-art {
-  background-image: url(asset_path('background.png'));
+  background-image: url(asset_path('background.svg'));
   background-color: #dedede;
   background-blend-mode: multiply;
   background-repeat: repeat;
-  background-size: auto;
+  background-size: 500px 500px;
 }
 
 a {
