@@ -53,6 +53,7 @@ body.modal-open {
     .modal-container {
       margin: 0 auto;
       height: 100vh;
+      min-height: -webkit-fill-available;
       max-width: 100%;
     }
   }
