@@ -8,9 +8,12 @@ import { Expenses } from '../../api/main'
 class FormModal extends React.Component {
   constructor(props) {
     super(props);
+    let categoryId = this.props.categoryId;
+    if (!categoryId && this.props.categories.length) { categoryId = this.props.categories[0].id }
+
     this.state = {
       description: '',
-      category_id: this.props.categories.length ? this.props.categories[0].id : '',
+      category_id: categoryId,
       amount: 0,
       paidAt: new Date(),
     };
@@ -82,10 +85,12 @@ class FormModal extends React.Component {
 
 FormModal.defaultProps = {
   categories: [],
+  categoryId: 0,
 }
 
 FormModal.propTypes = {
   categories: PropTypes.array,
+  categoryId: PropTypes.number,
   onClose: PropTypes.func,
   onSave: PropTypes.func,
 }

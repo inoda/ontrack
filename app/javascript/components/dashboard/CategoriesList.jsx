@@ -41,7 +41,7 @@ class CategoriesList extends React.Component {
         </div>
       );
     } else {
-      markup = <CategoryTile categoryWithExpensesAndSpend={category} onChange={this.props.onChange} colorsToSkip={this.colorsToSkip()} />;
+      markup = <CategoryTile categoryWithExpensesAndSpend={category} onChange={this.props.onChange} colorsToSkip={this.colorsToSkip()} expenseCategoryOptions={this.props.categoriesWithExpensesAndSpend} />;
     }
 
     return <div className="six columns" key={idx}>{markup}</div>;

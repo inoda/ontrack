@@ -44,16 +44,18 @@ class FormModal extends React.Component {
     return (
       <Modal title={`${this.action()} Category`} onClose={this.props.onClose}>
         <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="input-group nine columns">
+          <div className="row row-flex">
+            <div className="input-group eight columns">
               <label className="required">Name</label>
               <input type="text" value={this.state.name} onChange={this.handleNameChange}></input>
             </div>
 
-            <div className="input-group three columns">
+            <div className="input-group ml-auto">
               <label className="required">Color</label>
-              <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} />
+              <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} colorsToShow={5} />
             </div>
+
+            <div className="clearfix"></div>
           </div>
 
           <div className="row">

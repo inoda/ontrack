@@ -1,12 +1,17 @@
 .color-picker {
   .sample {
-    height: 16px;
-    width: 16px;
+    height: 30px;
+    width: 30px;
     border: 1px solid #eee;
     display: inline-block;
     margin-right: 10px;
+
     &.active {
       outline: 2px solid #97c6d4;
     }
+  }
+
+  .sample:last-child {
+    margin-right: 0px;
   }
 }

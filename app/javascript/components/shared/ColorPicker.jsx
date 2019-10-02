@@ -21,7 +21,7 @@ class ColorPicker extends React.Component {
 
   colors() {
     if (this.props.colors.length) { return this.props.colors; }
-    let allColors = ['#B80000', '#FCCB00', '#008B02', '#006B76', '#1273DE', '#004DCF', '#5300EB', '#EB9694', '#FAD0C3', '#D0021B', '#F5A623', '#F8E71C', '#8B572A', '#7ED321', '#417505', '#BD10E0', '#9013FE', '#4A90E2', '#50E3C2', '#B8E986', '#000000', '#4A4A4A', '#9B9B9B'];
+    let allColors = ['#899b9c', '#88b779', '#0d947a', '#248ed5', '#9053ad', '#ffda7d', '#f49119', '#e64637', '#dd5e8e', '#ba3427', '#b3b3b3', '#c5e276', '#0ab191', '#95dce8', '#c67171', '#8e5b4c', '#e9eeef', '#9ad8a9', '#c7f4f9', '#d9c3ea', '#fffacf', '#ffcea6', '#f9b6b6', '#c7b299', '#2d4053', '#141516', '#603813'];
 
     let availColors = []
     if (this.state.initialColor.length) { availColors.push(this.state.initialColor); }
@@ -54,7 +54,7 @@ ColorPicker.defaultProps = {
   colors: [],
   omitColors: [],
   initialColor: '',
-  colorsToShow: 10,
+  colorsToShow: 8,
 }
 
 ColorPicker.propTypes = {

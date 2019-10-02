@@ -67,3 +67,13 @@
   .offset-by-one-half.column,
   .offset-by-one-half.columns     { margin-left: 52%; }
 }
+
+.row-flex {
+  display: flex;
+}
+
+@media screen and (max-width: 650px) {
+  .row-flex {
+    display: block;
+  }
+}

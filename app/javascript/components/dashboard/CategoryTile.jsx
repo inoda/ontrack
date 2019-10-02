@@ -46,7 +46,7 @@ class CategoryTile extends React.Component {
 
   renderExpenseCreateModal() {
     if (!this.state.showExpenseCreateModal) { return '' }
-    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={[this.props.categoryWithExpensesAndSpend]} />;
+    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={this.props.expenseCategoryOptions} categoryId={this.props.categoryWithExpensesAndSpend.id} />;
   }
 
   render() {
@@ -75,11 +75,13 @@ class CategoryTile extends React.Component {
 
 CategoryTile.defaultProps = {
   categoryWithExpensesAndSpend: {},
+  expenseCategoryOptions: [],
   colorsToSkip: []
 }
 
 CategoryTile.propTypes = {
   categoryWithExpensesAndSpend: PropTypes.object,
+  expenseCategoryOptions: PropTypes.array,
   colorsToSkip: PropTypes.array,
   onChange: PropTypes.func
 }
