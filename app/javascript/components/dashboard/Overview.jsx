@@ -29,10 +29,10 @@ class Overview extends React.Component {
 
   goalComparisonDisplay() {
     if (this.hasCategoryWithNoGoal()) {
-      return <span className="text-small">Finish setting goals to see progress</span>
+      return <span className="text-small text-muted">Finish setting goals to see progress</span>
     } else {
       const diff = this.totalMonthlyGoal() - this.totalSpend();
-      return (diff >= 0) ? <b>{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over}</b>;
+      return (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over}</b>;
     }
   }
 
@@ -40,11 +40,11 @@ class Overview extends React.Component {
     return (
       <div>
         <div>
-          {moment().format('MMMM')}
+          <div className="mb-10">{moment().format('MMMM')}</div>
 
-          <div className="flex flex-space-between flex-baseline">
+          <div className="flex row-flex flex-space-between flex-baseline mb-10">
             <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>
-            {this.goalComparisonDisplay()}
+            <div>{this.goalComparisonDisplay()}</div>
           </div>
 
           <Progress data={this.percentages()} />

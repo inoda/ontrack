@@ -54,7 +54,7 @@ class CategoryTile extends React.Component {
       <div className="category-tile" style={{ borderColor: this.props.categoryWithExpensesAndSpend.color }}>
         {this.renderCategoryEditModal()}
         {this.renderExpenseCreateModal()}
-        <div className="flex flex-space-between">
+        <div className="flex flex-space-between title">
           <div>
             <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><i className="fa fa-edit ml-2"></i></a>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
