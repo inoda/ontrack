@@ -7,7 +7,11 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 650px) {
+.row-flex {
+  display: block;
+}
+
+@media (min-width: 750px) {
   .column, .columns {
     margin-left: 4%;
   }
@@ -66,14 +70,8 @@
 
   .offset-by-one-half.column,
   .offset-by-one-half.columns     { margin-left: 52%; }
-}
 
-.row-flex {
-  display: flex;
-}
-
-@media screen and (max-width: 650px) {
   .row-flex {
-    display: block;
+    display: flex;
   }
 }
