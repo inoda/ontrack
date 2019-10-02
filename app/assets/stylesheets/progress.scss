@@ -1,22 +1,13 @@
 .progress-bar {
   height: 24px;
   background-color: #eee;
-  border-radius: 30px;
+  border-radius: 20px;
+  overflow: hidden;
 
   .progress {
     height: 24px;
     display: inline-block;
     vertical-align: top;
-  }
-
-  .progress:first-child {
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
-
-  .progress:last-child {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
   }
 
   &.progress-bar-sm {
