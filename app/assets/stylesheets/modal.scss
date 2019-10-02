@@ -32,9 +32,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
+    margin-top: 15px;
 
     .close {
-      margin-top: -50px;
+      margin-top: -40px;
       font-size: 25px;
     }
   }
