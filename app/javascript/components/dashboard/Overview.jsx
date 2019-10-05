@@ -22,20 +22,17 @@ class Overview extends React.Component {
     return this.props.categoriesWithExpensesAndSpend.reduce((sum, cat) => sum + cat.spend, 0);
   }
 
-  totalMonthlyGoal() {
-    return Math.max(this.props.monthlyGoal, this.totalSpend());
-  }
-
   percentages() {
+    const outOf = Math.max(this.props.monthlyGoal, this.totalSpend());
     return this.props.categoriesWithExpensesAndSpend.map((category) => {
-      return { percentage: category.spend / this.totalMonthlyGoal() * 100, color: category.color }
+      return { percentage: (category.spend / outOf) * 100, color: category.color }
     })
   }
 
   goalComparisonDisplay() {
     if (!this.props.monthlyGoal) { return <a className="text-small" onClick={this.openGoal}>Set a monthly total goal</a> }
-    const diff = this.totalMonthlyGoal() - this.totalSpend();
-    const diffDisplay = (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over</b>;
+    const diff = this.props.monthlyGoal - this.totalSpend();
+    const diffDisplay = (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b className="text-warning">{Numerics.centsToDollars(Math.abs(diff))} over</b>;
 
     return (
       <div>{diffDisplay} <a onClick={this.openGoal}><i className="fa fa-edit ml-2"></i></a></div>
