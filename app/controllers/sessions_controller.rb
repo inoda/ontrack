@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
     if BCrypt::Password.new(user.password) == params[:password] && BCrypt::Password.new(user.username) == params[:username]
       cookies.signed[:logged_in] = true
     else
-      raise "by"
       flash[:error] = "Incorrect login"
     end
 
