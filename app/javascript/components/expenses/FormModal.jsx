@@ -5,6 +5,7 @@ import DatePicker from '../shared/DatePicker'
 import CurrencyInput from '../shared/CurrencyInput'
 import FieldErrors from '../shared/FieldErrors'
 import { Expenses } from '../../api/main'
+import { Alerts } from '../../helpers/main'
 
 class FormModal extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class FormModal extends React.Component {
 
     Expenses.create({ description: this.state.description.trim(), category_id: this.state.category_id, amount: this.state.amount, paid_at: this.state.paidAt }).then(
       (resp) => { this.props.onSave(resp) },
-      (error) => { console.log(error); },
+      (error) => { Alerts.genericError(); },
     )
   }
 

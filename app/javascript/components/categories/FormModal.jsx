@@ -5,6 +5,7 @@ import ColorPicker from '../shared/ColorPicker'
 import CurrencyInput from '../shared/CurrencyInput'
 import FieldErrors from '../shared/FieldErrors'
 import { Categories } from '../../api/main'
+import { Alerts } from '../../helpers/main'
 
 class FormModal extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class FormModal extends React.Component {
 
     apiCall.then(
       (resp) => { this.props.onSave(resp) },
-      (error) => { console.log(error); },
+      (error) => { Alerts.genericError(); },
     )
   }
 

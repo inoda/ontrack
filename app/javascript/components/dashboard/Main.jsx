@@ -5,6 +5,7 @@ import Overview from './Overview'
 import CategoriesList from './CategoriesList'
 import ExpenseFormModal from '../expenses/FormModal'
 import { Categories, Expenses } from '../../api/main'
+import { Alerts } from '../../helpers/main'
 
 class Main extends React.Component {
   constructor(props) {
@@ -33,10 +34,10 @@ class Main extends React.Component {
         this.setState({ categories: resp });
         Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
           (resp) => { this.setState({ expenses: resp }); },
-          (error) => { console.log(error); },
+          (error) => { Alerts.genericError(); },
         )
       },
-      (error) => { console.log(error); },
+      (error) => { Alerts.genericError(); },
     )
   }
 
