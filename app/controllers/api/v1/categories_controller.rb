@@ -5,14 +5,14 @@ module Api; module V1
     end
 
     def create
-      category = ::Category.new(color: params[:color], name: params[:name], annual_goal: params[:goal])
+      category = ::Category.new(color: params[:color], name: params[:name], monthly_goal: params[:monthly_goal])
       successful = category.save
       render json: category, status: successful ? 200 : 500
     end
 
     def update
       category = ::Category.find(params[:id])
-      successful = category.update(color: params[:color], name: params[:name], annual_goal: params[:goal])
+      successful = category.update(color: params[:color], name: params[:name], monthly_goal: params[:monthly_goal])
       render json: category, status: successful ? 200 : 500
     end
   end

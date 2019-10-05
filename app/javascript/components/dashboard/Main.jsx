@@ -4,7 +4,7 @@ import moment from 'moment'
 import Overview from './Overview'
 import CategoriesList from './CategoriesList'
 import ExpenseFormModal from '../expenses/FormModal'
-import { Categories, Expenses } from '../../api/main'
+import { Categories, Expenses, Goals } from '../../api/main'
 import { Alerts } from '../../helpers/main'
 
 class Main extends React.Component {
@@ -14,6 +14,7 @@ class Main extends React.Component {
       showExpenseCreateModal: false,
       categories: [],
       expenses: [],
+      monthlyGoal: 0,
     };
   }
 
@@ -33,7 +34,13 @@ class Main extends React.Component {
       (resp) => {
         this.setState({ categories: resp });
         Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
-          (resp) => { this.setState({ expenses: resp }); },
+          (resp) => {
+            this.setState({ expenses: resp });
+            Goals.list().then(
+              (resp) => { this.setState({ monthlyGoal: resp.monthly }); },
+              (error) => { Alerts.genericError(); },
+            )
+          },
           (error) => { Alerts.genericError(); },
         )
       },
@@ -62,7 +69,7 @@ class Main extends React.Component {
         {this.renderExpenseCreateModal()}
 
         <div className="container">
-          <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} />
+          <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} monthlyGoal={this.state.monthlyGoal} onChange={this.loadData} />
         </div>
 
         <div className="bg-art mt-100">

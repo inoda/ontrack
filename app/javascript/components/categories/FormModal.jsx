@@ -14,7 +14,7 @@ class FormModal extends React.Component {
       colorPickerOpen: false,
       color: this.props.category.color,
       name: this.props.category.name,
-      goal: this.props.category.annual_goal || 0,
+      goal: this.props.category.monthly_goal || 0,
       errors: {},
       submitted: false,
     };
@@ -31,9 +31,9 @@ class FormModal extends React.Component {
 
     let apiCall = null;
     if (this.props.category.id) {
-      apiCall = Categories.update(this.props.category.id, { color: this.state.color, name: this.state.name.trim(), goal: this.state.goal })
+      apiCall = Categories.update(this.props.category.id, { color: this.state.color, name: this.state.name.trim(), monthly_goal: this.state.goal })
     } else {
-      apiCall = Categories.create({ color: this.state.color, name: this.state.name.trim(), goal: this.state.goal })
+      apiCall = Categories.create({ color: this.state.color, name: this.state.name.trim(), monthly_goal: this.state.goal })
     }
 
     apiCall.then(
@@ -68,7 +68,7 @@ class FormModal extends React.Component {
 
           <div className="row">
             <div className="input-group">
-              <label>Annual Goal</label>
+              <label>Monthly Goal</label>
               <CurrencyInput initialValue={this.state.goal} onChange={this.handleGoalChange} />
             </div>
           </div>
@@ -88,7 +88,7 @@ FormModal.defaultProps = {
   category: {
     color: '',
     name: '',
-    annual_goal: 0,
+    monthly_goal: 0,
   }
 }
 

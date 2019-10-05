@@ -3,22 +3,27 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
+import GoalFormModal from '../goals/FormModal'
 
 class Overview extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showGoalModal: false };
+  }
+
+  openGoal = () => { this.setState({ showGoalModal: true }); }
+  closeGoal = () => { this.setState({ showGoalModal: false }); }
+  onGoalSave = () => {
+    this.closeGoal();
+    this.props.onChange();
+  }
+
   totalSpend() {
     return this.props.categoriesWithExpensesAndSpend.reduce((sum, cat) => sum + cat.spend, 0);
   }
 
-  hasCategoryWithNoGoal() {
-    for (let cat of this.props.categoriesWithExpensesAndSpend) {
-      if (!cat.annual_goal) { return true; }
-    }
-    return false;
-  }
-
   totalMonthlyGoal() {
-    if (this.hasCategoryWithNoGoal()) { return this.totalSpend(); }
-    return this.props.categoriesWithExpensesAndSpend.reduce((sum, cat) => sum + (cat.annual_goal / 12), 0);
+    return Math.max(this.props.monthlyGoal, this.totalSpend());
   }
 
   percentages() {
@@ -28,38 +33,46 @@ class Overview extends React.Component {
   }
 
   goalComparisonDisplay() {
-    if (this.hasCategoryWithNoGoal()) {
-      return <span className="text-small text-muted">Finish setting goals to see progress</span>
-    } else {
-      const diff = this.totalMonthlyGoal() - this.totalSpend();
-      return (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over}</b>;
-    }
+    if (!this.props.monthlyGoal) { return <a className="text-small" onClick={this.openGoal}>Set a monthly total goal</a> }
+    const diff = this.totalMonthlyGoal() - this.totalSpend();
+    const diffDisplay = (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over</b>;
+
+    return (
+      <div>{diffDisplay} <a className="text-small" onClick={this.openGoal}>Update goal</a></div>
+    )
+  }
+
+  renderGoalModal() {
+    if (!this.state.showGoalModal) { return '' }
+    return <GoalFormModal onClose={this.closeGoal} onSave={this.onGoalSave} goals={{ monthly: this.props.monthlyGoal }} />;
   }
 
   render() {
     return (
       <div>
-        <div>
-          <div className="mb-10">{moment().format('MMMM')}</div>
+        {this.renderGoalModal()}
+        <div className="mb-10">{moment().format('MMMM')}</div>
 
-          <div className="flex row-flex flex-space-between flex-baseline mb-10">
-            <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>
-            <div>{this.goalComparisonDisplay()}</div>
-          </div>
-
-          <Progress data={this.percentages()} />
+        <div className="flex row-flex flex-space-between flex-baseline mb-10">
+          <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>
+          <div>{this.goalComparisonDisplay()}</div>
         </div>
+
+        <Progress data={this.percentages()} />
       </div>
     );
   }
 }
 
 Overview.defaultProps = {
-  categoriesWithExpensesAndSpend: []
+  categoriesWithExpensesAndSpend: [],
+  monthlyGoal: 0,
 }
 
 Overview.propTypes = {
-  categoriesWithExpensesAndSpend: PropTypes.array
+  categoriesWithExpensesAndSpend: PropTypes.array,
+  monthlyGoal: PropTypes.number,
+  onChange: PropTypes.func
 }
 
 export default Overview;

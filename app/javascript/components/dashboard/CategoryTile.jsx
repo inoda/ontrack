@@ -24,19 +24,15 @@ class CategoryTile extends React.Component {
     this.props.onChange();
   }
 
-  monthlyGoal() {
-    return this.props.categoryWithExpensesAndSpend.annual_goal / 12;
-  }
-
   goalComparisonDisplay() {
-    if (!this.props.categoryWithExpensesAndSpend.annual_goal) { return 'No goal set'; }
-    const diff = this.monthlyGoal() - this.props.categoryWithExpensesAndSpend.spend;
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 'No goal set'; }
+    const diff = this.props.categoryWithExpensesAndSpend.monthly_goal - this.props.categoryWithExpensesAndSpend.spend;
     return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
 
   normalizedPercentage() {
-    if (!this.props.categoryWithExpensesAndSpend.annual_goal) { return 0; }
-    return Math.min(100, this.props.categoryWithExpensesAndSpend.spend / this.monthlyGoal() * 100);
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 0; }
+    return Math.min(100, this.props.categoryWithExpensesAndSpend.spend / this.props.categoryWithExpensesAndSpend.monthly_goal * 100);
   }
 
   renderCategoryEditModal() {
