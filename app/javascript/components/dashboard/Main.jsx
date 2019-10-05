@@ -12,6 +12,7 @@ class Main extends React.Component {
     super(props);
     this.state = {
       showExpenseCreateModal: false,
+      loaded: false,
       categories: [],
       expenses: [],
       monthlyGoal: 0,
@@ -37,7 +38,7 @@ class Main extends React.Component {
           (resp) => {
             this.setState({ expenses: resp });
             Goals.list().then(
-              (resp) => { this.setState({ monthlyGoal: resp.monthly }); },
+              (resp) => { this.setState({ monthlyGoal: resp.monthly, loaded: true }); },
               (error) => { Alerts.genericError(); },
             )
           },
@@ -64,6 +65,8 @@ class Main extends React.Component {
   }
 
   render() {
+    if (!this.state.loaded) { return ''; }
+
     return (
       <div>
         {this.renderExpenseCreateModal()}
