@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Modal from '../shared/Modal'
 import DatePicker from '../shared/DatePicker'
 import CurrencyInput from '../shared/CurrencyInput'
+import FieldErrors from '../shared/FieldErrors'
 import { Expenses } from '../../api/main'
 
 class FormModal extends React.Component {
@@ -16,6 +17,8 @@ class FormModal extends React.Component {
       category_id: categoryId,
       amount: 0,
       paidAt: new Date(),
+      errors: {},
+      submitted: false,
     };
   }
 
@@ -23,8 +26,12 @@ class FormModal extends React.Component {
   handleAmountChange = (num) => { this.setState({ amount: num }); }
   handlePaidAtChange = (val) => { this.setState({ paidAt: val }); }
   handleCategoryChange = (e) => { this.setState({ category_id: e.target.value }); }
+  handleErrors = (key, errs) => { this.setState({ errors: Object.assign(this.state.errors, { [key]: errs }) }); }
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ submitted: true });
+    if (Object.values(this.state.errors).flat().length) { return; }
+
     Expenses.create({ description: this.state.description.trim(), category_id: this.state.category_id, amount: this.state.amount, paid_at: this.state.paidAt }).then(
       (resp) => { this.props.onSave(resp) },
       (error) => { console.log(error); },
@@ -45,6 +52,7 @@ class FormModal extends React.Component {
         <div className="input-group">
           <label className="required">Amount</label>
           <CurrencyInput initialValue={this.state.amount} onChange={this.handleAmountChange} />
+          <FieldErrors label="Amount" val={this.state.amount} validations={{ required: true, greaterThan: 0 }} show={this.state.submitted} handleErrors={this.handleErrors} />
         </div>
 
         <div className="row">
@@ -58,12 +66,14 @@ class FormModal extends React.Component {
           <div className="input-group five columns">
             <label className="required">Date</label>
             <DatePicker onChange={this.handlePaidAtChange} />
+            <FieldErrors label="Date" val={this.state.paidAt} validations={{ required: true }} show={this.state.submitted} handleErrors={this.handleErrors} />
           </div>
         </div>
 
         <div className="input-group">
           <label className="required">Description</label>
           <input type="text" value={this.state.description} onChange={this.handleDescriptionChange}></input>
+          <FieldErrors label="Description" val={this.state.description} validations={{ required: true }} show={this.state.submitted} handleErrors={this.handleErrors} />
         </div>
 
         <div className="form-actions">

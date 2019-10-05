@@ -26,6 +26,13 @@
     background: white;
     height: 35px;
   }
+
+  .errors {
+    margin-top: 5px;
+    li {
+      color: #d86a6a;
+    }
+  }
 }
 
 .form-actions {

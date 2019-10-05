@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Modal from '../shared/Modal'
 import ColorPicker from '../shared/ColorPicker'
 import CurrencyInput from '../shared/CurrencyInput'
+import FieldErrors from '../shared/FieldErrors'
 import { Categories } from '../../api/main'
 
 class FormModal extends React.Component {
@@ -13,14 +14,19 @@ class FormModal extends React.Component {
       color: this.props.category.color,
       name: this.props.category.name,
       goal: this.props.category.annual_goal || 0,
+      errors: {},
+      submitted: false,
     };
   }
 
   handleNameChange = (e) => { this.setState({ name: e.target.value }); }
   handleGoalChange = (num) => { this.setState({ goal: num }) }
   handleColorChange = (color) => { this.setState({ color: color }); }
+  handleErrors = (key, errs) => { this.setState({ errors: Object.assign(this.state.errors, { [key]: errs }) }); }
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ submitted: true });
+    if (Object.values(this.state.errors).flat().length) { return; }
 
     let apiCall = null;
     if (this.props.category.id) {
@@ -48,6 +54,7 @@ class FormModal extends React.Component {
             <div className="input-group eight columns">
               <label className="required">Name</label>
               <input type="text" value={this.state.name} onChange={this.handleNameChange}></input>
+              <FieldErrors label="Name" val={this.state.name.trim()} validations={{ required: true }} show={this.state.submitted} handleErrors={this.handleErrors} />
             </div>
 
             <div className="input-group ml-auto">
