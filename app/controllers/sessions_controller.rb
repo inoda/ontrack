@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
     user = User.first
 
     unless user
-      raise "hi"
       flash[:error] = "No user found"
       redirect_to :root and return
     end
