@@ -38,7 +38,7 @@ class Overview extends React.Component {
     const diffDisplay = (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b>{Numerics.centsToDollars(Math.abs(diff))} over</b>;
 
     return (
-      <div>{diffDisplay} <a className="text-small" onClick={this.openGoal}>Update goal</a></div>
+      <div>{diffDisplay} <a onClick={this.openGoal}><i className="fa fa-edit ml-2"></i></a></div>
     )
   }
 
