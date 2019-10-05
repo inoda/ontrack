@@ -13,8 +13,11 @@
     <%= javascript_pack_tag 'application' %>
   </head>
 
-  <body>
-    <%= render partial: 'layouts/navbar' %>
+  <body class="<%= current_user ? '' : 'unauthenticated' %>">
+    <% if current_user %>
+      <%= render partial: 'layouts/navbar' %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

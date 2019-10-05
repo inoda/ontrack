@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  root to: "dashboard#index"
+  root to: "sessions#new"
+
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
+  
+  resources :dashboard, only: [:index]
 
   namespace :api do
     namespace :v1 do

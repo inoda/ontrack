@@ -1,0 +1,40 @@
+body.unauthenticated {
+  background: rgb(231, 231, 231)
+}
+
+.login {
+  background: white;
+  max-width: 600px;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 2px 2px #d0d0d0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+
+  form {
+    width: 60%;
+  }
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 740px) {
+  body.unauthenticated {
+    background: white;
+  }
+
+  .login {
+    box-shadow: none;
+
+    img {
+      display: none;
+    }
+
+    form {
+      width: 100%;
+    }
+  }
+}
