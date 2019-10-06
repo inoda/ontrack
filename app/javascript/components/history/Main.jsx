@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import Paginator from '../shared/Paginator'
 import { Expenses } from '../../api/main'
+import { Numerics } from '../../helpers/main'
 
 class Main extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Main extends React.Component {
   }
 
   renderExpense(expense) {
-    return <div key={expense.id}>{expense.amount}</div>;
+    return <div key={expense.id}>{expense.description} {Numerics.centsToDollars(expense.amount)} ({expense.category.name})</div>;
   }
 
   render() {
