@@ -3,7 +3,16 @@ module Api; module V1
     def index
       expenses = ::Expense.all
       expenses = expenses.where('paid_at >= ?', Time.at(params[:paid_after].to_i).to_datetime) if params[:paid_after]
-      render json: expenses
+      expenses = expenses.paginate(params[:page], params[:per_page]) if params[:page]
+
+      opts = {}
+      opts = { include: :category } if params[:include_category]
+
+      if params[:page]
+        paginate(expenses, opts)
+      else
+        render json: expenses
+      end
     end
 
     def create

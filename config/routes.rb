@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :dashboard, only: [:index]
+  resources :expenses, only: [:index]
 
   namespace :api do
     namespace :v1 do
