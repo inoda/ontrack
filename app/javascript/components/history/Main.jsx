@@ -36,7 +36,7 @@ class Main extends React.Component {
       <div className="container">
         {this.renderEmptyState()}
         {this.state.expenses.map((exp) => { return this.renderExpense(exp) })}
-        <Paginator url="/expenses?include_category=true" itemsPerPage={3} onLoad={this.onLoad} />
+        <Paginator url="/expenses?include_category=true" onLoad={this.onLoad} />
       </div>
     );
   }
