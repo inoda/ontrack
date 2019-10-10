@@ -52,7 +52,9 @@ class CategoryTile extends React.Component {
         {this.renderExpenseCreateModal()}
         <div className="flex flex-space-between title">
           <div>
-            <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><img className="ml-2" src={window.iconEdit} /></a>
+            <div className="flex">
+              <b>{this.props.categoryWithExpensesAndSpend.name}</b> <img className="icon-default hover-pointer dim-til-hover" src={window.iconEdit} onClick={this.openCategoryEdit} />
+            </div>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
           </div>
 

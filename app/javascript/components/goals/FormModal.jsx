@@ -31,7 +31,7 @@ class FormModal extends React.Component {
 
   render() {
     return (
-      <Modal title="" onClose={this.props.onClose}>
+      <Modal title="Edit Goal" onClose={this.props.onClose}>
         <form onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="input-group">
