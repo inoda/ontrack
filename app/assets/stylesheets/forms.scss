@@ -25,6 +25,9 @@
     padding: 7px;
     background: white;
     height: 35px;
+    &:focus {
+      outline: 1px solid rgb(186, 207, 225);
+    }
   }
 
   .errors {

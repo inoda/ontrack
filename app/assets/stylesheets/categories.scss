@@ -24,15 +24,14 @@
 
   .add-expense {
     position: absolute;
-    bottom: -20px;
+    bottom: -28px;
     text-align: center;
     left: -20px;
     right: 0;
 
-    i {
+    img {
       border: 1px solid #eee;
-      height: 45px;
-      width: 45px;
+      padding: 10px;
       line-height: 45px;
       background: white;
       border-radius: 100%;
