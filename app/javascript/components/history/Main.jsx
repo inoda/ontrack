@@ -19,11 +19,11 @@ class Main extends React.Component {
   }
 
   renderEmptyState() {
-    if (this.state.total > 0) { return '' }
+    if (this.total > 0) { return '' }
     return (
       <div className="text-center">
         <h3 className="text-muted">Expenses will show up here!</h3>
-        <img className="mt-50" src="/assets/money-balance.jpg" />
+        <img className="mt-50" src={window.imgMoneyBalance} />
       </div>
     )
   }

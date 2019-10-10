@@ -52,7 +52,7 @@ class CategoryTile extends React.Component {
         {this.renderExpenseCreateModal()}
         <div className="flex flex-space-between title">
           <div>
-            <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><img className="ml-2" src="/assets/icon-edit.svg" /></a>
+            <b>{this.props.categoryWithExpensesAndSpend.name}</b> <a onClick={this.openCategoryEdit}><img className="ml-2" src={window.iconEdit} /></a>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
           </div>
 
@@ -62,7 +62,7 @@ class CategoryTile extends React.Component {
         <Progress data={[{ percentage: this.normalizedPercentage() }]} small={true} />
 
         <div className='add-expense'>
-          <img className="mt-50" src="/assets/icon-plus.svg" onClick={this.openExpenseCreate} />
+          <img className="mt-50" src={window.iconPlus} onClick={this.openExpenseCreate} />
         </div>
       </div>
     );

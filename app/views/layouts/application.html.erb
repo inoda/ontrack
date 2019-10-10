@@ -14,6 +14,8 @@
   </head>
 
   <body class="<%= current_user ? '' : 'unauthenticated' %>">
+    <%= render partial: 'layouts/image_paths' %>
+
     <% if current_user %>
       <%= render partial: 'layouts/navbar' %>
     <% end %>
