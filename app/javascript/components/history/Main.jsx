@@ -28,7 +28,7 @@ class Main extends React.Component {
   }
 
   renderEmptyState() {
-    if (this.state.total > 0) { return '' }
+    if (this.props.hasData) { return '' }
     return (
       <div className="flex row-flex flex-space-between text-center-sm">
         <div>
@@ -41,12 +41,12 @@ class Main extends React.Component {
   }
 
   renderTable() {
-    if (this.state.total == 0) { return '' }
+    if (!this.props.hasData) { return '' }
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <h2>Expense History</h2>
-          <div className="input-group inline mt-20">
+          <h2 className="mb-10">Expense History</h2>
+          <div className="input-group inline mb-10 small-datepicker">
             <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
             <span className="mh-5 mt-5">-</span>
             <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />

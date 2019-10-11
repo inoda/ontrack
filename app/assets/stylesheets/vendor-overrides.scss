@@ -1,4 +1,7 @@
 .react-datepicker-wrapper {
-  // width: 100%;
-  max-width: 200px;
+  width: 100%;
+}
+
+.small-datepicker .react-datepicker-wrapper {
+  width: 115px;
 }
