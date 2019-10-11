@@ -32,7 +32,7 @@ class Main extends React.Component {
     return (
       <div className="flex row-flex flex-space-between text-center-sm">
         <div className="status-text">
-          <h2>Oops, our historian has nothing to show!</h2>
+          <h2>Oops, our historian has nothing to do!</h2>
           <div className="mt-20">As you start tracking your expenses they will show here.</div>
         </div>
         <img className="mt-50 status-image" src={window.historian} />
