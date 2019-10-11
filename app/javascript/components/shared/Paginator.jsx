@@ -12,11 +12,18 @@ class Paginator extends React.Component {
       itemsPerPage: this.props.itemsPerPage,
       totalItems: 0,
       totalPages: 0,
+      url: this.props.url,
     };
   }
 
   componentDidMount() {
     this.loadData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.url !== this.props.url) {
+      this.setState({ url: this.props.url, selectedPage: 1 }, this.loadData);
+    }
   }
 
   handlePageNext = () => {

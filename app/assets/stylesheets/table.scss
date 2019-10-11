@@ -1,0 +1,15 @@
+.table {
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: scroll;
+
+  th {
+    font-weight: 900;
+  }
+
+  th, td {
+    border-bottom: 2px solid #eee;
+    padding: 15px;
+  }
+}

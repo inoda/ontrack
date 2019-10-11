@@ -37,6 +37,11 @@
       font-size: 13px;
     }
   }
+
+  &.inline {
+    display: inherit;
+    margin-bottom: 0;
+  }
 }
 
 .form-actions {
