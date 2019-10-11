@@ -31,9 +31,9 @@ class Main extends React.Component {
     if (this.props.hasData) { return '' }
     return (
       <div className="flex row-flex flex-space-between text-center-sm">
-        <div>
+        <div className="empty-text">
           <h2>Oops, our historian has nothing to show!</h2>
-          <p>As soon as you start tracking your expenses they will show up here.</p>
+          <div className="mt-20">As you start tracking your expenses they will show here.</div>
         </div>
         <img className="mt-50 historian" src={window.historian} />
       </div>
