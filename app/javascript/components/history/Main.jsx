@@ -15,7 +15,6 @@ class Main extends React.Component {
       maxPaidAt: moment().unix(),
       total: 1,
     };
-    console.log(this.state)
   }
 
   handlePaidAtMinChange = (val) => {
@@ -70,7 +69,7 @@ class Main extends React.Component {
         </div>
 
         <div className="mt-20">
-          <Paginator url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`} onLoad={this.onLoad} itemsPerPage={2} />
+          <Paginator url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`} onLoad={this.onLoad} />
         </div>
       </div>
     )
