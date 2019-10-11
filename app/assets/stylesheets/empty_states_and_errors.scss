@@ -1,0 +1,16 @@
+.status-image {
+  width: 450px;
+  max-width: 100%;
+}
+
+.status-text {
+  background: #eee;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+@media (min-width: 750px) {
+  .status-image {
+    margin-left: 30px;
+  }
+}
