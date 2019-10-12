@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import Paginator from '../shared/Paginator'
 import DatePicker from '../shared/DatePicker'
+import { Alerts } from '../../helpers/main'
 import { Expenses } from '../../api/main'
 import { Numerics } from '../../helpers/main'
 
@@ -14,17 +15,27 @@ class Main extends React.Component {
       minPaidAt: moment().subtract(365, 'd').unix(),
       maxPaidAt: moment().unix(),
       total: 1,
+      reloadTrigger: 0,
     };
   }
 
+  onLoad = (payload) => {
+    this.setState({ expenses: payload.items, total: payload.total });
+  }
   handlePaidAtMinChange = (val) => {
     this.setState({ minPaidAt: moment(val).unix() });
   }
   handlePaidAtMaxChange = (val) => {
     this.setState({ maxPaidAt: moment(val).unix() });
   }
-  onLoad = (payload) => {
-    this.setState({ expenses: payload.items, total: payload.total });
+  handleExpenseDelete = (id) => {
+    Alerts.genericDelete('expense').then((result) => {
+      if (!result.value) { return; }
+      Expenses.delete(id).then(
+        () => { this.setState({ reloadTrigger: this.state.reloadTrigger + 1 }); },
+        (error) => { Alerts.genericError(); },
+      )
+    })
   }
 
   renderEmptyState() {
@@ -60,6 +71,7 @@ class Main extends React.Component {
                 <th>Category</th>
                 <th>Amount</th>
                 <th>Description</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -69,7 +81,7 @@ class Main extends React.Component {
         </div>
 
         <div className="mt-20">
-          <Paginator url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`} onLoad={this.onLoad} />
+          <Paginator url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`} onLoad={this.onLoad} reloadTrigger={this.state.reloadTrigger} />
         </div>
       </div>
     )
@@ -82,6 +94,7 @@ class Main extends React.Component {
         <td>{expense.category.name}</td>
         <td>{Numerics.centsToDollars(expense.amount)}</td>
         <td>{expense.description}</td>
+        <td><a onClick={() => this.handleExpenseDelete(expense.id)}><i className="fa fa-times"></i></a></td>
       </tr>
     )
   }

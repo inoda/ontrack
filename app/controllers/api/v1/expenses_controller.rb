@@ -22,5 +22,11 @@ module Api; module V1
       successful = expense.save
       render json: expense, status: successful ? 200 : 500
     end
+
+    def destroy
+      expense = ::Expense.find(params[:id])
+      successful = expense.destroy
+      render json: nil, status: successful ? 200 : 500
+    end
   end
 end; end
