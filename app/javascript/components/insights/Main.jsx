@@ -21,6 +21,9 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.loadData();
+    Chart.defaults.global.animation.duration = 100;
+    Chart.defaults.scale.ticks.padding = 10;
+    Chart.Legend.prototype.afterFit = function() { this.height = this.height + 20; };
   }
 
   handleYearChange = (e) => {
@@ -49,11 +52,6 @@ class Main extends React.Component {
   }
 
   buildChart() {
-    Chart.defaults.global.animation.duration = 100;
-    Chart.Legend.prototype.afterFit = function() {
-      this.height = this.height + 20;
-    };
-
 		new Chart(document.getElementById("chart"), {
 			type: 'bar',
 			data: this.state.chartData,
