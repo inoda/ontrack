@@ -34,6 +34,14 @@ class Main extends React.Component {
             offsetX: -20,
           },
         },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              height: 500,
+            }
+          }
+        }],
       },
       chartSeries: [],
     };
