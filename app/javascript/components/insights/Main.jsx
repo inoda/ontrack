@@ -50,7 +50,6 @@ class Main extends React.Component {
   loadData = () => {
     Reports.monthAndCategory({ year: this.state.year }).then(
       (resp) => {
-        window.x = resp
         let colors = [];
         let series = [];
         resp.categories.forEach((category) => {
@@ -71,8 +70,20 @@ class Main extends React.Component {
     )
   }
 
+  renderChart() {
+    return <Chart options={this.state.chartOptions} series={this.state.chartSeries} type="bar" />;
+  }
+
   render() {
     if (!this.state.loaded) { return ''; }
+    if (!this.props.hasData) {
+      return (
+        <div className="container text-center">
+          <h3>No data available!</h3>
+          <p>Add expenses to start seeing reports here.</p>
+        </div>
+      );
+    }
 
     return (
       <div className="container">
@@ -85,11 +96,7 @@ class Main extends React.Component {
           </div>
         </div>
 
-        <Chart
-          options={this.state.chartOptions}
-          series={this.state.chartSeries}
-          type="bar"
-        />
+        {this.renderChart()}
       </div>
     );
   }
