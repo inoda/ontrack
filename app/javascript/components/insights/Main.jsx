@@ -10,33 +10,37 @@ class Main extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      year: new Date().getFullYear(),
+      availableYears: this.props.availableYears,
+      year: this.props.availableYears[this.props.availableYears.length - 1],
 
       chartOptions: {
+        colors: [],
+        fill: { opacity: 1 },
+        legend: { position: 'bottom', horizontalAlign: 'center' },
         chart: {
           stacked: true,
-          toolbar: { show: false },
+          toolbar: { show: false }
         },
         grid: {
-          padding: { left: 0, right: 0 }
+          padding: { bottom: 30, right: 0 }
         },
-        fill: { opacity: 1 },
         xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         },
         yaxis: {
           labels: {
             formatter: (val) => { return `$${val}` },
-          }
+            align: 'right',
+            offsetX: -20,
+          },
         },
-        legend: {
-          position: 'top',
-          horizontalAlign: 'right',
-        },
-        colors: [],
       },
       chartSeries: [],
     };
+  }
+
+  handleYearChange = (e) => {
+    this.setState({ year: e.target.value }, this.loadData);
   }
 
   componentDidMount() {
@@ -72,8 +76,13 @@ class Main extends React.Component {
 
     return (
       <div className="container">
-        <div className="flex row-flex flex-space-between">
-          <h2 className="mb-10">Insights</h2>
+        <div className="flex flex-space-between mb-30">
+          <h2>Insights</h2>
+          <div className="input-group inline">
+            <select value={this.state.year} onChange={this.handleYearChange}>
+              {this.props.availableYears.map((yr) => { return <option key={yr} value={yr}>{yr}</option> })}
+            </select>
+          </div>
         </div>
 
         <Chart

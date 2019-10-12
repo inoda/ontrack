@@ -4,7 +4,7 @@ import InsightsMain from '../components/insights/Main'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <InsightsMain />,
+    <InsightsMain availableYears={window.InitialProps.availableYears} />,
     document.getElementById("insights"),
   )
 })

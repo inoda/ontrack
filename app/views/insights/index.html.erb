@@ -1,3 +1,8 @@
-<div id="insights"></div>
+<div id="insights" class="pb-100"></div>
 
+<script type="text/javascript">
+  window.InitialProps = {
+    availableYears: <%= @available_years %>, 
+  }
+</script>
 <%= javascript_pack_tag 'insights' %>
