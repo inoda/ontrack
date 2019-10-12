@@ -12,6 +12,14 @@ const Numerics = {
     }
   },
 
+  commify(value) {
+    if (value == null || value == undefined) return ''
+    // This accounts for more than 3 digits after a decimal. We don't want commas there.
+    let parts = value.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  },
+
   timestamp(value) {
     if (value == null || value == undefined) return '';
 

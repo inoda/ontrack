@@ -4,6 +4,7 @@ import Chart from 'chart.js';
 import moment from 'moment'
 import { Reports } from '../../api/main'
 import { Alerts } from '../../helpers/main'
+import { Numerics } from '../../helpers/main'
 
 class Main extends React.Component {
   constructor(props) {
@@ -60,7 +61,7 @@ class Main extends React.Component {
         maintainAspectRatio: false,
 				tooltips: {
           callbacks: {
-            label: (tooltipItems) => { return `$${tooltipItems.yLabel}`; }
+            label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(t.yLabel)}`; }
           }
 				},
 				scales: {
@@ -68,7 +69,7 @@ class Main extends React.Component {
 					yAxes: [{
             stacked: true,
             ticks: {
-              callback: (label) => { return `$${label}`; }
+              callback: (label) => { return `$${Numerics.commify(label)}`; }
             }
           }]
 				}
