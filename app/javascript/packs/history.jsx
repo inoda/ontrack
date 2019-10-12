@@ -4,7 +4,7 @@ import HistoryMain from '../components/history/Main'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <HistoryMain hasData={window.InitialProps.hasData} />,
+    <HistoryMain {...window.InitialProps} />,
     document.getElementById("history"),
   )
 })

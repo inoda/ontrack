@@ -1,8 +1,11 @@
 import Base from './base';
 
 const Reports = {
-  monthAndCategory(params, opts = {}) {
-    return Base.get(`/reports/by_month_and_category`, params, opts || {});
+  year(params, opts = {}) {
+    return Base.get(`/reports/year`, params, opts || {});
+  },
+  month(params, opts = {}) {
+    return Base.get(`/reports/month`, params, opts || {});
   },
 }
 

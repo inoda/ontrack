@@ -56,8 +56,8 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <h2 className="mb-10">Expense History</h2>
-          <div className="input-group inline mb-10 small-datepicker">
+          <b>Expense History</b>
+          <div className="input-group inline small-datepicker">
             <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
             <span className="mh-5 mt-5">-</span>
             <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
@@ -107,6 +107,14 @@ class Main extends React.Component {
       </div>
     );
   }
+}
+
+Main.defaultProps = {
+  hasData: false,
+}
+
+Main.propTypes = {
+  hasData: PropTypes.bool,
 }
 
 export default Main;

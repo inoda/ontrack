@@ -83,8 +83,12 @@
   margin-left: 40px;
 }
 
-.ml-2 {
-  margin-left: 2px;
+.ml-10 {
+  margin-left: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px;
 }
 
 .mh-5 {
@@ -115,6 +119,10 @@
 
 .text-muted {
   color: #989898;
+}
+
+.text-success {
+  color: #7dbd81;
 }
 
 .text-warning {

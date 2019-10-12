@@ -4,7 +4,7 @@ import DashboardMain from '../components/dashboard/Main'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <DashboardMain />,
+    <DashboardMain {...window.InitialProps} />,
     document.getElementById("dashboard"),
   )
 })

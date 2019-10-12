@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       resources :expenses, only: [:index, :create, :destroy]
       resources :categories, only: [:index, :create, :update]
       resources :reports do
-        get :by_month_and_category, on: :collection
+        get :year, on: :collection
+        get :month, on: :collection
       end
       resources :goals, only: [:index] do
         put :update, on: :collection

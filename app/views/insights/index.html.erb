@@ -1,8 +1,9 @@
-<div id="insights" class="pb-100"></div>
+<div id="insights"></div>
 
 <script type="text/javascript">
   window.InitialProps = {
     availableYears: <%= @available_years %>,
+    availableMonths: <%= @available_months.to_json.html_safe %>,
     hasData: <%= @has_data %>,
   }
 </script>
