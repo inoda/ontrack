@@ -56,8 +56,8 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <b>Expense History</b>
-          <div className="input-group inline small-datepicker">
+          <b className="mb-10">Expense History</b>
+          <div className="input-group inline small-datepicker mb-10">
             <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
             <span className="mh-5 mt-5">-</span>
             <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
