@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chart from "react-apexcharts";
+import Chart from 'chart.js';
 import moment from 'moment'
 import { Reports } from '../../api/main'
 import { Alerts } from '../../helpers/main'
@@ -12,74 +12,69 @@ class Main extends React.Component {
       loaded: false,
       availableYears: this.props.availableYears,
       year: this.props.availableYears[this.props.availableYears.length - 1],
-
-      chartOptions: {
-        colors: [],
-        fill: { opacity: 1 },
-        legend: { position: 'bottom', horizontalAlign: 'center' },
-        chart: {
-          stacked: true,
-          toolbar: { show: false }
-        },
-        grid: {
-          padding: { bottom: 30, right: 0 }
-        },
-        xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        },
-        yaxis: {
-          labels: {
-            formatter: (val) => { return `$${val}` },
-            align: 'right',
-            offsetX: -20,
-          },
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              height: 500,
-            }
-          }
-        }],
+      chartData: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [],
       },
-      chartSeries: [],
     };
-  }
-
-  handleYearChange = (e) => {
-    this.setState({ year: e.target.value }, this.loadData);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
+  handleYearChange = (e) => {
+    this.setState({ year: e.target.value }, this.loadData);
+  }
+
   loadData = () => {
     Reports.monthAndCategory({ year: this.state.year }).then(
       (resp) => {
-        let colors = [];
-        let series = [];
+        let datasets = [];
         resp.categories.forEach((category) => {
-          colors.push(category.color);
 
-          let data = [];
-          this.state.chartOptions.xaxis.categories.forEach((mon) => {
+          let dataPoints = [];
+          this.state.chartData.labels.forEach((mon) => {
             const spendForCategoryAndMonth = resp.results.find((monthData) => { return monthData.month == mon && monthData.category == category.name });
-            data.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0)
+            dataPoints.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0)
           });
 
-          series.push({ name: category.name, data: data });
+          datasets.push({ label: category.name, data: dataPoints, backgroundColor: category.color });
         })
 
-        this.setState({ loaded: true, chartSeries: series, chartOptions: Object.assign(this.state.chartOptions, { colors: colors }) });
+        this.setState({ loaded: true, chartData: Object.assign(this.state.chartData, { datasets: datasets }) }, this.buildChart);
       },
       (error) => { Alerts.genericError(); },
     )
   }
 
-  renderChart() {
-    return <Chart options={this.state.chartOptions} series={this.state.chartSeries} type="bar" />;
+  buildChart() {
+    Chart.defaults.global.animation.duration = 100;
+    Chart.Legend.prototype.afterFit = function() {
+      this.height = this.height + 20;
+    };
+
+		new Chart(document.getElementById("chart"), {
+			type: 'bar',
+			data: this.state.chartData,
+			options: {
+        responsive: true,
+				tooltips: {
+          callbacks: {
+            label: (tooltipItems) => { return `$${tooltipItems.yLabel}`; }
+          }
+				},
+				scales: {
+					xAxes: [{ stacked: true }],
+					yAxes: [{
+            stacked: true,
+            ticks: {
+              callback: (label) => { return `$${label}`; }
+            }
+          }]
+				}
+			}
+		});
   }
 
   render() {
@@ -104,7 +99,7 @@ class Main extends React.Component {
           </div>
         </div>
 
-        {this.renderChart()}
+        <canvas id="chart"></canvas>
       </div>
     );
   }
