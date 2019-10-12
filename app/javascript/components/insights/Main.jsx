@@ -57,6 +57,7 @@ class Main extends React.Component {
 			data: this.state.chartData,
 			options: {
         responsive: true,
+        maintainAspectRatio: false,
 				tooltips: {
           callbacks: {
             label: (tooltipItems) => { return `$${tooltipItems.yLabel}`; }
@@ -97,7 +98,9 @@ class Main extends React.Component {
           </div>
         </div>
 
-        <canvas id="chart"></canvas>
+        <div className="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
       </div>
     );
   }
