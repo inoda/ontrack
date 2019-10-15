@@ -9,7 +9,11 @@
   }
 
   th, td {
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #e3e2e8;
     padding: 15px;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
   }
 }

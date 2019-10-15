@@ -41,12 +41,12 @@ class Main extends React.Component {
   renderEmptyState() {
     if (this.props.hasData) { return '' }
     return (
-      <div className="flex row-flex flex-space-between text-center-sm">
+      <div className="empty-or-error-status">
         <div className="status-text">
-          <h2>Oops, our historian has nothing to do!</h2>
-          <div className="mt-20">As you start tracking your expenses they will show here.</div>
+          <h2>Our historian has nothing to do!</h2>
+          <div>The expenses you enter will show up here.</div>
         </div>
-        <img className="mt-50 status-image" src={window.historian} />
+        <img className="status-image" src={window.historian} />
       </div>
     )
   }
@@ -56,14 +56,14 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <b className="mb-10">Expense History</b>
-          <div className="input-group inline small-datepicker mb-10">
+          <b>Expense History</b>
+          <div className="input-group inline small-datepicker mt-10-sm">
             <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
             <span className="mh-5 mt-5">-</span>
             <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
           </div>
         </div>
-        <div className="overflow-x mt-50">
+        <div className="overflow-x mt-30 bg-gray p-10">
           <table className="table">
             <thead>
               <tr>
@@ -94,7 +94,7 @@ class Main extends React.Component {
         <td>{expense.category.name}</td>
         <td>{Numerics.centsToDollars(expense.amount)}</td>
         <td>{expense.description}</td>
-        <td><a onClick={() => this.handleExpenseDelete(expense.id)}><i className="fa fa-times"></i></a></td>
+        <td><a onClick={() => this.handleExpenseDelete(expense.id)} className="dim-til-hover"><i className="fa fa-times"></i></a></td>
       </tr>
     )
   }

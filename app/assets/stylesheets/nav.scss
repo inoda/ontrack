@@ -9,7 +9,8 @@
     li {
       width: 100%;
       &.active {
-        background: #eee;
+        font-weight: 900;
+        color: #000;
       }
     }
     a {
@@ -36,7 +37,8 @@
     }
 
     .active a {
-      text-decoration: underline
+      font-weight: 900;
+      color: #000;
     }
 
     .nav-items-responsive {

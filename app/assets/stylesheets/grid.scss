@@ -11,8 +11,8 @@
   display: block !important;
 }
 
-.text-center-sm {
-  text-align: center;
+.mt-10-sm {
+  margin-top: 10px;
 }
 
 @media (min-width: 750px) {
@@ -79,7 +79,7 @@
     display: flex !important;
   }
 
-  .text-center-sm {
-    text-align: left;
+  .mt-10-sm {
+    margin-top: 0;
   }
 }
