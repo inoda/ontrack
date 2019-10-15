@@ -24,6 +24,14 @@ const Alerts = {
       confirmButtonColor: '#bd4d4d',
     })
   },
+
+  genericConflict(description) {
+    return Swal.fire({
+      title: 'Hold on',
+      text: description,
+      type: 'warning',
+    })
+  },
 }
 
 export default Alerts;

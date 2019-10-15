@@ -24,6 +24,15 @@ class FormModal extends React.Component {
   handleGoalChange = (num) => { this.setState({ goal: num }) }
   handleColorChange = (color) => { this.setState({ color: color }); }
   handleErrors = (key, errs) => { this.setState({ errors: Object.assign(this.state.errors, { [key]: errs }) }); }
+  handleDelete = () => {
+    Alerts.genericDelete('category').then((result) => {
+      if (!result.value) { return; }
+      Categories.delete(this.props.category.id).then(
+        (resp) => { this.props.onSave(resp) },
+        (error) => { error.status == 409 ? Alerts.genericConflict("All expenses must be assigned to a new category first.") : Alerts.genericError() },
+      )
+    })
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ submitted: true });
@@ -45,6 +54,11 @@ class FormModal extends React.Component {
   action() {
     if (!this.props.category.id) { return 'Create'; }
     return 'Update';
+  }
+
+  renderDelete() {
+    if (!this.props.category.id) { return ''; }
+    return <a onClick={this.handleDelete} className="link-danger">Delete</a>;
   }
 
   render() {
@@ -74,8 +88,8 @@ class FormModal extends React.Component {
           </div>
 
           <div className="form-actions">
-            <a onClick={this.props.onClose}>Cancel</a>
             <button type="submit" className="btn btn-dark">Save</button>
+            {this.renderDelete()}
           </div>
         </form>
       </Modal>

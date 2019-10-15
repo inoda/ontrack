@@ -78,7 +78,6 @@ class FormModal extends React.Component {
         </div>
 
         <div className="form-actions">
-          <a onClick={this.props.onClose}>Cancel</a>
           <button type="submit" className="btn btn-dark">Save</button>
         </div>
       </form>

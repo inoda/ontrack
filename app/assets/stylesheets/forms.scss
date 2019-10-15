@@ -52,8 +52,6 @@
   margin-top: 40px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  > * {
-    margin-left: 30px;
-  }
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }

@@ -10,6 +10,9 @@ const Categories = {
   update(id, data, opts = {}) {
     return Base.put(`/categories/${id}`, data, opts || {});
   },
+  delete(id, params, opts = {}) {
+    return Base.delete(`/categories/${id}`, params, opts || {});
+  },
 }
 
 export default Categories;

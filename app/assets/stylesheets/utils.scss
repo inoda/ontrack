@@ -153,6 +153,13 @@
   text-align: right;
 }
 
+.link-danger {
+  color: #989898;
+  &:hover {
+    color: #cc5543;
+  }
+}
+
 
 // state
 
