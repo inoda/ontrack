@@ -28,6 +28,12 @@ class Main extends React.Component {
   handlePaidAtMaxChange = (val) => {
     this.setState({ maxPaidAt: moment(val).unix() });
   }
+  handleCategoryChange = (id, categoryId) => {
+    Expenses.update(id, { category_id: categoryId }).then(
+      () => { this.setState({ reloadTrigger: this.state.reloadTrigger + 1 }); },
+      (error) => { Alerts.genericError(); },
+    )
+  }
   handleExpenseDelete = (id) => {
     Alerts.genericDelete('expense').then((result) => {
       if (!result.value) { return; }
@@ -90,11 +96,27 @@ class Main extends React.Component {
   renderExpense(expense) {
     return (
       <tr key={expense.id}>
-        <td>{Numerics.timestamp(expense.paid_at)}</td>
-        <td>{expense.category.name}</td>
-        <td>{Numerics.centsToDollars(expense.amount)}</td>
-        <td>{expense.description}</td>
-        <td><a onClick={() => this.handleExpenseDelete(expense.id)} className="dim-til-hover"><i className="fa fa-times"></i></a></td>
+        <td>
+          {Numerics.timestamp(expense.paid_at)}
+        </td>
+
+        <td className="input-group">
+          <select defaultValue={expense.category_id} onChange={(e) => this.handleCategoryChange(expense.id, e.target.value)} className="bg-gray-slight-contrast w-auto">
+            {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+          </select>
+        </td>
+
+        <td>
+          {Numerics.centsToDollars(expense.amount)}
+        </td>
+
+        <td>
+          {expense.description}
+        </td>
+
+        <td>
+          <a onClick={() => this.handleExpenseDelete(expense.id)} className="dim-til-hover"><i className="fa fa-times"></i></a>
+        </td>
       </tr>
     )
   }
@@ -111,10 +133,12 @@ class Main extends React.Component {
 
 Main.defaultProps = {
   hasData: false,
+  categories: [],
 }
 
 Main.propTypes = {
   hasData: PropTypes.bool,
+  categories: PropTypes.array,
 }
 
 export default Main;

@@ -26,7 +26,11 @@ b, span {
 }
 
 .bg-gray {
-  background: #EEF0F5;
+  background: #EEF0F5 !important;
+}
+
+.bg-gray-slight-contrast {
+  background: #e9eaee !important;
 }
 
 a {

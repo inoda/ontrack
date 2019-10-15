@@ -10,6 +10,9 @@ const Expenses = {
   delete(id, params, opts = {}) {
     return Base.delete(`/expenses/${id}`, params, opts || {});
   },
+  update(id, data, opts = {}) {
+    return Base.put(`/expenses/${id}`, data, opts || {});
+  },
 }
 
 export default Expenses;

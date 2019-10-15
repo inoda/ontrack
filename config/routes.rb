@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :expenses, only: [:index, :create, :destroy]
+      resources :expenses, only: [:index, :create, :destroy, :update]
       resources :categories, only: [:index, :create, :update]
       resources :reports do
         get :year, on: :collection

@@ -28,5 +28,11 @@ module Api; module V1
       successful = expense.destroy
       render json: nil, status: successful ? 200 : 500
     end
+
+    def update
+      expense = ::Expense.find(params[:id])
+      successful = expense.update(category_id: params[:category_id])
+      render json: nil, status: successful ? 200 : 500
+    end
   end
 end; end

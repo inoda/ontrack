@@ -30,6 +30,10 @@
     }
   }
 
+  input.w-auto, textarea.w-auto, select.w-auto {
+    width: auto;
+  }
+
   .errors {
     margin-top: 5px;
     li {
