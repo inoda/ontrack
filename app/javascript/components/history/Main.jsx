@@ -16,6 +16,7 @@ class Main extends React.Component {
       maxPaidAt: moment().unix(),
       total: 1,
       reloadTrigger: 0,
+      reloadPageTrigger: 0,
     };
   }
 
@@ -30,7 +31,7 @@ class Main extends React.Component {
   }
   handleCategoryChange = (id, categoryId) => {
     Expenses.update(id, { category_id: categoryId }).then(
-      () => { this.setState({ reloadTrigger: this.state.reloadTrigger + 1 }); },
+      () => { this.setState({ reloadPageTrigger: this.state.reloadPageTrigger + 1 }); },
       (error) => { Alerts.genericError(); },
     )
   }
@@ -87,7 +88,12 @@ class Main extends React.Component {
         </div>
 
         <div className="mt-20">
-          <Paginator url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`} onLoad={this.onLoad} reloadTrigger={this.state.reloadTrigger} />
+          <Paginator
+            url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`}
+            onLoad={this.onLoad}
+            reloadTrigger={this.state.reloadTrigger}
+            reloadPageTrigger={this.state.reloadPageTrigger}
+          />
         </div>
       </div>
     )

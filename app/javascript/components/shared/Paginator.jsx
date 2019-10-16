@@ -28,6 +28,10 @@ class Paginator extends React.Component {
     if (prevProps.reloadTrigger !== this.props.reloadTrigger) {
       this.setState({ selectedPage: 1 }, this.loadData);
     }
+
+    if (prevProps.reloadPageTrigger !== this.props.reloadPageTrigger) {
+      this.loadData();
+    }
   }
 
   handlePageNext = () => {
@@ -137,6 +141,7 @@ Paginator.defaultProps = {
   totalItems: 0,
   url: '',
   reloadTrigger: 0,
+  reloadPageTrigger: 0,
 }
 
 Paginator.propTypes = {
@@ -144,6 +149,7 @@ Paginator.propTypes = {
   totalItems: PropTypes.number,
   url: PropTypes.string,
   reloadTrigger: PropTypes.number,
+  reloadPageTrigger: PropTypes.number,
   onLoad: PropTypes.func
 }
 
