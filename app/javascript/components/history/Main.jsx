@@ -14,22 +14,18 @@ class Main extends React.Component {
       expenses: [],
       minPaidAt: moment().subtract(365, 'd').unix(),
       maxPaidAt: moment().unix(),
+      categoryId: '',
       total: 1,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
     };
   }
 
-  onLoad = (payload) => {
-    this.setState({ expenses: payload.items, total: payload.total });
-  }
-  handlePaidAtMinChange = (val) => {
-    this.setState({ minPaidAt: moment(val).unix() });
-  }
-  handlePaidAtMaxChange = (val) => {
-    this.setState({ maxPaidAt: moment(val).unix() });
-  }
-  handleCategoryChange = (id, categoryId) => {
+  onLoad = (payload) => { this.setState({ expenses: payload.items, total: payload.total }); }
+  handlePaidAtMinChange = (val) => { this.setState({ minPaidAt: moment(val).unix() }); }
+  handlePaidAtMaxChange = (val) => { this.setState({ maxPaidAt: moment(val).unix() }); }
+  handleCategoryFilterChange = (e) => { this.setState({ categoryId: e.target.value }); }
+  handleExpenseCategoryChange = (id, categoryId) => {
     Expenses.update(id, { category_id: categoryId }).then(
       () => { this.setState({ reloadPageTrigger: this.state.reloadPageTrigger + 1 }); },
       (error) => { Alerts.genericError(); },
@@ -63,11 +59,18 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <b>Expense History</b>
+          <b className="mt-10">Expense History</b>
           <div className="input-group inline small-datepicker mt-10-sm">
-            <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
-            <span className="mh-5 mt-5">-</span>
-            <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
+            <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange}>
+              <option value="">All categories</option>
+              {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+            </select>
+
+            <div className="mt-10">
+              <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
+              <span className="mh-5 mt-5">-</span>
+              <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
+            </div>
           </div>
         </div>
         <div className="overflow-x mt-30 bg-gray p-10">
@@ -89,7 +92,7 @@ class Main extends React.Component {
 
         <div className="mt-20">
           <Paginator
-            url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}`}
+            url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}`}
             onLoad={this.onLoad}
             reloadTrigger={this.state.reloadTrigger}
             reloadPageTrigger={this.state.reloadPageTrigger}
@@ -107,7 +110,7 @@ class Main extends React.Component {
         </td>
 
         <td className="input-group">
-          <select defaultValue={expense.category_id} onChange={(e) => this.handleCategoryChange(expense.id, e.target.value)} className="bg-gray-slight-contrast w-auto">
+          <select defaultValue={expense.category_id} onChange={(e) => this.handleExpenseCategoryChange(expense.id, e.target.value)} className="bg-gray-slight-contrast w-auto">
             {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
           </select>
         </td>

@@ -24,10 +24,7 @@ class Year extends React.Component {
     Chart.Legend.prototype.afterFit = function() { this.height = this.height + 20; };
   }
 
-  handleYearChange = (e) => {
-    this.setState({ year: e.target.value }, this.loadData);
-  }
-
+  handleYearChange = (e) => { this.setState({ year: e.target.value }, this.loadData); }
   loadData = () => {
     Reports.year({ year: this.state.year }).then(
       (resp) => {

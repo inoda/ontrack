@@ -2,15 +2,16 @@ module Api; module V1
   class ExpensesController < BaseController
     def index
       expenses = ::Expense.all
-      expenses = expenses.where('paid_at >= ?', Time.at(params[:paid_after].to_i).to_datetime) if params[:paid_after]
-      expenses = expenses.where('paid_at <= ?', Time.at(params[:paid_before].to_i).to_datetime) if params[:paid_before]
+      expenses = expenses.where('paid_at >= ?', Time.at(params[:paid_after].to_i).to_datetime) if params[:paid_after].present?
+      expenses = expenses.where('paid_at <= ?', Time.at(params[:paid_before].to_i).to_datetime) if params[:paid_before].present?
+      expenses = expenses.where(category_id: params[:category_id]) if params[:category_id].present?
       expenses = expenses.order(created_at: :desc)
-      expenses = expenses.includes(:category) if params[:include_category]
+      expenses = expenses.includes(:category) if params[:include_category] == true.to_s
       expenses = expenses.paginate(params[:page], params[:per_page]) if params[:page]
 
       if params[:page]
         opts = {}
-        opts = { include: :category } if params[:include_category]
+        opts = { include: :category } if params[:include_category] == true.to_s
         paginate(expenses, opts)
       else
         render json: expenses
