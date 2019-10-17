@@ -31,7 +31,7 @@ class Year extends React.Component {
       (resp) => {
         let labels = resp.results.map((r) => { return r.category; });
         let datasets = [
-          { label: 'Under goal', backgroundColor: '#8295e0', data: [] },
+          { label: 'Within goal', backgroundColor: '#8295e0', data: [] },
           { label: 'Over goal', backgroundColor: '#cc654b', data: [] },
         ];
 
