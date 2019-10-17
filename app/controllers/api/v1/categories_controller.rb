@@ -1,7 +1,7 @@
 module Api; module V1
   class CategoriesController < BaseController
     def index
-      render json: ::Category.all.order(:id)
+      render json: ::Category.all.order(:name)
     end
 
     def create
@@ -18,7 +18,7 @@ module Api; module V1
 
     def destroy
       category = ::Category.find(params[:id])
-      render json: nil, status: 409 and return if category.expenses.length > 0 
+      render json: nil, status: 409 and return if category.expenses.length > 0
 
       successful = category.destroy
       render json: nil, status: successful ? 200 : 500
