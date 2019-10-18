@@ -1,4 +1,4 @@
-# OnTrack
+![logo](./app/assets/images/readme/logo.png)
 
 ## About
 
@@ -37,7 +37,7 @@ Although I didn't want to connect my banking info, I still wanted
 to streamline entering expenses. The CSV import lets me flexibly
 import expenses from bank exports.
 
-![history](./app/assets/images/readme/csv_import.png)
+![import](./app/assets/images/readme/csv_import.png)
 
 ## Hosting your own
 
