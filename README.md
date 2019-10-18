@@ -24,8 +24,7 @@ is also where you quickly add individual expenses.
 The insights page lets you review any year or month in more
 detail.
 
-![insights_year](./app/assets/images/readme/insights_year.png)
-![insights_month](./app/assets/images/readme/insights_month.png)
+![insights](./app/assets/images/readme/insights.png)
 
 ---
 
