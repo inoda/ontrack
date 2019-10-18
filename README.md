@@ -11,12 +11,16 @@ you can host easily your own instance.
 
 ## Features
 
+---
+
 #### Dashboard
 The dashboard lets you quickly see how you're doing in the current month.
 You can set a spend goal per month and/or per category. This
 is also where you quickly add individual expenses.
 
 ![dashboard](./app/assets/images/readme/dashboard.png)
+
+---
 
 #### Insights
 The insights page lets you review any year or month in more
@@ -25,11 +29,15 @@ detail.
 ![insights_year](./app/assets/images/readme/insights_year.png)
 ![insights_month](./app/assets/images/readme/insights_month.png)
 
+---
+
 #### History
 The history page lets you drill down into actual purchases,
 as well as do any tweaking (e.g. changing category or deleting).
 
 ![history](./app/assets/images/readme/history.png)
+
+---
 
 #### Importing
 Although I didn't want to connect my banking info, I still wanted
@@ -38,6 +46,7 @@ import expenses from bank exports.
 
 ![history](./app/assets/images/readme/csv_import.png)
 
+---
 
 ## Hosting your own
 
