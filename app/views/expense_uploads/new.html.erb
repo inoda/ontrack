@@ -1,0 +1,46 @@
+<div class="container pb-100">
+  <%= form_tag expense_uploads_path, multipart: true do %>
+    <div class="row">
+      <div class="input-group four columns">
+        <label class="required">File</label>
+        <input type="file" name="file" required>
+      </div>
+
+      <div class="input-group eight columns">
+        <label class="required">Category</label>
+        <%= select_tag :default_category_id, options_from_collection_for_select(@categories, :id, :name), prompt: "Select a default category", required: true %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="mt-20">
+      <em class="text-muted">Specify which column the following data is in so we know where to grab it from. The leftmost column is column 1.</em>
+    </div>
+    <div class="row mt-10">
+      <div class="input-group three columns">
+        <label class="required">Paid Date</label>
+        <input type="number" name="paid_date_col" required>
+      </div>
+
+      <div class="input-group three columns">
+        <label class="required">Description</label>
+        <input type="number" name="description_col" required>
+      </div>
+
+      <div class="input-group three columns">
+        <label class="required">Amount</label>
+        <input type="number" name="amount_col" required>
+      </div>
+
+      <div class="input-group three columns">
+        <label>Category Name</label>
+        <input type="number" name="category_col">
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-dark">Upload</button>
+    </div>
+  <% end %>
+</div>

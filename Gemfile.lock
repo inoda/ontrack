@@ -62,6 +62,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (11.0.1)
+    chronic (0.10.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     erubi (1.9.0)
@@ -176,6 +177,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
+  chronic (~> 0.10.2)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)

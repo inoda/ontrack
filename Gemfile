@@ -9,6 +9,7 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
+gem 'chronic', '~> 0.10.2'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do

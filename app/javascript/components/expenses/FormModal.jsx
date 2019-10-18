@@ -79,6 +79,7 @@ class FormModal extends React.Component {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-dark">Save</button>
+          <a class="dim-til-hover" href="/expense_uploads/new">Import a CSV instead</a>
         </div>
       </form>
     );
