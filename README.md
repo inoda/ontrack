@@ -9,6 +9,8 @@ spending better without giving my banking/financial info
 to a 3rd party. The app is meant to be used with 1 login, and
 you can host easily your own instance.
 
+The app was designed by [Iana Noda](https://iananoda.com).
+
 ## Features
 
 #### Dashboard
