@@ -38,6 +38,13 @@ The CSV import lets you flexibly import expenses from bank exports.
 
 ![import](./app/assets/images/readme/csv_import.png)
 
+#### Fun and mobile friendly
+OnTrack has a light and fun voice that makes it a
+pleasure to use. The entire app is also mobile
+friendly.
+
+![voice](./app/assets/images/readme/voice.png)
+
 ## Hosting your own
 
 I'd recommend using [Heroku](https://heroku.com) since it's super simple to deploy a
