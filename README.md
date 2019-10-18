@@ -11,8 +11,6 @@ you can host easily your own instance.
 
 ## Features
 
----
-
 #### Dashboard
 The dashboard lets you quickly see how you're doing in the current month.
 You can set a spend goal per month and/or per category. This
