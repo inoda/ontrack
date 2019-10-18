@@ -33,9 +33,8 @@ as well as do any tweaking (e.g. changing category or deleting).
 ![history](./app/assets/images/readme/history.png)
 
 #### Importing
-Although I didn't want to connect my banking info, I still wanted
-to streamline entering expenses. The CSV import lets me flexibly
-import expenses from bank exports.
+Although you can't connect banking info, you can still streamline entering expenses.
+The CSV import lets you flexibly import expenses from bank exports.
 
 ![import](./app/assets/images/readme/csv_import.png)
 
