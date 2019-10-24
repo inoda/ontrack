@@ -39,13 +39,9 @@ module Api; module V1
     private
 
     def normalized_sort(key, sort_desc)
-      col = {
-        "paid_at": "paid_at",
-        "amount": "amount",
-      }[key] || "paid_at"
-
+      cols = { paid_at: "paid_at", amount: "amount" }
+      col = cols[key.to_sym] || "paid_at"
       dir = sort_desc == "true" ? "DESC" : "ASC"
-
       "#{col} #{dir}"
     end
   end
