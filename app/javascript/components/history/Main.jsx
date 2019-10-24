@@ -15,6 +15,8 @@ class Main extends React.Component {
       minPaidAt: moment().subtract(365, 'd').unix(),
       maxPaidAt: moment().unix(),
       categoryId: this.props.categoryId || '',
+      sort: 'paid_at',
+      sortDesc: true,
       total: 1,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
@@ -25,6 +27,8 @@ class Main extends React.Component {
   handlePaidAtMinChange = (val) => { this.setState({ minPaidAt: moment(val).unix() }); }
   handlePaidAtMaxChange = (val) => { this.setState({ maxPaidAt: moment(val).unix() }); }
   handleCategoryFilterChange = (e) => { this.setState({ categoryId: e.target.value }); }
+  toggleSortDir = (e) => { this.setState({ sortDesc: !this.state.sortDesc }) }
+  changeSort = (s) => { this.setState({ sort: s, sortDesc: true }) }
   handleExpenseCategoryChange = (id, categoryId) => {
     Expenses.update(id, { category_id: categoryId }).then(
       () => { this.setState({ reloadPageTrigger: this.state.reloadPageTrigger + 1 }); },
@@ -39,6 +43,18 @@ class Main extends React.Component {
         (error) => { Alerts.genericError(); },
       )
     })
+  }
+
+  url() {
+    return `/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}&sort=${this.state.sort}&sort_desc=${this.state.sortDesc}`;
+  }
+
+  renderSort(key) {
+    if (this.state.sort == key) {
+      return <i onClick={this.toggleSortDir} className={`fas fa-sort-${this.state.sortDesc ? 'down' : 'up'} ml-2 hover-pointer`}></i>;
+    } else {
+      return <i onClick={() => { this.changeSort(key) }} className="fas fa-sort ml-2 hover-pointer"></i>;
+    }
   }
 
   renderEmptyState() {
@@ -77,9 +93,9 @@ class Main extends React.Component {
           <table className="table">
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Date {this.renderSort('paid_at')}</th>
                 <th>Category</th>
-                <th>Amount</th>
+                <th>Amount {this.renderSort('amount')}</th>
                 <th>Description</th>
                 <th></th>
               </tr>
@@ -92,7 +108,7 @@ class Main extends React.Component {
 
         <div className="mt-20">
           <Paginator
-            url={`/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}`}
+            url={this.url()}
             onLoad={this.onLoad}
             reloadTrigger={this.state.reloadTrigger}
             reloadPageTrigger={this.state.reloadPageTrigger}

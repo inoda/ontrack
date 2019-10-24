@@ -5,9 +5,9 @@ module Api; module V1
       expenses = expenses.where('paid_at >= ?', Time.at(params[:paid_after].to_i).to_datetime) if params[:paid_after].present?
       expenses = expenses.where('paid_at <= ?', Time.at(params[:paid_before].to_i).to_datetime) if params[:paid_before].present?
       expenses = expenses.where(category_id: params[:category_id]) if params[:category_id].present?
-      expenses = expenses.order(paid_at: :desc, id: :desc)
       expenses = expenses.includes(:category) if params[:include_category] == true.to_s
       expenses = expenses.paginate(params[:page], params[:per_page]) if params[:page]
+      expenses = expenses.order(normalized_sort(params[:sort], params[:sort_desc]))
 
       if params[:page]
         opts = {}
@@ -34,6 +34,19 @@ module Api; module V1
       expense = ::Expense.find(params[:id])
       successful = expense.update(category_id: params[:category_id])
       render json: nil, status: successful ? 200 : 500
+    end
+
+    private
+
+    def normalized_sort(key, sort_desc)
+      col = {
+        "paid_at": "paid_at",
+        "amount": "amount",
+      }[key] || "paid_at"
+
+      dir = sort_desc == "true" ? "DESC" : "ASC"
+
+      "#{col} #{dir}"
     end
   end
 end; end
