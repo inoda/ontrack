@@ -47,13 +47,14 @@ class CategoryTile extends React.Component {
 
   render() {
     return (
-      <div className="category-tile" style={{ borderColor: this.props.categoryWithExpensesAndSpend.color }}>
+      <div className="category-tile" style={{ borderColor: this.props.categoryWithExpensesAndSpend.color }} onClick={this.jumpToHistory}>
         {this.renderCategoryEditModal()}
         {this.renderExpenseCreateModal()}
         <div className="flex flex-space-between title">
           <div>
             <div className="flex">
-              <b>{this.props.categoryWithExpensesAndSpend.name}</b> <img className="icon-default hover-pointer dim-til-hover" src={window.iconEdit} onClick={this.openCategoryEdit} />
+              <a href={`/expenses?category_id=${this.props.categoryWithExpensesAndSpend.id}`} className="dim-on-hover"><b>{this.props.categoryWithExpensesAndSpend.name}</b></a>
+              <img className="icon-default hover-pointer dim-til-hover" src={window.iconEdit} onClick={this.openCategoryEdit} />
             </div>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
           </div>

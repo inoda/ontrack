@@ -173,3 +173,10 @@
     opacity: 0.9;
   }
 }
+
+.dim-on-hover {
+  opacity: 1;
+  &:hover {
+    opacity: 0.6;
+  }
+}

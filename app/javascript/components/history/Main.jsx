@@ -14,7 +14,7 @@ class Main extends React.Component {
       expenses: [],
       minPaidAt: moment().subtract(365, 'd').unix(),
       maxPaidAt: moment().unix(),
-      categoryId: '',
+      categoryId: this.props.categoryId || '',
       total: 1,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
@@ -61,7 +61,7 @@ class Main extends React.Component {
         <div className="flex row-flex flex-space-between">
           <b className="mt-10">Expense History</b>
           <div className="input-group inline small-datepicker mt-10-sm">
-            <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange}>
+            <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
               <option value="">All categories</option>
               {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
             </select>
@@ -148,6 +148,7 @@ Main.defaultProps = {
 Main.propTypes = {
   hasData: PropTypes.bool,
   categories: PropTypes.array,
+  categoryId: PropTypes.any,
 }
 
 export default Main;
