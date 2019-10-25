@@ -47,20 +47,10 @@ friendly.
 
 ## Installation
 
-#### Getting Ruby installed
-- `brew install rbenv ruby-build`
-- `echo 'eval "$(rbenv init -)"' >> ~/.bash_profile`
-- `source ~/.bash_profile`
-- `rbenv install 2.6.0`
-- `gem install bundler`
-
-#### Getting Rails started
+#### Getting started with Homebrew
+- Make sure [homebrew](https://brew.sh/) is installed
 - Fork/clone this repo
-- `bundle install`
-- `yarn install`
-- `bundle exec rake db:create`
-- `bundle exec rake db:migrate`
-- `bundle exec rails s`
+- Run `make install_with_brew`
 - Visit http://localhost:3000
 
 #### Creating a user
