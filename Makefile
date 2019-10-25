@@ -5,6 +5,10 @@ instructions:
 
 start:
 	@echo "\n"
+	@echo "ENSURING DATABASE IS MIGRATED"
+	@echo "-----------------------------"
+	bundle exec rake db:migrate
+	@echo "\n"
 	@echo "STARTING SERVER AT PORT 3000"
 	@echo "----------------------------"
 	bundle exec rails s
