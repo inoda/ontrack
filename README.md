@@ -57,6 +57,7 @@ friendly.
 #### Getting Rails started
 - Fork/clone this repo
 - `bundle install`
+- `yarn install`
 - `bundle exec rake db:create`
 - `bundle exec rake db:migrate`
 - `bundle exec rails s`
