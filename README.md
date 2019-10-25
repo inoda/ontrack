@@ -52,7 +52,7 @@ friendly.
 - Fork/clone this repo
 - Run `make install_with_brew`
 - Visit http://localhost:3000
-- For subsequent server starts, run `make start`
+- If you have already ran the installation and want to start the server, just run `make start`
 
 #### Creating a user
 
