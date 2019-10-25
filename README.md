@@ -13,32 +13,32 @@ The app was designed by [Iana Noda](https://iananoda.com).
 
 ## Features
 
-##### Dashboard
+#### Dashboard
 The dashboard lets you quickly see how you're doing in the current month.
 You can set a spend goal per month and/or per category. This
 is also where you quickly add individual expenses.
 
 ![dashboard](./app/assets/images/readme/dashboard.png)
 
-##### Insights
+#### Insights
 The insights page lets you review any year or month in more
 detail.
 
 ![insights](./app/assets/images/readme/insights.png)
 
-##### History
+#### History
 The history page lets you drill down into actual purchases,
 as well as do any tweaking (e.g. changing category or deleting).
 
 ![history](./app/assets/images/readme/history.png)
 
-##### Importing
+#### Importing
 Although you can't connect banking info, you can still streamline entering expenses.
 The CSV import lets you flexibly import expenses from bank exports.
 
 ![import](./app/assets/images/readme/csv_import.png)
 
-##### Fun and mobile friendly
+#### Fun and mobile friendly
 OnTrack has a light and fun voice that makes it a
 pleasure to use. The entire app is also mobile
 friendly.
@@ -47,14 +47,14 @@ friendly.
 
 ## Installation
 
-##### Getting Ruby installed
+#### Getting Ruby installed
 - `brew install rbenv ruby-build`
 - `echo 'eval "$(rbenv init -)"' >> ~/.bash_profile`
 - `source ~/.bash_profile`
 - `rbenv install 2.6.0`
 - `gem install bundler`
 
-##### Getting Rails started
+#### Getting Rails started
 - Fork/clone this repo
 - `bundle install`
 - `bundle exec rake db:create`
@@ -62,7 +62,7 @@ friendly.
 - `bundle exec rails s`
 - Visit http://localhost:3000
 
-##### Creating a user
+#### Creating a user
 
 - `bundle exec rails c` to run Rails console
 - `User.create!(username: "...", password: "...")` The username and password will be hashed.
