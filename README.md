@@ -50,9 +50,9 @@ friendly.
 #### Getting started with Homebrew
 - Make sure [homebrew](https://brew.sh/) is installed
 - Fork/clone this repo
-- Run `make install_with_brew`
+- Run `sh scripts.sh install_with_brew`
 - Visit http://localhost:3000
-- If you have already ran the installation and want to start the server, just run `make start`
+- If you have already ran the installation and want to start the server, just run `sh scripts.sh start`
 
 #### Creating a user
 
