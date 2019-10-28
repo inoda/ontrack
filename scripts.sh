@@ -30,7 +30,7 @@ then
 	brew install rbenv ruby-build || (echo "brew install rbenv ruby-build failed - continuing")
 	echo "INITIALIZING RUBY VERSION MANAGER"
 	eval "$(rbenv init -)"
-	rbenv install 2.6.0 || (echo "ruby install failed - continuing")
+	rbenv install 2.6.5 || (echo "ruby install failed - continuing")
 	install_rails
 	start_server
 fi
