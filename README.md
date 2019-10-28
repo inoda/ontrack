@@ -46,6 +46,7 @@ friendly.
 ![voice](./app/assets/images/readme/voice.png)
 
 ## Installation
+### MacOS
 
 #### Getting started with Homebrew
 - Make sure [homebrew](https://brew.sh/) is installed
@@ -59,6 +60,28 @@ friendly.
 - `bundle exec rails c` to run Rails console
 - `User.create!(username: "...", password: "...")` The username and password will be hashed.
 - If you ever need to change your username/password: `User.first.update!(username: "...", password: "...")`
+
+### On Ubuntu 18.04
+- Install `rbenv`
+  - `sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-`- Install rbenv dependencies
+  - `git clone https://github.com/rbenv/rbenv.git ~/.rbenv` - Install rbenv
+  - `echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc` - Add rbenv to path
+  - `echo 'eval "$(rbenv init -)"' >> ~/.bashrc`- Makes sure rbenv loads automatically
+  - `source ~/.bashrc`- Apply changes to current bash session
+- Install `ruby-build`
+  - `git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build`
+- Install ruby 2.6.0
+  - `rbenv install 2.6.0`
+  - `rbenv global 2.6.0` - set it as the default
+- Install bundler + dependencies
+  - `gem install bundler`
+  - `bundle install`
+  - **NOTE:** Make sure you have postgres-dev-server installed. eg. `sudo apt install postgresql-server-dev-11` if you use Postgres 11
+  - `bundle exec rake db:create` (make sure you have `yarn` installed. eg. `sudo apt install yarn` or `npm install -g yarn`). If you run into `error Couldn't find an integrity file `, run `yarn install --check-files` and try again.
+  - `bundle exec rake db:migrate`
+- Start the appp
+  - `bundle exec rails s`
+  - Youre good to go! Visit http://localhost:3000
 
 
 ## Hosting your own
