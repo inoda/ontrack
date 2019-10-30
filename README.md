@@ -46,7 +46,7 @@ friendly.
 ![voice](./app/assets/images/readme/voice.png)
 
 ## Installation
-### MacOS
+### On MacOS
 
 #### Getting started with Homebrew
 - Make sure [homebrew](https://brew.sh/) is installed
@@ -55,20 +55,14 @@ friendly.
 - Visit http://localhost:3000
 - If you have already ran the installation and want to start the server, just run `sh scripts.sh start`
 
-#### Creating a user
-
-- `bundle exec rails c` to run Rails console
-- `User.create!(username: "...", password: "...")` The username and password will be hashed.
-- If you ever need to change your username/password: `User.first.update!(username: "...", password: "...")`
-
-### On Ubuntu 18.04
+### On Ubuntu 16.04+
 #### Install dependencies
 - Run `sudo apt install yarn` or `npm install -g yarn` to install yarn. If you run into `error Couldn't find an integrity file `, run `yarn install --check-files` and try again.
 - Make sure you have postgres-dev-server installed. eg. `sudo apt install postgresql-server-dev-11` if you use Postgres 11.
 
 #### Install Ruby
 - Install `rbenv`(rbenv is the 'nvm' version of Ruby. It makes it easier to install or update Ruby versions. If you don't mind, you can run `snap install ruby 2.6.5` to skip the steps below)
-  - `sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-`- Install rbenv dependencies
+  - `sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev`- Install rbenv dependencies
   - `git clone https://github.com/rbenv/rbenv.git ~/.rbenv` - Install rbenv
   - `echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc` - Add rbenv to path
   - `echo 'eval "$(rbenv init -)"' >> ~/.bashrc`- Makes sure rbenv loads automatically
@@ -84,10 +78,15 @@ friendly.
   - `bundle exec rake db:create`
   - `bundle exec rake db:migrate`
   
-### Start the app
+#### Start the app
   - Run `bundle exec rails s`
   - You're good to go! Visit http://localhost:3000
 
+### Creating a user
+
+- `bundle exec rails c` to run Rails console
+- `User.create!(username: "...", password: "...")` The username and password will be hashed.
+- If you ever need to change your username/password: `User.first.update!(username: "...", password: "...")`
 
 ## Hosting your own
 
