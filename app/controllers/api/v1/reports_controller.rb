@@ -23,7 +23,8 @@ module Api; module V1
         join categories on expenses.category_id = categories.id
         where paid_at >= '#{start_date}'
         and paid_at < '#{end_date}'
-        group by categories.name, categories.monthly_goal;
+        group by categories.name, categories.monthly_goal
+        order by spend desc;
       })
 
       render json: { results: results, total: Expense.where("paid_at >= '#{start_date}' and paid_at < '#{end_date}'").sum(:amount), monthly_goal: User.first.monthly_goal }
