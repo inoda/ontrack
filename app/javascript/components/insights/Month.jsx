@@ -62,7 +62,7 @@ class Year extends React.Component {
         legend: { display: false },
 				tooltips: {
           callbacks: {
-            label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(t.yLabel)}`; }
+            label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`; }
           }
 				},
 				scales: {
