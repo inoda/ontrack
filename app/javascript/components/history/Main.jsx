@@ -12,7 +12,7 @@ class Main extends React.Component {
     super(props);
     this.state = {
       expenses: [],
-      minPaidAt: moment().subtract(365, 'd').unix(),
+      minPaidAt: this.props.paidAfter || moment().subtract(365, 'd').unix(),
       maxPaidAt: moment().unix(),
       categoryId: this.props.categoryId || '',
       sort: 'paid_at',
@@ -165,6 +165,7 @@ Main.propTypes = {
   hasData: PropTypes.bool,
   categories: PropTypes.array,
   categoryId: PropTypes.any,
+  paidAfter: PropTypes.any,
 }
 
 export default Main;

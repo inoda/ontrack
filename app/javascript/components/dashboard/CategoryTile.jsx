@@ -4,6 +4,7 @@ import { Numerics } from '../../helpers/main'
 import Progress from '../shared/Progress'
 import CategoryFormModal from '../categories/FormModal'
 import ExpenseFormModal from '../expenses/FormModal'
+import moment from 'moment'
 
 class CategoryTile extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class CategoryTile extends React.Component {
         <div className="flex flex-space-between title">
           <div>
             <div className="flex">
-              <a href={`/expenses?category_id=${this.props.categoryWithExpensesAndSpend.id}`} className="dim-on-hover"><b>{this.props.categoryWithExpensesAndSpend.name}</b></a>
+              <a href={`/expenses?category_id=${this.props.categoryWithExpensesAndSpend.id}&paid_after=${moment().startOf('month').unix()}`} className="dim-on-hover"><b>{this.props.categoryWithExpensesAndSpend.name}</b></a>
               <img className="icon-default hover-pointer dim-til-hover" src={window.iconEdit} onClick={this.openCategoryEdit} />
             </div>
             <div className="text-muted">{this.goalComparisonDisplay()}</div>
