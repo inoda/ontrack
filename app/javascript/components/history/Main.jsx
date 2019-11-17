@@ -122,21 +122,21 @@ class Main extends React.Component {
   renderExpense(expense) {
     return (
       <tr key={expense.id}>
-        <td className="input-group">
+        <td className="input-group mw-150">
           <DatePicker onChange={(val) => this.updateExpense(expense.id, { paid_at: val })} value={new Date(expense.paid_at)} className="bg-gray-slight-contrast" />
         </td>
 
-        <td className="input-group">
+        <td className="input-group mw-100">
           <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(expense.id, { category_id: e.target.value })} className="bg-gray-slight-contrast">
             {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
           </select>
         </td>
 
-        <td className="input-group">
+        <td className="input-group mw-200">
           <CurrencyInput initialValue={expense.amount} onBlur={(val) => this.updateExpense(expense.id, { amount: val })} allowNegative={true} className="bg-gray-slight-contrast" />
         </td>
 
-        <td className="input-group">
+        <td className="input-group mw-300">
           <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(expense.id, { description: e.target.value.trim() }) } } className="bg-gray-slight-contrast"></input>
         </td>
 

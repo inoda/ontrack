@@ -165,7 +165,26 @@
 }
 
 
-// state
+// Sizing
+
+.mw-100 {
+  min-width: 100px;
+}
+
+.mw-150 {
+  min-width: 150px;
+}
+
+.mw-200 {
+  min-width: 200px;
+}
+
+.mw-300 {
+  min-width: 300px;
+}
+
+
+// State
 
 .hover-pointer:hover {
   cursor: pointer;
