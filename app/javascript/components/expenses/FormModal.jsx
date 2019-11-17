@@ -52,8 +52,8 @@ class FormModal extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="input-group">
           <label className="required">Amount</label>
-          <CurrencyInput initialValue={this.state.amount} onChange={this.handleAmountChange} />
-          <FieldErrors label="Amount" val={this.state.amount} validations={{ required: true, greaterThan: 0 }} show={this.state.submitted} handleErrors={this.handleErrors} />
+          <CurrencyInput initialValue={this.state.amount} onChange={this.handleAmountChange} allowNegative={true} />
+          <FieldErrors label="Amount" val={this.state.amount} validations={{ required: true }} show={this.state.submitted} handleErrors={this.handleErrors} />
         </div>
 
         <div className="row">

@@ -7,7 +7,7 @@ module Api; module V1
       expenses = expenses.where(category_id: params[:category_id]) if params[:category_id].present?
       expenses = expenses.includes(:category) if params[:include_category] == true.to_s
       expenses = expenses.paginate(params[:page], params[:per_page]) if params[:page]
-      expenses = expenses.order(normalized_sort(params[:sort], params[:sort_desc])) if params[:sort]
+      expenses = expenses.order(normalized_sort(params[:sort], params[:sort_desc])).order(id: :desc) if params[:sort]
 
       if params[:page]
         opts = {}
