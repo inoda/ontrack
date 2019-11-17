@@ -15,18 +15,20 @@ class Picker extends React.Component {
 
   render() {
     return (
-      <DatePicker onChange={this.handleChange} selected={this.state.startDate} />
+      <DatePicker onChange={this.handleChange} selected={this.state.startDate} className={this.props.className} />
     );
   }
 }
 
 Picker.defaultProps = {
   value: new Date(),
+  className: '',
 }
 
 Picker.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
+  className: PropTypes.string,
 }
 
 export default Picker;

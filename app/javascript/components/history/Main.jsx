@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import Paginator from '../shared/Paginator'
 import DatePicker from '../shared/DatePicker'
+import CurrencyInput from '../shared/CurrencyInput'
 import { Alerts } from '../../helpers/main'
 import { Expenses } from '../../api/main'
 import { Numerics } from '../../helpers/main'
@@ -29,8 +30,8 @@ class Main extends React.Component {
   handleCategoryFilterChange = (e) => { this.setState({ categoryId: e.target.value }); }
   toggleSortDir = (e) => { this.setState({ sortDesc: !this.state.sortDesc }) }
   changeSort = (s) => { this.setState({ sort: s, sortDesc: true }) }
-  handleExpenseCategoryChange = (id, categoryId) => {
-    Expenses.update(id, { category_id: categoryId }).then(
+  updateExpense = (id, updates) => {
+    Expenses.update(id, updates).then(
       () => { this.setState({ reloadPageTrigger: this.state.reloadPageTrigger + 1 }); },
       (error) => { Alerts.genericError(); },
     )
@@ -121,22 +122,22 @@ class Main extends React.Component {
   renderExpense(expense) {
     return (
       <tr key={expense.id}>
-        <td>
-          {Numerics.timestamp(expense.paid_at)}
+        <td className="input-group">
+          <DatePicker onChange={(val) => this.updateExpense(expense.id, { paid_at: val })} value={new Date(expense.paid_at)} className="bg-gray-slight-contrast" />
         </td>
 
         <td className="input-group">
-          <select defaultValue={expense.category_id} onChange={(e) => this.handleExpenseCategoryChange(expense.id, e.target.value)} className="bg-gray-slight-contrast w-auto">
+          <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(expense.id, { category_id: e.target.value })} className="bg-gray-slight-contrast">
             {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
           </select>
         </td>
 
-        <td>
-          {Numerics.centsToDollars(expense.amount)}
+        <td className="input-group">
+          <CurrencyInput initialValue={expense.amount} onBlur={(val) => this.updateExpense(expense.id, { amount: val })} allowNegative={true} className="bg-gray-slight-contrast" />
         </td>
 
-        <td>
-          {expense.description}
+        <td className="input-group">
+          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(expense.id, { description: e.target.value.trim() }) } } className="bg-gray-slight-contrast"></input>
         </td>
 
         <td>

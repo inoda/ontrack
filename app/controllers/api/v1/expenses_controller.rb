@@ -32,7 +32,12 @@ module Api; module V1
 
     def update
       expense = ::Expense.find(params[:id])
-      successful = expense.update(category_id: params[:category_id])
+      successful = expense.update(
+        category_id: params.fetch(:category_id, expense.category_id),
+        description: params.fetch(:description, expense.description),
+        paid_at: params.fetch(:paid_at, expense.paid_at),
+        amount: params.fetch(:amount, expense.amount),
+      )
       render json: nil, status: successful ? 200 : 500
     end
 
