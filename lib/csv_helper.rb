@@ -3,7 +3,11 @@ require 'csv'
 # NOTE: This is committed to the codebase for versioning + persistence across computers.
 # This helper is used to massage CSVs from a bank into a better format for importing into OnTrack.
 # This helper will not be applicable/useful to everybody, but could be customized as needed.
-# Using this helper: ruby lib/csv_helper.rb your.csv
+
+# WARNING: I recommend copy/pasting this file somewhere else and then using it so that there's no risk
+# of pushing up info that might reveal what bank you use.
+
+# INTENDED USE: ruby csv_helper.rb in.csv out.csv
 
 file_location = ARGV[0]
 new_file_location = ARGV[1]
