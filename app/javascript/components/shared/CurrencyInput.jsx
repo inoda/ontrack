@@ -41,7 +41,7 @@ class CurrencyInput extends React.Component {
         mask={currencyMask}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
-        defaultValue={this.props.initialValue ? this.props.initialValue / 100 : ''}
+        defaultValue={this.props.initialValue ? (this.props.initialValue / 100).toFixed(2) : ''}
         className={this.props.className}
       />
     )
