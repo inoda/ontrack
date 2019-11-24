@@ -47,7 +47,7 @@ friendly.
 ## Installation
 - [Install with Homebrew](docs/homebrew_install.md)
 - [Install on Ubuntu 16.04+](docs/ubuntu_install.md)
-- If you have already ran the installation and want to start the server, just run `sh scripts.sh start`
+- Spin up an instance (for free) using the Heroku deploy button below. Heroku account is required.
 
 ### Creating a user
 - `bundle exec rails c` to run Rails console
@@ -58,6 +58,8 @@ friendly.
 I'd recommend using [Heroku](https://heroku.com) since it's super simple (and free) to
 deploy a Rails app. All you need to do once your instance is deployed is run
 `heroku run bundle exec rails c` to open the Rails console and create your user.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/master)
 
 ## Usage and feedback
 Feel free to use this however you'd like! If you use this, credit
