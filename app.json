@@ -2,6 +2,6 @@
   "name": "OnTrack",
   "description": "A simple self-hosted budgeting app",
   "repository": "https://github.com/inoda/ontrack",
-  "logo": "https://raw.githubusercontent.com/inoda/heroku-pinger/master/assets/readme/logo-square.jpg",
+  "logo": "https://raw.githubusercontent.com/inoda/ontrack/master/assets/readme/logo-square.jpg",
   "keywords": ["ontrack", "budgeting"]
 }
