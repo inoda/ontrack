@@ -57,11 +57,11 @@ friendly.
 
 ## Hosting your own
 I'd recommend using [Heroku](https://heroku.com) since it's super simple (and free) to
-deploy a Rails app. All you need to do once your instance is deployed is run
+deploy a Rails app. Keep it awake with my [Heroku Pinger](https://github.com/inoda/heroku-pinger)!
+All you need to do once your instance is deployed is run
 `heroku run bundle exec rails c` to open the Rails console and create your user.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/master)
-
 
 ## Usage and feedback
 Feel free to use this however you'd like! If you use this, credit
