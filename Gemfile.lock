@@ -92,7 +92,7 @@ GEM
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
-    puma (3.12.2)
+    puma (3.12.3)
     rack (2.0.8)
     rack-proxy (0.6.5)
       rack
