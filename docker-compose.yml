@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+
+  app:
+    build:
+      context: .
+    volumes:
+      - ./:/ontrack/app
+    links:
+      - db
+    ports:
+      - "80:3000"
+      - "3035:3035"
+    entrypoint: ./entrypoint.sh
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      DATABASE_URL: postgres://ontrack:secret@db/ontrack
+
+  db:
+    image: bitnami/postgresql:latest
+    volumes:
+      - db:/bitnami
+    environment:
+      POSTGRESQL_USERNAME: ontrack
+      POSTGRESQL_PASSWORD: secret
+      POSTGRESQL_DATABASE: ontrack
+
+volumes:
+  db: {}
