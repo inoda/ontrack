@@ -1,5 +1,5 @@
 {
-  "name": "ontrack",
+  "name": "inoda/ontrack",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.10.1",
