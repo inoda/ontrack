@@ -62,6 +62,39 @@ All you need to do once your instance is deployed is run
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/master)
 
+## Local development with Docker
+
+### Building docker container
+
+```bash
+npm run build
+# or
+docker build --rm --compress -t inoda/ontrack .
+```
+
+### Using docker-compose
+
+```bash
+docker-compose up -d
+```
+
+### Running
+
+```bash
+docker run --rm -d \
+  -e "POSTGRESQL_DATABASE=ontrack" \
+  -e "POSTGRESQL_USERNAME=ontrack" \
+  -e "POSTGRESQL_PASSWORD=secret" \
+  --name "ontrack-postgres" \
+  bitnami/postgresql:latest
+
+docker run --rm -d \
+  --link "ontrack-postgres" \
+  -e "DATABASE_URL=postgres://ontrack:secret@ontrack-postgres/ontrack" \
+  -p 80:3000 \
+  inoda/ontrack
+```
+
 ## Usage and feedback
 Feel free to use this however you'd like! If you use this, credit
 would be nice but I don't really care that much. I'm primarily maintaining
