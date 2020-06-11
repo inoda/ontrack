@@ -12,7 +12,6 @@ services:
     ports:
       - "80:3000"
       - "3035:3035"
-    entrypoint: ./entrypoint.sh
     environment:
       NODE_ENV: development
       RAILS_ENV: development
@@ -21,7 +20,7 @@ services:
   db:
     image: bitnami/postgresql:latest
     volumes:
-      - db:/bitnami
+      - db:/bitnami/postgresql
     environment:
       POSTGRESQL_USERNAME: ontrack
       POSTGRESQL_PASSWORD: secret

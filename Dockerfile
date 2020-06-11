@@ -1,7 +1,9 @@
 FROM bitnami/ruby:2.6.5
 
-LABEL name="OnTrack"
-LABEL description="A simple self-hosted budgeting app"
+LABEL vendor="inoda" \
+  package="ontrack" \
+  name="OnTrack" \
+  description="A simple self-hosted budgeting app"
 
 RUN apt-get update -y \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash \
@@ -25,5 +27,5 @@ RUN node -v \
 
 EXPOSE 3000
 
-ENTRYPOINT [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0" ] 
+ENTRYPOINT [ "./entrypoint.sh" ] 
 CMD [ "" ]
