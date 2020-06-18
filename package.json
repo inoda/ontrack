@@ -3,9 +3,9 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
-    "@rails/actioncable": "^6.0.3-1",
-    "@rails/activestorage": "^6.0.3-1",
-    "@rails/ujs": "^6.0.3-1",
+    "@rails/actioncable": "^6.0.3-2",
+    "@rails/activestorage": "^6.0.3-2",
+    "@rails/ujs": "^6.0.3-2",
     "@rails/webpacker": "^4.0.7",
     "axios": "^0.19.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -19,8 +19,5 @@
     "sweetalert2": "^8.18.0",
     "text-mask-addons": "^3.8.0"
   },
-  "version": "0.1.0",
-  "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
-  }
+  "version": "0.1.0"
 }
