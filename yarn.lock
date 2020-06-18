@@ -810,22 +810,22 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@rails/actioncable@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.3.tgz#722b4b639936129307ddbab3a390f6bcacf3e7bc"
-  integrity sha512-I01hgqxxnOgOtJTGlq0ZsGJYiTEEiSGVEGQn3vimZSqEP1HqzyFNbzGTq14Xdyeow2yGJjygjoFF1pmtE+SQaw==
+"@rails/actioncable@^6.0.3.1":
+  version "6.0.3-1"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.3-1.tgz#9b9eb8858a6507162911007d355d9a206e1c5caa"
+  integrity sha512-szFhWD+V5TAxVNVIG16klgq+ypqA5k5AecLarTTrXgOG8cawVbQdOAwLbCmzkwiQ60rGSxAFoC1u2LrzxSK2Aw==
 
-"@rails/activestorage@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.0.3.tgz#401d2a28ecb7167cdb5e830ffddaa17c308c31aa"
-  integrity sha512-YdNwyfryHlcKj7Ruix89wZ2aiN3KTYULdW1Y/hNlHJlrY2/PXjT2YBTzZiVd+dcjrwHBsXV2rExdy+Z/lsrlEg==
+"@rails/activestorage@^6.0.3.1":
+  version "6.0.3-1"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.0.3-1.tgz#8b081b2a9fb20ec1facbec2aaf1f5357b581e37d"
+  integrity sha512-6t/28ZVZkwR9BXKrVhz93VM4lOXqECqbnKp1D/ZHbYPGW2O7Wj6myqV/Mu7rmjDyE9BX1l+GCck83nGDgQYZDg==
   dependencies:
     spark-md5 "^3.0.0"
 
-"@rails/ujs@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.3.tgz#e68a03278e30daea6a110aac5dfa33c60c53055d"
-  integrity sha512-CM9OEvoN9eXkaX7PXEnbsQLULJ97b9rVmwliZbz/iBOERLJ68Rk3ClJe+fQEMKU4CBZfky2lIRnfslOdUs9SLQ==
+"@rails/ujs@^6.0.3.1":
+  version "6.0.3-1"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.3-1.tgz#7eef443207cc50ac70604216e8bb02f63d97324e"
+  integrity sha512-OjbJo15U5Gn8FGfmJnbnTcE1MyVdtGrEbAXVS0u1/n4th0jWxJX5G5W793Ll85K31/VDr5Pbz4S8hdR0iXsh/g==
 
 "@rails/webpacker@^4.0.7":
   version "4.2.2"
