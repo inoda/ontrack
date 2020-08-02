@@ -1,6 +1,6 @@
 ![logo](./app/assets/images/readme/logo.png)
 
-<a href="https://www.buymeacoffee.com/inoda" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/inoda" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 29px !important;width: 123px !important;" ></a>
 
 ## About
 
