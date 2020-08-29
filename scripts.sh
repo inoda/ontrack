@@ -24,16 +24,16 @@ setup_db () {
 }
 
 set_ruby_version () {
-  if [[ $(ruby -v) =~ "2.6.5" ]]
+  if [[ $(ruby -v) =~ "$(cat .ruby-version)" ]]
   then
-    echo "You are on Ruby 2.6.5"
+    echo "You are the preferred Ruby version: $(cat .ruby-version)"
   else
     if [[ $(which rbenv) ]]
     then
       eval "$(rbenv init -)"
     elif [[ $(which rvm) ]]
     then
-      rvm 2.6.5
+      rvm $(cat .ruby-version)
     elif [[ $(which chruby) ]]
     then
       chruby $(cat .ruby-version)
