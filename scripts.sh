@@ -1,44 +1,44 @@
 #!/bin/bash
 install_dependencies () {
-  if [[ $(which bundle) ]]
-  then
-    echo "INSTALLING GEMS"
-	  bundle install
-	  echo "INSTALLING JS PACKAGES"
-	  yarn install
-  else
-    echo "INSTALLING BUNDLER"
-    gem install bundler
-    echo "INSTALLING GEMS"
-	  bundle install
-	  echo "INSTALLING JS PACKAGES"
-	  yarn install
-  fi
+	if [[ $(which bundle) ]]
+	then
+		echo "INSTALLING GEMS"
+		bundle install
+		echo "INSTALLING JS PACKAGES"
+		yarn install
+	else
+		echo "INSTALLING BUNDLER"
+		gem install bundler
+		echo "INSTALLING GEMS"
+		bundle install
+		echo "INSTALLING JS PACKAGES"
+		yarn install
+	fi
 }
 
 setup_db () {
 	echo "CREATING DATABASE"
 	bundle exec rake db:create
-  echo "MIGRATING DATABASE"
-  bundle exec rake db:migrate
+	echo "MIGRATING DATABASE"
+	bundle exec rake db:migrate
 }
 
 set_ruby_version () {
-  if [[ $(ruby -v) =~ "$(cat .ruby-version)" ]]
-  then
-    echo "You are the preferred Ruby version: $(cat .ruby-version)"
-  else
-    if [[ $(which rbenv) ]]
-    then
-      eval "$(rbenv init -)"
-    elif [[ $(which rvm) ]]
-    then
-      rvm $(cat .ruby-version)
-    elif [[ $(which chruby) ]]
-    then
-      chruby $(cat .ruby-version)
-    fi
-  fi
+	if [[ $(ruby -v) =~ "$(cat .ruby-version)" ]]
+	then
+		echo "You are the preferred Ruby version: $(cat .ruby-version)"
+	else
+		if [[ $(which rbenv) ]]
+		then
+			eval "$(rbenv init -)"
+		elif [[ $(which rvm) ]]
+		then
+			rvm $(cat .ruby-version)
+		elif [[ $(which chruby) ]]
+		then
+			chruby $(cat .ruby-version)
+		fi
+	fi
 
 }
 
@@ -46,9 +46,9 @@ start_server () {
 	echo "INITIALIZING RUBY VERSION MANAGER"
 	set_ruby_version
 	echo "INSTALLING DEPENDENCIES"
-  install_dependencies
-  echo "SETTING UP DATABASE"
-  setup_db
+	install_dependencies
+	echo "SETTING UP DATABASE"
+	setup_db
 	echo "STARTING SERVER AT PORT 3000"
 	bundle exec rails s
 }
