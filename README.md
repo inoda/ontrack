@@ -1,6 +1,10 @@
 ![logo](./app/assets/images/readme/logo.png)
 
+<a href="https://www.buymeacoffee.com/inoda" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+
 ## About
+
 In a nutshell: a private budgeting tool that can be self-hosted.
 
 This project is an attempt to understand and control my own
