@@ -20,6 +20,10 @@ class FormModal extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.nameInput.focus();
+  }
+
   handleNameChange = (e) => { this.setState({ name: e.target.value }); }
   handleGoalChange = (num) => { this.setState({ goal: num }) }
   handleColorChange = (color) => { this.setState({ color: color }); }
@@ -68,7 +72,7 @@ class FormModal extends React.Component {
           <div className="row row-flex">
             <div className="input-group eight columns">
               <label className="required">Name</label>
-              <input type="text" value={this.state.name} onChange={this.handleNameChange}></input>
+              <input type="text" value={this.state.name} onChange={this.handleNameChange} ref={(input) => { this.nameInput = input; }} />
               <FieldErrors label="Name" val={this.state.name.trim()} validations={{ required: true }} show={this.state.submitted} handleErrors={this.handleErrors} />
             </div>
 

@@ -37,7 +37,7 @@ class CurrencyInput extends React.Component {
     return (
       <MaskedInput
         placeholder="$0.00"
-        inputMode="numeric"
+        inputMode="decimal"
         mask={currencyMask}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
