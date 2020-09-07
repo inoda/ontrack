@@ -1,12 +1,16 @@
 {
-  "name": "@inoda/ontrack",
+  "name": "ontrack",
   "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "docker build --rm --compress -t inoda/ontrack ."
+  },
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
     "@rails/actioncable": "^6.0.3-2",
     "@rails/activestorage": "^6.0.3-2",
     "@rails/ujs": "^6.0.3-2",
-    "@rails/webpacker": "5.2.1",
+    "@rails/webpacker": "^5.2.1",
     "axios": "^0.20.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chart.js": "^2.9.3",
@@ -18,12 +22,5 @@
     "react-text-mask": "^5.4.3",
     "sweetalert2": "^9.17.2",
     "text-mask-addons": "^3.8.0"
-  },
-  "version": "0.1.0",
-  "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
-  },
-  "scripts": {
-    "build": "docker build --rm --compress -t inoda/ontrack ."
   }
 }

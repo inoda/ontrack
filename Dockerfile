@@ -29,7 +29,7 @@ COPY . .
 
 RUN node -v \
   && yarn -v \
-  && yarn install --non-interactive --check-files \
+  && yarn install --non-interactive --check-files --frozen-lockfile \
   && bundle install
 
 EXPOSE 3000
