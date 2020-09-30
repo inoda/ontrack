@@ -78,10 +78,8 @@ class FormModal extends React.Component {
 
             <div className="input-group ml-auto">
               <label className="required">Color</label>
-              <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} colorsToShow={5} />
+              <ColorPicker onChange={this.handleColorChange} initialColor={this.state.color} omitColors={this.props.colorsToSkip} />
             </div>
-
-            <div className="clearfix"></div>
           </div>
 
           <div className="row">
