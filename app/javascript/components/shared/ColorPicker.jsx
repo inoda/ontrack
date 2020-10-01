@@ -26,7 +26,7 @@ class ColorPicker extends React.Component {
     let availColors = []
     if (this.state.initialColor.length) { availColors.push(this.state.initialColor); }
     for (let color of allColors) {
-      if (availColors.length == this.props.colorsToShow) { break; }
+      if (this.props.colorsToShow && this.props.colorsToShow === availColors.length) { break; }
       if (availColors.map((el) => { return el.toLowerCase() }).includes(color.toLowerCase())) { continue; }
       if (this.props.omitColors.length && this.props.omitColors.map((el) => { return el.toLowerCase() }).includes(color.toLowerCase())) { continue;}
       availColors.push(color);
@@ -54,7 +54,6 @@ ColorPicker.defaultProps = {
   colors: [],
   omitColors: [],
   initialColor: '',
-  colorsToShow: 8,
 }
 
 ColorPicker.propTypes = {
