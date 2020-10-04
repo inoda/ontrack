@@ -1,0 +1,32 @@
+<%= image_tag "logo.svg", size: "150x150" %>
+<div class="login">
+  <%= render partial: 'shared/flash_messages' %>
+  <div class="flex flex-space-between">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="input-group">
+        <%= f.label :username %>
+        <%= f.text_field :username, autofocus: true %>
+      </div>
+
+      <div class="input-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="input-group" hidden>
+          <%= f.check_box :remember_me, checked: true %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Submit", class: "btn btn-dark btn-full btn-round" %>
+      </div>
+    <% end %>
+
+    <%= image_tag "money-pile.jpg" %>
+  </div>
+  <%#= render "devise/shared/links" %>
+</div>
+
