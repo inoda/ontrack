@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  def password=(value)
-    super(BCrypt::Password.create(value))
-  end
+  # Available devise modules:
+  # :confirmable, :lockable, :registerable, :trackable, :omniauthable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :timeoutable
 
-  def username=(value)
-    super(BCrypt::Password.create(value))
-  end
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
 end

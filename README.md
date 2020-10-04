@@ -2,6 +2,28 @@
 
 <a href="https://www.buymeacoffee.com/inoda" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
+## Upgrading
+
+If you're upgrading from an older version of the app, you'll need to run a rake task to convert the username from hashed string to plain text by running:
+
+```sh
+rails "users:unhash_username[money_hogger21]"
+```
+
+Where `money_hogger21` is your desired username. It can be anything you've used to login before.
+
+To run this on heroku, run:
+
+```sh
+heroku run rails "users:unhash_username[money_hogger21]"
+```
+
+Or you can run `heroku console` and update the username manually:
+
+```rb
+user = User.first
+user.update!(username: 'money_hogger21')
+```
 
 ## About
 
