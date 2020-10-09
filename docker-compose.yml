@@ -1,0 +1,31 @@
+
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+    container_name: ontrack
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      SECRET_KEY_BASE: super-secret
+      DATABASE_URL: postgres://ontrack:secret@database/ontrack
+
+  database:
+    image: postgres
+    container_name: ontrack-db
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: ontrack
+      POSTGRES_DB: ontrack
+
+volumes:
+  database: {}
