@@ -62,7 +62,7 @@ then
 	brew install rbenv ruby-build || (echo "brew install rbenv ruby-build failed - continuing")
 	echo "INITIALIZING RUBY VERSION MANAGER"
 	eval "$(rbenv init -)"
-	rbenv install 2.6.5 || (echo "ruby install failed - continuing")
+	rbenv install 2.6.6 || (echo "ruby install failed - continuing")
 	start_server
 fi
 
