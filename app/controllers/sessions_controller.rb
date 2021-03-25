@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
     redirect_to :root
   end
 
-  def destroy
+  def logout
     cookies.signed[:logged_in] = false
     redirect_to :root
   end
