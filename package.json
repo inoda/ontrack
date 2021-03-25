@@ -6,7 +6,7 @@
     "@rails/actioncable": "^6.0.3-2",
     "@rails/activestorage": "^6.0.3-2",
     "@rails/ujs": "^6.0.3-2",
-    "@rails/webpacker": "^4.0.7",
+    "@rails/webpacker": "^5.0.0",
     "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chart.js": "^2.8.0",
