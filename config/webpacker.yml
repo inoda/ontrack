@@ -6,55 +6,18 @@ default: &default
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
-  check_yarn_integrity: false
-  webpack_compile_output: false
+  webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  resolved_paths: []
+  additional_paths: []
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
-  # Extract and emit a css file
-  extract_css: false
-
-  static_assets_extensions:
-    - .jpg
-    - .jpeg
-    - .png
-    - .gif
-    - .tiff
-    - .ico
-    - .svg
-    - .eot
-    - .otf
-    - .ttf
-    - .woff
-    - .woff2
-
-  extensions:
-    - .jsx
-    - .mjs
-    - .js
-    - .sass
-    - .scss
-    - .css
-    - .module.sass
-    - .module.scss
-    - .module.css
-    - .png
-    - .svg
-    - .gif
-    - .jpeg
-    - .jpg
-
 development:
   <<: *default
   compile: true
-
-  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -62,19 +25,26 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
+    # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
-    # Inline should be set to true if using HMR
+    # Inline should be set to true if using HMR; it inserts a script to take care of live reloading
     inline: true
+    # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
     overlay: true
+    # Should we use gzip compression?
     compress: true
+    # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
     disable_host_check: true
+    # This option lets the browser open with your local IP
     use_local_ip: false
+    # When enabled, nothing except the initial startup information will be written to the console.
+    # This also means that errors or warnings from webpack are not visible.
     quiet: false
+    pretty: false
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default
@@ -88,9 +58,6 @@ production:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
-
-  # Extract and emit a css file
-  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true
