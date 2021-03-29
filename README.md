@@ -61,8 +61,8 @@ friendly.
 ## Hosting your own
 I'd recommend using [Heroku](https://heroku.com) since it's super simple (and free) to
 deploy a Rails app. Keep it awake with my [Heroku Pinger](https://github.com/inoda/heroku-pinger)!
-All you need to do once your instance is deployed is run
-`heroku run bundle exec rails c` to open the Rails console and create your user.
+Once your instance is deployed, do the "Creating a user" steps
+above after [spinning up Heroku's console](https://devcenter.heroku.com/articles/heroku-dashboard#application-overview).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/master)
 
