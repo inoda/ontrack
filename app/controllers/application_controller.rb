@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    return false if cookies.signed[:logged_in].nil?
+    return false if !cookies.signed[:logged_in]
     true
   end
 
