@@ -5,7 +5,7 @@ ruby '2.6.6'
 
 gem 'rails', '~> 6.1.3.1'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.12.6'
+gem 'puma', '~> 4.3.8'
 gem 'sass-rails', '~> 5'
 gem 'webpacker', '~> 6.0.0.beta.2'
 gem 'bcrypt', '~> 3.1.7'
