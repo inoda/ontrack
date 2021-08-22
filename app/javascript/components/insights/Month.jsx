@@ -81,10 +81,10 @@ class Year extends React.Component {
   renderTotalGoal() {
     if (!this.state.totalMonthGoal) {
       return (
-        <div className="month">
-          <h2>No goal set</h2>
-          <div><a className="text-muted" href="/">Set a total monthly goal</a></div>
-        </div>
+        <a className="month flex flex-space-between" href="/">
+          <div className="text-muted">Set a total monthly goal</div>
+          <h2 className="v-hidden">N/A</h2>
+        </a>
       )
     }
     const amountOver = parseFloat(this.state.totalMonthSpend) - parseFloat(this.state.totalMonthGoal);
@@ -119,10 +119,14 @@ class Year extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          {this.props.availableMonths.indexOf(this.state.month) == 0 ? '' : <a onClick={this.handleMonthDecrement}><i className="fa fa-chevron-left mr-10"></i></a>}
-          {this.state.month}
-          {this.props.availableMonths.indexOf(this.state.month) == this.props.availableMonths.length - 1 ? '' : <a onClick={this.handleMonthIncrement}><i className="fa fa-chevron-right ml-10"></i></a>}
+        <div className="text-center">
+          <button className="btn btn-transparent" onClick={this.handleMonthDecrement} disabled={this.props.availableMonths.indexOf(this.state.month) == 0}>
+            <i className="fa fa-chevron-left mr-10"></i>
+          </button>
+          <span className="d-inline-block mw-150 text-center">{this.state.month}</span>
+          <button className="btn btn-transparent" onClick={this.handleMonthIncrement} disabled={this.props.availableMonths.indexOf(this.state.month) == this.props.availableMonths.length - 1}>
+            <i className="fa fa-chevron-right ml-10"></i>
+          </button>
         </div>
 
         <div className="row">
