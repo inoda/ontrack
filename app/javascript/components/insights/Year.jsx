@@ -5,6 +5,28 @@ import { Reports } from '../../api/main'
 import { Alerts } from '../../helpers/main'
 import { Numerics } from '../../helpers/main'
 
+const toggleCategory = function(e, legendItem) {
+  var index = legendItem.datasetIndex;
+  var ci = this.chart;
+  var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+  ci.data.datasets.forEach(function(e, i) {
+    var meta = ci.getDatasetMeta(i);
+
+    if (i !== index) {
+      if (!alreadyHidden) {
+        meta.hidden = meta.hidden === null ? !meta.hidden : null;
+      } else if (meta.hidden === null) {
+        meta.hidden = true;
+      }
+    } else if (i === index) {
+      meta.hidden = null;
+    }
+  });
+
+  ci.update();
+};
+
 class Year extends React.Component {
   constructor(props) {
     super(props);
@@ -53,6 +75,7 @@ class Year extends React.Component {
 			options: {
         responsive: true,
         maintainAspectRatio: false,
+        legend: { onClick: toggleCategory },
 				tooltips: {
           callbacks: {
             label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`; }
