@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class ColorPicker extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { initialColor: this.props.initialColor, color: this.props.initialColor };
+    this.state = { initialColor: this.props.initialColor, color: this.props.initialColor, useTextField: false };
   }
 
   componentDidMount() {
@@ -14,9 +14,13 @@ class ColorPicker extends React.Component {
     }
   }
 
-  handleClick = (color) => {
+  handleChange = (color) => {
     this.setState({ color: color });
     this.props.onChange(color);
+  }
+
+  useTextField = () => {
+    this.setState({ useTextField: true });
   }
 
   colors() {
@@ -37,14 +41,25 @@ class ColorPicker extends React.Component {
 
   renderSwatches() {
     return this.colors().map((color, idx) => {
-      return <div onClick={() => this.handleClick(color)} key={idx} className={`sample hover-pointer ${color.toLowerCase() == this.state.color.toLowerCase() ? 'active' : ''}`} style={{ backgroundColor: color }}></div>
+      return <div onClick={() => this.handleChange(color)} key={idx} className={`sample hover-pointer ${color.toLowerCase() == this.state.color.toLowerCase() ? 'active' : ''}`} style={{ backgroundColor: color }}></div>
     })
   }
 
   render() {
     return (
       <div className="color-picker">
-        {this.renderSwatches()}
+        {!this.state.useTextField && (
+          <>
+            {this.renderSwatches()}
+            <div>
+              <button onClick={this.useTextField} type="button" className="btn btn-sm btn-full">Enter hex instead</button>
+            </div>
+          </>
+        )}
+
+        {this.state.useTextField && (
+          <input type="text" placeholder="#fff" value={this.state.color} onChange={e => this.handleChange(e.target.value)} />
+        )}
       </div>
     );
   }
