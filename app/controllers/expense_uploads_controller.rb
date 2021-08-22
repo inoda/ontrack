@@ -12,6 +12,8 @@ class ExpenseUploadsController < ApplicationController
     description_idx = params[:description_col].to_i - 1
     category_idx = params[:category_col].to_i - 1
     spend_is_negative = params[:spend_format] == "negative"
+    skip_existing = params[:skip_existing]
+
     file_contents = File.read(params[:file].tempfile)
     csv = CSV.parse(file_contents)
 
@@ -27,6 +29,8 @@ class ExpenseUploadsController < ApplicationController
         category = row[category_idx]
         category_id = (categories_by_name[category.downcase] || default_category_id) if category.present?
       end
+
+      next if skip_existing && Expense.exists?(amount: amount, paid_at: paid_at, description: description)
 
       Expense.create!(amount: amount, paid_at: paid_at, description: description, category_id: category_id)
     end

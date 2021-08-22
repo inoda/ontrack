@@ -34,13 +34,27 @@
     width: auto;
   }
 
+  input[type=radio], input[type=checkbox] {
+    width: auto;
+    outline: none;
+    margin: 0;
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .radio {
     display: flex;
     align-items: center;
 
     input {
-      margin: 0 7px 0 0;
-      outline: none;
+      margin-right: 10px;
+      -ms-transform: scale(1.3); /* IE 9 */
+      -webkit-transform: scale(1.3); /* Chrome, Safari, Opera */
+      transform: scale(1.3);
     }
 
     label {
@@ -49,7 +63,6 @@
 
     label, input {
       display: inline-block;
-      width: auto;
       &:hover {
         cursor: pointer;
       }
