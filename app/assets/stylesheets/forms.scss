@@ -34,6 +34,28 @@
     width: auto;
   }
 
+  .radio {
+    display: flex;
+    align-items: center;
+
+    input {
+      margin: 0 7px 0 0;
+      outline: none;
+    }
+
+    label {
+      margin-bottom: 0;
+    }
+
+    label, input {
+      display: inline-block;
+      width: auto;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
   .errors {
     margin-top: 5px;
     li {

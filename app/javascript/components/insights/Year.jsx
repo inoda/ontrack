@@ -75,7 +75,7 @@ class Year extends React.Component {
     return (
       <div>
         <div className="flex flex-space-between mb-30">
-          <b>Year Overview</b>
+          <b>{this.state.year} overview</b>
           <div className="input-group inline">
             <select value={this.state.year} onChange={this.handleYearChange}>
               {this.props.availableYears.map((yr) => { return <option key={yr} value={yr}>{yr}</option> })}

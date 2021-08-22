@@ -133,7 +133,7 @@ class Year extends React.Component {
 
         <div className="month">
         <div className="mb-30">
-          <b>Spend By Category</b>
+          <b>Spend by category</b>
         </div>
         <div className="chart-container">
           <canvas id="chart2"></canvas>

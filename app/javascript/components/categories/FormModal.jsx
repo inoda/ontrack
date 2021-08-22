@@ -84,7 +84,7 @@ class FormModal extends React.Component {
 
           <div className="row">
             <div className="input-group">
-              <label>Monthly Goal</label>
+              <label>Monthly goal</label>
               <CurrencyInput initialValue={this.state.goal} onChange={this.handleGoalChange} />
             </div>
           </div>

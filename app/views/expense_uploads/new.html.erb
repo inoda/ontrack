@@ -18,23 +18,40 @@
     </div>
     <div class="row mt-10">
       <div class="input-group three columns">
-        <label class="required">Paid Date</label>
-        <input type="number" name="paid_date_col" required>
+        <label class="required">Paid date</label>
+        <input type="number" min=1 name="paid_date_col" required>
       </div>
 
       <div class="input-group three columns">
         <label class="required">Description</label>
-        <input type="number" name="description_col" required>
+        <input type="number" min=1 name="description_col" required>
       </div>
 
       <div class="input-group three columns">
         <label class="required">Amount</label>
-        <input type="number" name="amount_col" required>
+        <input type="number" min=1 name="amount_col" required>
       </div>
 
       <div class="input-group three columns">
-        <label>Category Name</label>
-        <input type="number" name="category_col">
+        <label>Category name</label>
+        <input type="number" min=1 name="category_col">
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row mt-10">
+      <div class="input-group">
+        <label class="required">Ensure debits and credits are processed correctly</label>
+
+        <div class="radio">
+          <input type="radio" id="negative" name="spend_format" value="negative" required>
+          <label for="negative">The negative numbers are my spending</label>
+        </div>
+
+        <div class="radio">
+          <input type="radio" id="positive" name="spend_format" value="positive" required>
+          <label for="positive">The positive numbers are my spending</label>
+        </div>
       </div>
     </div>
 
