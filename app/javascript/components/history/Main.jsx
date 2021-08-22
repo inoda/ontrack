@@ -76,7 +76,7 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <b className="mt-10">Expense History</b>
+          <b className="mt-10">Expense history</b>
           <div className="input-group inline small-datepicker mt-10-sm">
             <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
               <option value="">All categories</option>
@@ -126,13 +126,13 @@ class Main extends React.Component {
           <DatePicker onChange={(val) => this.updateExpense(expense.id, { paid_at: val })} value={new Date(expense.paid_at)} className="bg-gray-slight-contrast" />
         </td>
 
-        <td className="input-group mw-100">
+        <td className="input-group mw-200">
           <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(expense.id, { category_id: e.target.value })} className="bg-gray-slight-contrast">
             {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
           </select>
         </td>
 
-        <td className="input-group mw-200">
+        <td className="input-group mw-100">
           <CurrencyInput initialValue={expense.amount} onBlur={(val) => this.updateExpense(expense.id, { amount: val })} allowNegative={true} className="bg-gray-slight-contrast" />
         </td>
 

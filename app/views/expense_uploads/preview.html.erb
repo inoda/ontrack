@@ -1,0 +1,9 @@
+<div id="upload_preview"></div>
+
+<script type="text/javascript">
+  window.InitialProps = {
+    expenses: <%= @rows.html_safe %>,
+    categories: <%= @categories.html_safe %>,
+  }
+</script>
+<%= javascript_pack_tag 'upload_preview' %>

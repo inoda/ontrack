@@ -1,5 +1,5 @@
 <div class="container pb-100">
-  <%= form_tag expense_uploads_path, multipart: true do %>
+  <%= form_tag preview_expense_uploads_path, multipart: true do %>
     <div class="row">
       <div class="input-group four columns">
         <label class="required">File</label>
@@ -7,7 +7,7 @@
       </div>
 
       <div class="input-group eight columns">
-        <label class="required">Category</label>
+        <label class="required">Default category if no name matches</label>
         <%= select_tag :default_category_id, options_from_collection_for_select(@categories, :id, :name), prompt: "Select a default category", required: true %>
       </div>
     </div>
@@ -44,7 +44,7 @@
         <label class="required">Ensure debits and credits are processed correctly</label>
 
         <div class="radio">
-          <input type="radio" id="negative" name="spend_format" value="negative" required>
+          <input type="radio" id="negative" name="spend_format" value="negative" required checked>
           <label for="negative">The negative numbers are my spending</label>
         </div>
 
@@ -63,7 +63,7 @@
 
     <div class="clearfix"></div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-dark">Upload</button>
+      <button type="submit" class="btn btn-dark">Review import</button>
     </div>
   <% end %>
 </div>

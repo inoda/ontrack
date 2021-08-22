@@ -24,6 +24,14 @@ module Api; module V1
       render json: expense, status: successful ? 200 : 500
     end
 
+    def bulk_create
+      Expense.transaction do
+        params[:expenses].each_with_index do |expense, idx|
+          Expense.create!(amount: expense['amount'], category_id: expense['category_id'], description: expense['description'], paid_at: expense['paid_at'])
+        end
+      end
+    end
+
     def destroy
       expense = ::Expense.find(params[:id])
       successful = expense.destroy

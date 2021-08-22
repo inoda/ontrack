@@ -13,6 +13,28 @@ const Alerts = {
     })
   },
 
+  error(errorText, onClose) {
+    Swal.fire({
+      title: 'Uh oh!',
+      text: errorText,
+      type: 'error',
+      confirmButtonText: 'Ok'
+    }).then(() => {
+      if (onClose) onClose();
+    })
+  },
+
+  success(successText, onClose) {
+    Swal.fire({
+      title: 'Woohoo!',
+      text: successText,
+      type: 'success',
+      confirmButtonText: 'Ok'
+    }).then(() => {
+      if (onClose) onClose();
+    })
+  },
+
   genericDelete(label) {
     return Swal.fire({
       title: 'Confirm delete',

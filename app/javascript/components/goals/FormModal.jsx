@@ -12,7 +12,6 @@ class FormModal extends React.Component {
     this.state = {
       goal: this.props.goals.monthly || 0,
       errors: {},
-      submitted: false,
     };
   }
 
@@ -20,7 +19,6 @@ class FormModal extends React.Component {
   handleErrors = (key, errs) => { this.setState({ errors: Object.assign(this.state.errors, { [key]: errs }) }); }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ submitted: true });
     if (Object.values(this.state.errors).flat().length) { return; }
 
     Goals.update({ monthly_goal: this.state.goal }).then(

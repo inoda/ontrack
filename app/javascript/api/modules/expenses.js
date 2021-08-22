@@ -7,6 +7,9 @@ const Expenses = {
   create(data, opts = {}) {
     return Base.post(`/expenses`, data, opts || {});
   },
+  bulkCreate(data, opts = {}) {
+    return Base.post(`/expenses/bulk_create`, data, opts || {});
+  },
   delete(id, params, opts = {}) {
     return Base.delete(`/expenses/${id}`, params, opts || {});
   },

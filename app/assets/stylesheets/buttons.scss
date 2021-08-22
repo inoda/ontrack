@@ -1,8 +1,8 @@
 .btn {
   display: inline-block;
-  height: 38px;
+  height: auto;
+  padding: 10px 30px;
   font-size: 1em;
-  padding: 0 30px;
   text-align: center;
   font-weight: 600;
   text-decoration: none;
@@ -35,5 +35,12 @@
 
   &:hover {
     background-color: #5F666A;
+  }
+}
+
+button[disabled].btn {
+  opacity: 0.5;
+  &:hover {
+    cursor: not-allowed;
   }
 }

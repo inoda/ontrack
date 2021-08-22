@@ -8,11 +8,19 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :insights, only: [:index]
   resources :expenses, only: [:index]
-  resources :expense_uploads, only: [:new, :create]
+  resources :expense_uploads, only: [:new] do
+    collection do
+      post :preview
+    end
+  end
 
   namespace :api do
     namespace :v1 do
-      resources :expenses, only: [:index, :create, :destroy, :update]
+      resources :expenses, only: [:index, :create, :destroy, :update] do
+        collection do
+          post :bulk_create
+        end
+      end
       resources :categories, only: [:index, :create, :update, :destroy]
       resources :reports do
         get :year, on: :collection
