@@ -25,9 +25,13 @@ class CategoryTile extends React.Component {
     this.props.onChange();
   }
 
+  goalDiff() {
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) return 0;
+    return this.props.categoryWithExpensesAndSpend.monthly_goal - this.props.categoryWithExpensesAndSpend.spend;
+  }
+
   goalComparisonDisplay() {
-    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 'No goal set'; }
-    const diff = this.props.categoryWithExpensesAndSpend.monthly_goal - this.props.categoryWithExpensesAndSpend.spend;
+    const diff = this.goalDiff();
     return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
 
@@ -54,13 +58,22 @@ class CategoryTile extends React.Component {
         <div className="flex flex-space-between title">
           <div>
             <div className="flex">
-              <a href={`/expenses?category_id=${this.props.categoryWithExpensesAndSpend.id}&paid_after=${moment().startOf('month').unix()}`} className="dim-on-hover"><b>{this.props.categoryWithExpensesAndSpend.name}</b></a>
-              <img className="icon-default hover-pointer dim-til-hover" src={window.iconEdit} onClick={this.openCategoryEdit} />
+              <a href={null} onClick={this.openCategoryEdit} className="dim-on-hover flex">
+                <h3 className="mr-4 d-inline-block">{this.props.categoryWithExpensesAndSpend.name}</h3>
+                <i className="far fa-edit dim-til-hover"></i>
+              </a>
             </div>
-            <div className="text-muted">{this.goalComparisonDisplay()}</div>
           </div>
 
-          <h2>{Numerics.centsToDollars(this.props.categoryWithExpensesAndSpend.spend)}</h2>
+          <div className="text-right">
+            <h2>{Numerics.centsToDollars(this.props.categoryWithExpensesAndSpend.spend)}</h2>
+            <div className={this.goalDiff() < 0 ? "text-warning" : "text-muted"}>
+              {this.goalDiff() < 0 && (
+                <i className="fas fa-exclamation-circle mr-4"></i>
+              )}
+              {this.goalComparisonDisplay()}
+            </div>
+          </div>
         </div>
 
         <Progress data={[{ percentage: this.normalizedPercentage() }]} small={true} />

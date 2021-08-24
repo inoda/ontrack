@@ -13,6 +13,10 @@
   align-items: baseline;
 }
 
+.flex-start {
+  align-items: flex-start;
+}
+
 .pos-abs {
   position: absolute;
 }
@@ -111,6 +115,10 @@
   margin-left: 10px;
 }
 
+.mr-4 {
+  margin-right: 4px;
+}
+
 .mr-10 {
   margin-right: 10px;
 }
@@ -149,7 +157,7 @@
   color: #7dbd81;
 }
 
-.text-warning {
+.text-warning, .text-warning * {
   color: #e29567;
 }
 
