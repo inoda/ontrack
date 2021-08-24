@@ -18,6 +18,11 @@ class Overview extends React.Component {
     this.props.onChange();
   }
 
+  goalDiff() {
+    if (!this.props.monthlyGoal) return 0;
+    return this.props.monthlyGoal - this.totalSpend();
+  }
+
   totalSpend() {
     return this.props.categoriesWithExpensesAndSpend.reduce((sum, cat) => sum + cat.spend, 0);
   }
@@ -30,13 +35,8 @@ class Overview extends React.Component {
   }
 
   goalComparisonDisplay() {
-    if (!this.props.monthlyGoal) { return <a className="text-small" onClick={this.openGoal}>Set a monthly total goal</a> }
-    const diff = this.props.monthlyGoal - this.totalSpend();
-    const diffDisplay = (diff >= 0) ? <b className="text-muted">{Numerics.centsToDollars(diff)} remaining</b> : <b className="text-warning">{Numerics.centsToDollars(Math.abs(diff))} over</b>;
-
-    return (
-      <div className="flex">{diffDisplay} <img className="hover-pointer icon-default dim-til-hover" src={window.iconEdit} onClick={this.openGoal} /></div>
-    )
+    const diff = this.goalDiff();
+    return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
 
   renderGoalModal() {
@@ -52,7 +52,20 @@ class Overview extends React.Component {
 
         <div className="flex row-flex flex-space-between flex-baseline mb-10">
           <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>
-          <div>{this.goalComparisonDisplay()}</div>
+          {!this.props.monthlyGoal && (
+            <a href={null} onClick={this.openGoal} className="dim-til-hover">Set a monthly goal</a>
+          )}
+          {!!this.props.monthlyGoal && (
+            <div className="flex flex-baseline">
+              <div className={this.goalDiff() < 0 ? "text-warning mr-4" : "text-muted mr-4"}>
+                {this.goalDiff() < 0 && (
+                  <i className="fas fa-exclamation-circle mr-4"></i>
+                )}
+                {this.goalComparisonDisplay()}
+              </div>
+              <i className="far fa-edit dim-til-hover hover-pointer text-muted" onClick={this.openGoal}></i>
+            </div>
+          )}
         </div>
 
         <Progress data={this.percentages()} />

@@ -31,6 +31,8 @@ class CategoryTile extends React.Component {
   }
 
   goalComparisonDisplay() {
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) return 'No goal set'
+
     const diff = this.goalDiff();
     return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
@@ -58,7 +60,7 @@ class CategoryTile extends React.Component {
         <div className="flex flex-space-between title">
           <div>
             <div className="flex">
-              <a href={null} onClick={this.openCategoryEdit} className="dim-on-hover flex">
+              <a href={null} onClick={this.openCategoryEdit} className="dim-on-hover flex flex-baseline">
                 <h3 className="mr-4 d-inline-block">{this.props.categoryWithExpensesAndSpend.name}</h3>
                 <i className="far fa-edit dim-til-hover"></i>
               </a>
