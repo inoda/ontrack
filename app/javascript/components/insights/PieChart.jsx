@@ -28,9 +28,9 @@ const PieChart = ({ data, labels, colors }) => {
           },
         },
       }
-		};
+    };
 
-		const newInstance = new Chart(document.getElementById(randomId), config);
+    const newInstance = new Chart(document.getElementById(randomId), config);
 
     setInstance(newInstance);
   }, [data, labels]);
