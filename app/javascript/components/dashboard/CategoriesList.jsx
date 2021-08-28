@@ -57,7 +57,7 @@ class CategoriesList extends React.Component {
 
   render() {
     return (
-      <div className="clearfix">
+      <div>
         {this.renderCategoryCreateModal()}
         {this.chunkedCategories().map((listChunk, idx) => { return this.renderRow(listChunk, idx) })}
       </div>

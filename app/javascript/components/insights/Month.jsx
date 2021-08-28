@@ -1,36 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Chart from 'chart.js';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Reports } from '../../api/main'
-import { Alerts } from '../../helpers/main'
-import { Numerics } from '../../helpers/main'
+import BarChart from './BarChart';
+import { Reports } from '../../api/main';
+import { Alerts } from '../../helpers/main';
+import { Numerics } from '../../helpers/main';
 
-class Year extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      month: this.props.availableMonths[this.props.availableMonths.length - 1],
-      totalMonthGoal: 0,
-      totalMonthSpend: 0,
-      chartData: {
-        labels: [],
-        datasets: [],
-      },
-    };
-  }
+const Month = ({ availableMonths }) => {
+  const [month, setMonth] = useState(availableMonths[availableMonths.length - 1]);
+  const [goal, setGoal] = useState(0);
+  const [spend, setSpend] = useState(0);
+  const [chartdata, setChartdata] = useState({ data: [], labels: [] });
 
-  componentDidMount() {
-    this.loadData();
-  }
+  const handleMonthDecrement = () => setMonth(availableMonths[availableMonths.indexOf(month) - 1]);
+  const handleMonthIncrement = () => setMonth(availableMonths[availableMonths.indexOf(month) + 1]);
 
-  handleMonthDecrement = () => { this.setState({ month: this.props.availableMonths[this.props.availableMonths.indexOf(this.state.month) - 1] }, this.loadData); }
-  handleMonthIncrement = () => { this.setState({ month: this.props.availableMonths[this.props.availableMonths.indexOf(this.state.month) + 1] }, this.loadData); }
-  loadData = () => {
-    Reports.month({ month: this.state.month }).then(
+  useEffect(() => {
+    Reports.month({ month }).then(
       (resp) => {
-        let labels = resp.results.map((r) => { return r.category; });
-        let datasets = [
+        const labels = resp.results.map((r) => r.category);
+        const datasets = [
           { label: 'Within goal', backgroundColor: '#8295e0', data: [] },
           { label: 'Over goal', backgroundColor: '#cc654b', data: [] },
         ];
@@ -38,122 +27,76 @@ class Year extends React.Component {
         resp.results.forEach((r) => {
           const amountOver = parseFloat(r.spend) - parseFloat(r.monthly_goal);
           const normalizedAmountOver = r.monthly_goal && amountOver > 0 ? amountOver : 0;
-          datasets[0].data.push((r.spend - normalizedAmountOver) / 100)
-          datasets[1].data.push(normalizedAmountOver / 100)
+          datasets[0].data.push((r.spend - normalizedAmountOver) / 100);
+          datasets[1].data.push(normalizedAmountOver / 100);
         })
 
-        this.setState({
-          chartData: Object.assign(this.state.chartData, { datasets: datasets, labels: labels }),
-          totalMonthGoal: resp.monthly_goal,
-          totalMonthSpend: resp.total,
-        }, this.buildChart);
+        setChartdata({ data: datasets, labels: labels });
+        setGoal(resp.monthly_goal);
+        setSpend(resp.total);
       },
-      (error) => { Alerts.genericError(); },
+      () => { Alerts.genericError(); },
     )
-  }
+  }, [month]);
 
-  buildChart() {
-		new Chart(document.getElementById("chart2"), {
-			type: 'bar',
-			data: this.state.chartData,
-			options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: { display: false },
-				tooltips: {
-          callbacks: {
-            label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`; }
-          }
-				},
-				scales: {
-					yAxes: [{
-            stacked: true,
-            ticks: {
-              callback: (label) => { return `$${Numerics.commify(label)}`; }
-            }
-          }],
-					xAxes: [{ stacked: true }]
-				}
-			}
-		});
-  }
+  const amountOverGoal = parseFloat(goal) - parseFloat(spend);
+  const daysInMonth = moment(month, "MMMM YYYY").daysInMonth();
+  let currentDayNum = 99;
+  if (month == moment().format("MMMM YYYY")) currentDayNum = new Date().getDate();
+  const numOfDays = Math.min(daysInMonth, currentDayNum);
+  const averageSpend = spend * 1.0 / numOfDays
 
-  renderTotalGoal() {
-    if (!this.state.totalMonthGoal) {
-      return (
-        <a className="month flex flex-space-between" href="/">
-          <div className="text-muted">Set a total monthly goal</div>
-          <h2 className="v-hidden">N/A</h2>
-        </a>
-      )
-    }
-    const amountOver = parseFloat(this.state.totalMonthSpend) - parseFloat(this.state.totalMonthGoal);
-    const percentDiff = amountOver / this.state.totalMonthGoal * 100;
-
-    return (
-      <div className="month flex flex-space-between">
-        <b>Goal comparison</b>
-        <h2 className={amountOver <= 0 ? 'text-success' : 'text-warning'}>{amountOver >= 0 ? '+' : '-'}{Numerics.centsToDollars(Math.abs(amountOver))}</h2>
+  return (
+    <div>
+      <div className="text-center">
+        <button className="btn btn-transparent" onClick={handleMonthDecrement} disabled={availableMonths.indexOf(month) == 0}>
+          <i className="fa fa-chevron-left mr-10"></i>
+        </button>
+        <span className="d-inline-block mw-150 text-center">{month}</span>
+        <button className="btn btn-transparent" onClick={handleMonthIncrement} disabled={availableMonths.indexOf(month) == availableMonths.length - 1}>
+          <i className="fa fa-chevron-right ml-10"></i>
+        </button>
       </div>
-    )
-  }
 
-  averageSpend() {
-    const daysInMonth = moment(this.state.month, "MMMM YYYY").daysInMonth()
-    let currentDayNum = 99
-    if (this.state.month == moment().format("MMMM YYYY")) {
-      currentDayNum = new Date().getDate();
-    }
-    const numOfDays = Math.min(daysInMonth, currentDayNum);
-    const averageSpend = this.state.totalMonthSpend * 1.0 / numOfDays
-
-
-    return (
-      <div className="month flex flex-space-between">
-        <b>Daily average</b>
-        <h2>{Numerics.centsToDollars(averageSpend)}</h2>
+      <div className="row">
+        <div className="six columns">
+          {!goal && (
+            <a className="month flex flex-space-between" href="/">
+              <div className="text-muted">Set a total monthly goal</div>
+              <h2 className="v-hidden">N/A</h2>
+            </a>
+          )}
+          {!!goal && (
+            <div className="month flex flex-space-between">
+              <b>Goal comparison</b>
+              <h2 className={amountOverGoal <= 0 ? 'text-success' : 'text-warning'}>
+                {amountOverGoal >= 0 ? '+' : '-'}{Numerics.centsToDollars(Math.abs(amountOverGoal))}
+              </h2>
+            </div>
+          )}
+        </div>
+        <div className="six columns">
+          <div className="month flex flex-space-between">
+            <b>Daily average</b>
+            <h2>{Numerics.centsToDollars(averageSpend)}</h2>
+          </div>
+        </div>
       </div>
-    )
-  }
 
-  render() {
-    return (
-      <div>
-        <div className="text-center">
-          <button className="btn btn-transparent" onClick={this.handleMonthDecrement} disabled={this.props.availableMonths.indexOf(this.state.month) == 0}>
-            <i className="fa fa-chevron-left mr-10"></i>
-          </button>
-          <span className="d-inline-block mw-150 text-center">{this.state.month}</span>
-          <button className="btn btn-transparent" onClick={this.handleMonthIncrement} disabled={this.props.availableMonths.indexOf(this.state.month) == this.props.availableMonths.length - 1}>
-            <i className="fa fa-chevron-right ml-10"></i>
-          </button>
-        </div>
-
-        <div className="row">
-         <div className="six columns">{this.renderTotalGoal()}</div>
-         <div className="six columns">{this.averageSpend()}</div>
-        </div>
-        <div className="clearfix"></div>
-
-        <div className="month">
+      <div className="month">
         <div className="mb-30">
           <b>Spend by category</b>
         </div>
         <div className="chart-container">
-          <canvas id="chart2"></canvas>
-        </div>
+          <BarChart data={chartdata.data} labels={chartdata.labels} hideLegend />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-Year.defaultProps = {
-  availableMonths: [],
-}
+Month.propTypes = {
+  availableMonths: PropTypes.array.isRequired,
+};
 
-Year.propTypes = {
-  availableMonths: PropTypes.array,
-}
-
-export default Year;
+export default Month;

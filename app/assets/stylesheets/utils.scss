@@ -21,12 +21,6 @@
   position: absolute;
 }
 
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 .z-5 {
   z-index: 5;
 }
