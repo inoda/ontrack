@@ -31,7 +31,7 @@ class Year extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      year: this.props.availableYears[this.props.availableYears.length - 1],
+      year: this.props.availableYears[0],
       barChartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [],
