@@ -83,3 +83,9 @@
     margin-top: 0;
   }
 }
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
