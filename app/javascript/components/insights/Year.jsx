@@ -32,10 +32,16 @@ class Year extends React.Component {
     super(props);
     this.state = {
       year: this.props.availableYears[this.props.availableYears.length - 1],
-      chartData: {
+      barChartData: {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [],
       },
+      pieChartData: {
+        data: [],
+        backgroundColors: [],
+        labels: []
+      },
+      charts: [],
     };
   }
 
@@ -50,48 +56,82 @@ class Year extends React.Component {
   loadData = () => {
     Reports.year({ year: this.state.year }).then(
       (resp) => {
-        let datasets = [];
+        let barChartDatasets = [];
         resp.categories.forEach((category) => {
-
           let dataPoints = [];
-          this.state.chartData.labels.forEach((mon) => {
+          this.state.barChartData.labels.forEach((mon) => {
             const spendForCategoryAndMonth = resp.results.find((monthData) => { return monthData.month == mon && monthData.category == category.name });
-            dataPoints.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0)
+            dataPoints.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0);
           });
-
-          datasets.push({ label: category.name, data: dataPoints, backgroundColor: category.color });
+          barChartDatasets.push({ label: category.name, data: dataPoints, backgroundColor: category.color });
         })
 
-        this.setState({ chartData: Object.assign(this.state.chartData, { datasets: datasets }) }, this.buildChart);
+        let pieChartDatasets = [];
+        let pieChartLabels = [];
+        let pieChartColors = [];
+        resp.categories.forEach((category) => {
+          pieChartLabels.push(category.name);
+          pieChartColors.push(category.color);
+          const totalForCategory = resp.results.filter((monthData) => { return monthData.category === category.name }).reduce((a, b) => { return a + parseFloat(b.amount) }, 0);
+          pieChartDatasets.push(totalForCategory);
+        });
+
+        this.setState({
+          barChartData: Object.assign(this.state.barChartData, { datasets: barChartDatasets }),
+          pieChartData: Object.assign({}, this.state.pieChartData, { data: pieChartDatasets, backgroundColors: pieChartColors, labels: pieChartLabels }),
+        }, this.buildCharts);
       },
       (error) => { Alerts.genericError(); },
     )
   }
 
-  buildChart() {
-		new Chart(document.getElementById("chart"), {
-			type: 'bar',
-			data: this.state.chartData,
-			options: {
+  buildCharts() {
+    this.state.charts.forEach((chart) => chart.destroy());
+
+    const barChart = new Chart(document.getElementById("barChart"), {
+      type: 'bar',
+      data: this.state.barChartData,
+      options: {
         responsive: true,
         maintainAspectRatio: false,
         legend: { onClick: toggleCategory },
-				tooltips: {
+        tooltips: {
           callbacks: {
-            label: (t) => { return `${this.state.chartData.datasets[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`; }
+            label: t => `${this.state.barChartData.datasets[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`
           }
-				},
-				scales: {
-					xAxes: [{ stacked: true }],
-					yAxes: [{
+        },
+        scales: {
+          xAxes: [{ stacked: true }],
+          yAxes: [{
             stacked: true,
-            ticks: {
-              callback: (label) => { return `$${Numerics.commify(label)}`; }
-            }
-          }]
-				}
-			}
+            ticks: { callback: label => Numerics.commify(label) }
+          }],
+        }
+      }
 		});
+
+    const pieChart = new Chart(document.getElementById("pieChart"), {
+      type: 'pie',
+      data: {
+        datasets: [{ data: this.state.pieChartData.data, backgroundColor: this.state.pieChartData.backgroundColors }],
+        labels: this.state.pieChartData.labels,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: t => `${this.state.pieChartData.labels[t.index]}: $${Numerics.commify(this.state.pieChartData.data[t.index].toFixed(2))}`
+          },
+        },
+      }
+    });
+
+
+    this.setState({ charts: [barChart, pieChart] });
   }
 
   render() {
@@ -107,7 +147,11 @@ class Year extends React.Component {
         </div>
 
         <div className="chart-container">
-          <canvas id="chart"></canvas>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <div className="chart-container mt-50">
+          <canvas id="pieChart"></canvas>
         </div>
       </div>
     );
