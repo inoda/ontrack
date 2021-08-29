@@ -6,57 +6,20 @@
         <input type="file" name="file" accept=".csv" required>
       </div>
 
-      <div class="input-group eight columns">
+      <div class="input-group four columns">
+        <label class="required">CSV config</label>
+        <%= select_tag :csv_config_id, options_from_collection_for_select(@csv_configs, :id, :name), prompt: "Select a CSV parser", required: true %>
+      </div>
+
+      <div class="input-group four columns">
         <label class="required">Default category if no name matches</label>
         <%= select_tag :default_category_id, options_from_collection_for_select(@categories, :id, :name), prompt: "Select a default category", required: true %>
       </div>
     </div>
 
-    <div class="mt-20">
-      <em class="text-muted">Specify which column the following data is in so we know where to grab it from. The leftmost column is column 1.</em>
-    </div>
-    <div class="row mt-10">
-      <div class="input-group three columns">
-        <label class="required">Paid date</label>
-        <input type="number" min=1 name="paid_date_col" required>
-      </div>
-
-      <div class="input-group three columns">
-        <label class="required">Description</label>
-        <input type="number" min=1 name="description_col" required>
-      </div>
-
-      <div class="input-group three columns">
-        <label class="required">Amount</label>
-        <input type="number" min=1 name="amount_col" required>
-      </div>
-
-      <div class="input-group three columns">
-        <label>Category name</label>
-        <input type="number" min=1 name="category_col">
-      </div>
-    </div>
-
-    <div class="row mt-10">
-      <div class="input-group six columns">
-        <label class="required">Ensure debits and credits are processed correctly</label>
-
-        <div class="radio">
-          <input type="radio" id="negative" name="spend_format" value="negative" required checked>
-          <label for="negative">The negative numbers are my spending</label>
-        </div>
-
-        <div class="radio">
-          <input type="radio" id="positive" name="spend_format" value="positive" required>
-          <label for="positive">The positive numbers are my spending</label>
-        </div>
-      </div>
-
-      <div class="input-group six columns">
-        <label class="required">Skip expenses that match the date, description, and amount of an existing one</label>
-
-        <input type="checkbox" name="skip_existing" checked>
-      </div>
+    <div class="input-group flex">
+      <input type="checkbox" name="skip_existing" class="mb-5 mr-10" id="skip_existing" checked>
+      <label class="required" for="skip_existing">Skip expenses that match the date, description, and amount of an existing expense</label>
     </div>
 
     <div class="form-actions">

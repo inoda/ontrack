@@ -37,8 +37,9 @@ as well as do any tweaking (e.g. changing category or deleting).
 
 #### Importing
 Although you can't connect banking info, you can still streamline entering expenses.
-The CSV import lets you flexibly import expenses from bank exports. Need a script to
-help format your account's CSV? Check out `lib/csv_helper_example.rb`.
+The CSV import lets you flexibly import expenses from bank exports. Save multiple CSV parsing
+configurations for reuse so you can go straight from exporting to importing (see `app/models/csv_config.rb` for details).
+
 
 ![import](./app/assets/images/readme/csv_import.png)
 
