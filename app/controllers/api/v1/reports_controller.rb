@@ -10,7 +10,14 @@ module Api; module V1
         group by month, categories.name;
       })
 
-      render json: { results: results, categories: Category.all.select(:id, :name, :color).order(:name) }
+      total = ActiveRecord::Base.connection.execute(%{
+        select sum(expenses.amount) as amount
+        from expenses
+        where paid_at >= '#{params[:year].to_i}-01-01'
+        and paid_at < '#{params[:year].to_i + 1}-01-01'
+      })
+
+      render json: { results: results, total: total.first['amount'], categories: Category.all.select(:id, :name, :color).order(:name) }
     end
 
     def month

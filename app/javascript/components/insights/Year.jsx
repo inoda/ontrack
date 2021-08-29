@@ -4,9 +4,11 @@ import BarChart from './BarChart';
 import PieChart from './PieChart';
 import { Reports } from '../../api/main';
 import { Alerts } from '../../helpers/main';
+import { Numerics } from '../../helpers/main';
 
 const Year = ({ availableYears }) => {
   const [year, setYear] = useState(availableYears[0]);
+  const [yearTotal, setYearTotal] = useState(0);
   const barChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const [barChartData, setBarChartData] = useState([]);
   const [pieChartData, setPieChartData] = useState({
@@ -42,6 +44,7 @@ const Year = ({ availableYears }) => {
 
         setBarChartData(barChartDatasets);
         setPieChartData({ data: pieChartDatasets, colors: pieChartColors, labels: pieChartLabels });
+        setYearTotal(resp.total);
       },
       () => { Alerts.genericError(); },
     )
@@ -50,7 +53,9 @@ const Year = ({ availableYears }) => {
   return (
     <div>
       <div className="flex flex-space-between mb-30">
-        <b>{year} overview</b>
+        <b>
+          Total spend: {Numerics.centsToDollars(yearTotal)}
+        </b>
         <div className="input-group inline">
           <select value={year} onChange={handleYearChange}>
             {availableYears.map(yr => <option key={yr} value={yr}>{yr}</option>)}
