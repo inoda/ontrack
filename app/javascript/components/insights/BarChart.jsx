@@ -33,7 +33,6 @@ const BarChart = ({ data, labels, hideLegend }) => {
 
   Chart.defaults.global.animation.duration = 100;
   Chart.defaults.scale.ticks.padding = 10;
-  Chart.Legend.prototype.afterFit = function () { this.height = this.height + 20; };
 
   useEffect(() => {
     instance?.destroy();
@@ -50,6 +49,7 @@ const BarChart = ({ data, labels, hideLegend }) => {
         legend: {
           display: !hideLegend,
           onClick: toggleCategory,
+          position: 'bottom',
         },
         tooltips: {
           callbacks: {
