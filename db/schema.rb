@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_28_091431) do
+ActiveRecord::Schema.define(version: 2021_08_29_043321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2021_08_28_091431) do
     t.integer "monthly_goal", default: 0
     t.integer "rank", default: 0
     t.index ["rank"], name: "index_categories_on_rank"
+  end
+
+  create_table "csv_configs", force: :cascade do |t|
+    t.text "name", null: false
+    t.text "config_json", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "expenses", force: :cascade do |t|
