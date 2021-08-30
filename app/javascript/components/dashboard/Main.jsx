@@ -68,7 +68,7 @@ class Main extends React.Component {
     if (!this.state.loaded) { return ''; }
 
     return (
-      <div className="pt-100">
+      <div>
         {this.renderExpenseCreateModal()}
 
         <div className="container">
