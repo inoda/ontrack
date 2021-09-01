@@ -39,7 +39,7 @@ const Month = ({ availableMonths }) => {
     )
   }, [month]);
 
-  const amountOverGoal = parseFloat(goal) - parseFloat(spend);
+  const goalComparison = parseFloat(spend) - parseFloat(goal);
   const daysInMonth = moment(month, "MMMM YYYY").daysInMonth();
   let currentDayNum = 99;
   if (month == moment().format("MMMM YYYY")) currentDayNum = new Date().getDate();
@@ -69,8 +69,9 @@ const Month = ({ availableMonths }) => {
           {!!goal && (
             <div className="month flex flex-space-between">
               <b>Goal comparison</b>
-              <h2 className={amountOverGoal <= 0 ? 'text-success' : 'text-warning'}>
-                {amountOverGoal >= 0 ? '+' : '-'}{Numerics.centsToDollars(Math.abs(amountOverGoal))}
+              <h2 className={goalComparison <= 0 ? 'text-success' : 'text-warning'}>
+                {Numerics.centsToDollars(Math.abs(goalComparison))}
+                {goalComparison >= 0 ? ' over' : ' under'}
               </h2>
             </div>
           )}
