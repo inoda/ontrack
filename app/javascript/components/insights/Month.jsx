@@ -78,8 +78,10 @@ const Month = ({ availableMonths }) => {
         </div>
         <div className="six columns">
           <div className="month flex flex-space-between">
-            <b>Daily average</b>
-            <h2>{Numerics.centsToDollars(averageSpend)}</h2>
+            <b>Total spend</b>
+            <h2>
+              {Numerics.centsToDollars(spend)}
+            </h2>
           </div>
         </div>
       </div>
