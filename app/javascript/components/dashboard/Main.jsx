@@ -74,11 +74,11 @@ class Main extends React.Component {
           <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} monthlyGoal={this.state.monthlyGoal} onChange={this.loadData} />
         </div>
 
-        <div className="bg-art mt-100">
+        <div className="bg-art mt-150">
           <div className="container">
             <button className="btn btn-round btn-dark pos-abs mt-neg-20 z-5" onClick={this.openExpenseCreate}>+ add an expense</button>
           </div>
-          <div className="container pv-100">
+          <div className="container pv-100 mh-350">
             <CategoriesList categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} onChange={this.loadData} />
           </div>
         </div>
