@@ -6,7 +6,7 @@ class Progress extends React.Component {
     if (value.percentage <= 0) { return ''; }
 
     return (
-      <div className="progress" key={idx} style={{ width: `${value.percentage}%`, backgroundColor: value.color ? value.color : '#828282' }} />
+      <div className="progress" key={idx} style={{ width: `${value.percentage}%`, backgroundColor: value.color ? value.color : '#565656' }} />
     );
   }
 

@@ -30,7 +30,7 @@ class ColorPicker extends React.Component {
     if (this.state.initialColor.length) { availColors.push(this.state.initialColor); }
     for (const color of allColors) {
       if (availColors.map((el) => el.toLowerCase()).includes(color.toLowerCase())) { continue; }
-      if (this.props.omitColors.length && this.props.omitColors.map((el) => el.toLowerCase()).includes(color.toLowerCase())) { continue;}
+      if (this.props.omitColors.length && this.props.omitColors.map((el) => el.toLowerCase()).includes(color.toLowerCase())) { continue; }
       availColors.push(color);
     }
 

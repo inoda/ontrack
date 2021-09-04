@@ -140,7 +140,7 @@ class Main extends React.Component {
         </td>
 
         <td className="input-group mw-300">
-          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(expense.id, { description: e.target.value.trim() }); } } className="bg-gray-slight-contrast" />
+          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) { this.updateExpense(expense.id, { description: e.target.value.trim() }); } } } className="bg-gray-slight-contrast" />
         </td>
 
         <td>
