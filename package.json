@@ -23,9 +23,14 @@
   },
   "version": "0.1.0",
   "babel": {
-    "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
+    "presets": [
+      "./node_modules/@rails/webpacker/package/babel/preset.js"
+    ]
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }
