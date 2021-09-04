@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class Modal extends React.Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class Modal extends React.Component {
               <h3>{this.props.title}</h3>
 
               <a className="close" onClick={this.props.onClose}>
-                <i className="fa fa-times"></i>
+                <i className="fa fa-times" />
               </a>
             </div>
 
@@ -38,11 +38,12 @@ class Modal extends React.Component {
 
 Modal.defaultProps = {
   title: '',
-}
+};
 
 Modal.propTypes = {
   title: PropTypes.string,
-  onClose: PropTypes.func,
-}
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired,
+};
 
 export default Modal;

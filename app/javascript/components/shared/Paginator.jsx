@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Base } from '../../api/main'
-import { Expenses } from '../../api/main'
-import { Alerts } from '../../helpers/main'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Base } from '../../api/main';
+import { Alerts } from '../../helpers/main';
 
 class Paginator extends React.Component {
   constructor(props) {
@@ -12,7 +11,6 @@ class Paginator extends React.Component {
       itemsPerPage: this.props.itemsPerPage,
       totalItems: 0,
       totalPages: 0,
-      url: this.props.url,
     };
   }
 
@@ -22,7 +20,7 @@ class Paginator extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.url !== this.props.url) {
-      this.setState({ url: this.props.url, selectedPage: 1 }, this.loadData);
+      this.setState({ selectedPage: 1 }, this.loadData);
     }
 
     if (prevProps.reloadTrigger !== this.props.reloadTrigger) {
@@ -55,8 +53,8 @@ class Paginator extends React.Component {
         this.setState({ totalItems: resp.total, totalPages: resp.total_pages, selectedPage: resp.page, itemsPerPage: resp.per_page });
         this.props.onLoad(resp);
       },
-      (error) => { Alerts.genericError(); },
-    )
+      () => { Alerts.genericError(); },
+    );
   }
 
   firstPage() {
@@ -110,11 +108,11 @@ class Paginator extends React.Component {
       <li className={`hover-pointer ${this.state.selectedPage == p ? 'active' : ''}`} v-for="p in displayedPages" key={`page-${p}`}>
         <a onClick={() => this.handleSelect(p)}>{p}</a>
       </li>
-    )
+    );
   }
 
   render() {
-    if (this.state.totalItems < 1) { return '' }
+    if (this.state.totalItems < 1) { return ''; }
 
     return (
       <div className="paginator">
@@ -124,11 +122,11 @@ class Paginator extends React.Component {
 
         <ol>
           <li>
-            <a onClick={this.handlePagePrev}><i className="fa fa-angle-left"></i></a>
+            <a onClick={this.handlePagePrev}><i className="fa fa-angle-left" /></a>
           </li>
-          {this.displayedPages().map((p) => { return this.renderPage(p) })}
+          {this.displayedPages().map((p) => this.renderPage(p))}
           <li>
-            <a onClick={this.handlePageNext}><i className="fa fa-angle-right"></i></a>
+            <a onClick={this.handlePageNext}><i className="fa fa-angle-right" /></a>
           </li>
         </ol>
       </div>
@@ -138,19 +136,17 @@ class Paginator extends React.Component {
 
 Paginator.defaultProps = {
   itemsPerPage: 10,
-  totalItems: 0,
   url: '',
   reloadTrigger: 0,
   reloadPageTrigger: 0,
-}
+};
 
 Paginator.propTypes = {
   itemsPerPage: PropTypes.number,
-  totalItems: PropTypes.number,
   url: PropTypes.string,
   reloadTrigger: PropTypes.number,
   reloadPageTrigger: PropTypes.number,
-  onLoad: PropTypes.func
-}
+  onLoad: PropTypes.func.isRequired,
+};
 
 export default Paginator;

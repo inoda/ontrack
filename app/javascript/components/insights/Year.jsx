@@ -9,12 +9,12 @@ import { Numerics } from '../../helpers/main';
 const Year = ({ availableYears }) => {
   const [year, setYear] = useState(availableYears[0]);
   const [yearTotal, setYearTotal] = useState(0);
-  const barChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const barChartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const [barChartData, setBarChartData] = useState([]);
   const [pieChartData, setPieChartData] = useState({
     data: [],
     colors: [],
-    labels: []
+    labels: [],
   });
 
   const handleYearChange = e => setYear(e.target.value);
@@ -22,23 +22,23 @@ const Year = ({ availableYears }) => {
   useEffect(() => {
     Reports.year({ year }).then(
       (resp) => {
-        let barChartDatasets = [];
+        const barChartDatasets = [];
         resp.categories.forEach((category) => {
-          let dataPoints = [];
+          const dataPoints = [];
           barChartLabels.forEach((mon) => {
-            const spendForCategoryAndMonth = resp.results.find((monthData) => { return monthData.month == mon && monthData.category == category.name });
+            const spendForCategoryAndMonth = resp.results.find((monthData) => monthData.month == mon && monthData.category == category.name);
             dataPoints.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0);
           });
           barChartDatasets.push({ label: category.name, data: dataPoints, backgroundColor: category.color });
-        })
+        });
 
-        let pieChartDatasets = [];
-        let pieChartLabels = [];
-        let pieChartColors = [];
+        const pieChartDatasets = [];
+        const pieChartLabels = [];
+        const pieChartColors = [];
         resp.categories.forEach((category) => {
           pieChartLabels.push(category.name);
           pieChartColors.push(category.color);
-          const totalForCategory = resp.results.filter((monthData) => { return monthData.category === category.name }).reduce((a, b) => { return a + parseFloat(b.amount) }, 0);
+          const totalForCategory = resp.results.filter((monthData) => monthData.category === category.name).reduce((a, b) => a + parseFloat(b.amount), 0);
           pieChartDatasets.push(totalForCategory);
         });
 
@@ -47,7 +47,7 @@ const Year = ({ availableYears }) => {
         setYearTotal(resp.total);
       },
       () => { Alerts.genericError(); },
-    )
+    );
   }, [year]);
 
   return (
@@ -72,10 +72,10 @@ const Year = ({ availableYears }) => {
       </div>
     </div>
   );
-}
+};
 
 Year.propTypes = {
   availableYears: PropTypes.array.isRequired,
-}
+};
 
 export default Year;

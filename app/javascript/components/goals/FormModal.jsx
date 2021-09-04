@@ -1,10 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Modal from '../shared/Modal'
-import CurrencyInput from '../shared/CurrencyInput'
-import FieldErrors from '../shared/FieldErrors'
-import { Goals } from '../../api/main'
-import { Alerts } from '../../helpers/main'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Modal from '../shared/Modal';
+import CurrencyInput from '../shared/CurrencyInput';
+import { Goals } from '../../api/main';
+import { Alerts } from '../../helpers/main';
 
 class FormModal extends React.Component {
   constructor(props) {
@@ -15,16 +14,16 @@ class FormModal extends React.Component {
     };
   }
 
-  handleGoalChange = (num) => { this.setState({ goal: num }) }
+  handleGoalChange = (num) => { this.setState({ goal: num }); }
   handleErrors = (key, errs) => { this.setState({ errors: Object.assign(this.state.errors, { [key]: errs }) }); }
   handleSubmit = (e) => {
     e.preventDefault();
     if (Object.values(this.state.errors).flat().length) { return; }
 
     Goals.update({ monthly_goal: this.state.goal }).then(
-      (resp) => { this.props.onSave(resp) },
-      (error) => { Alerts.genericError(); },
-    )
+      (resp) => { this.props.onSave(resp); },
+      () => { Alerts.genericError(); },
+    );
   }
 
   render() {
@@ -48,16 +47,15 @@ class FormModal extends React.Component {
 }
 
 FormModal.defaultProps = {
-  colorsToSkip: [],
   goals: {
     monthly: 0,
-  }
-}
+  },
+};
 
 FormModal.propTypes = {
-  onClose: PropTypes.func,
-  onSave: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
   goals: PropTypes.object,
-}
+};
 
 export default FormModal;

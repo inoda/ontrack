@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import DatePicker from '../shared/DatePicker'
-import CurrencyInput from '../shared/CurrencyInput'
-import { Expenses } from '../../api/main'
-import { Alerts } from '../../helpers/main'
+import React from 'react';
+import PropTypes from 'prop-types';
+import DatePicker from '../shared/DatePicker';
+import CurrencyInput from '../shared/CurrencyInput';
+import { Expenses } from '../../api/main';
+import { Alerts } from '../../helpers/main';
 
 class UploadPreview extends React.Component {
   constructor(props) {
@@ -15,20 +15,20 @@ class UploadPreview extends React.Component {
   }
 
   handleExpenseDelete = (idx) => {
-    let modifiedExpenses = [...this.state.expenses]; // Make a copy
+    const modifiedExpenses = [...this.state.expenses]; // Make a copy
     modifiedExpenses.splice(idx, 1);
     this.setState({ expenses: modifiedExpenses });
   }
 
   updateExpense = (idx, updates) => {
-    let modifiedExpenses = [...this.state.expenses]; // Make a copy
-    let modifiedExpense = Object.assign({...modifiedExpenses[idx]}, updates);
+    const modifiedExpenses = [...this.state.expenses]; // Make a copy
+    const modifiedExpense = Object.assign({ ...modifiedExpenses[idx] }, updates);
     modifiedExpenses[idx] = modifiedExpense;
     this.setState({ expenses: modifiedExpenses });
   }
 
   renderEmptyState() {
-    if (this.props.expenses.length) { return '' }
+    if (this.props.expenses.length) { return ''; }
     return (
       <div className="empty-or-error-status mt-30">
         <div className="status-text">
@@ -40,7 +40,7 @@ class UploadPreview extends React.Component {
         </div>
         <img className="status-image" src={window.historian} />
       </div>
-    )
+    );
   }
 
   cancel() {
@@ -53,13 +53,13 @@ class UploadPreview extends React.Component {
     Expenses.bulkCreate({ expenses: this.state.expenses }).then(
       () => {
         this.setState({ submitting: false });
-        Alerts.success('Your import was successful.', () => { window.location = '/expenses' });
+        Alerts.success('Your import was successful.', () => { window.location = '/expenses'; });
       },
       () => {
         this.setState({ submitting: false });
         Alerts.error('Something went wrong! Double check that your inputs are all valid.');
       },
-    )
+    );
   }
 
   renderExpense(expense, idx) {
@@ -71,23 +71,28 @@ class UploadPreview extends React.Component {
 
         <td className="input-group mw-200">
           <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(idx, { category_id: e.target.value })} className="bg-gray-slight-contrast">
-            {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+            {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
         </td>
 
         <td className="input-group mw-100">
-          <CurrencyInput initialValue={expense.amount} onBlur={(val) => this.updateExpense(idx, { amount: val })} allowNegative={true} className="bg-gray-slight-contrast" />
+          <CurrencyInput
+            initialValue={expense.amount}
+            onBlur={(val) => this.updateExpense(idx, { amount: val })}
+            allowNegative
+            className="bg-gray-slight-contrast"
+          />
         </td>
 
         <td className="input-group mw-300">
-          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(idx, { description: e.target.value.trim() }) } } className="bg-gray-slight-contrast"></input>
+          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) { this.updateExpense(idx, { description: e.target.value.trim() }); } } } className="bg-gray-slight-contrast" />
         </td>
 
         <td>
-          <a onClick={() => this.handleExpenseDelete(idx)} className="dim-til-hover"><i className="fa fa-times"></i></a>
+          <a onClick={() => this.handleExpenseDelete(idx)} className="dim-til-hover"><i className="fa fa-times" /></a>
         </td>
       </tr>
-    )
+    );
   }
 
   render() {
@@ -110,18 +115,25 @@ class UploadPreview extends React.Component {
                       <th>Category</th>
                       <th>Amount</th>
                       <th>Description</th>
-                      <th></th>
+                      <th />
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.expenses.map((exp, idx) => { return this.renderExpense(exp, idx) })}
+                    {this.state.expenses.map((exp, idx) => this.renderExpense(exp, idx))}
                   </tbody>
                 </table>
               </div>
             </div>
 
             <div className="form-actions">
-              <button type="submit" className="btn btn-dark" onClick={this.submit} disabled={this.state.submitting}>{this.state.submitting ? 'Submitting...' : 'Submit'}</button>
+              <button
+                type="submit"
+                className="btn btn-dark"
+                onClick={this.submit}
+                disabled={this.state.submitting}
+              >
+                {this.state.submitting ? 'Submitting...' : 'Submit'}
+              </button>
               <button type="button" className="btn" onClick={this.cancel}>Cancel</button>
             </div>
           </>
@@ -134,11 +146,11 @@ class UploadPreview extends React.Component {
 UploadPreview.defaultProps = {
   categories: [],
   expenses: [],
-}
+};
 
 UploadPreview.propTypes = {
   categories: PropTypes.array,
   expenses: PropTypes.array,
-}
+};
 
 export default UploadPreview;

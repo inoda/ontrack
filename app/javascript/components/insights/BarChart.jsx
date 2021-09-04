@@ -53,19 +53,19 @@ const BarChart = ({ data, labels, hideLegend }) => {
         },
         tooltips: {
           callbacks: {
-            label: t => `${data[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`
+            label: t => `${data[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`,
           },
         },
         scales: {
           yAxes: [{
             stacked: true,
             ticks: {
-              callback: label => `$${Numerics.commify(label)}`
+              callback: label => `$${Numerics.commify(label)}`,
             },
           }],
-          xAxes: [{ stacked: true }]
-        }
-      }
+          xAxes: [{ stacked: true }],
+        },
+      },
     };
 
     const newInstance = new Chart(document.getElementById(randomId), config);
@@ -73,8 +73,8 @@ const BarChart = ({ data, labels, hideLegend }) => {
     setInstance(newInstance);
   }, [data, labels]);
 
-  return <canvas id={randomId}></canvas>;
-}
+  return <canvas id={randomId} />;
+};
 
 BarChart.propTypes = {
   data: PropTypes.array.isRequired,

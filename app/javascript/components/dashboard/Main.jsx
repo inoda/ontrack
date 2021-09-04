@@ -1,21 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
-import Overview from './Overview'
-import CategoriesList from './CategoriesList'
-import ExpenseFormModal from '../expenses/FormModal'
-import { Categories, Expenses, Goals } from '../../api/main'
-import { Alerts } from '../../helpers/main'
+import React from 'react';
+import moment from 'moment';
+import Overview from './Overview';
+import CategoriesList from './CategoriesList';
+import ExpenseFormModal from '../expenses/FormModal';
+import { Categories, Expenses, Goals } from '../../api/main';
+import { Alerts } from '../../helpers/main';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showExpenseCreateModal: false,
-      loaded: false,
       categories: [],
       expenses: [],
+      loaded: false,
       monthlyGoal: 0,
+      showExpenseCreateModal: false,
     };
   }
 
@@ -32,25 +31,25 @@ class Main extends React.Component {
 
   loadData = () => {
     Categories.list().then(
-      (resp) => {
-        this.setState({ categories: resp });
+      (cResp) => {
+        this.setState({ categories: cResp });
         Expenses.list({ paid_after: moment().startOf('month').unix() }).then(
-          (resp) => {
-            this.setState({ expenses: resp });
+          (eResp) => {
+            this.setState({ expenses: eResp });
             Goals.list().then(
-              (resp) => { this.setState({ monthlyGoal: resp.monthly, loaded: true }); },
-              (error) => { Alerts.genericError(); },
-            )
+              (gResp) => { this.setState({ loaded: true, monthlyGoal: gResp.monthly }); },
+              () => { Alerts.genericError(); },
+            );
           },
-          (error) => { Alerts.genericError(); },
-        )
+          () => { Alerts.genericError(); },
+        );
       },
-      (error) => { Alerts.genericError(); },
-    )
+      () => { Alerts.genericError(); },
+    );
   }
 
   categoriesWithExpensesAndSpend() {
-    let categories = [];
+    const categories = [];
     this.state.categories.forEach((category) => {
       category.expenses = this.state.expenses.filter((expense) => expense.category_id == category.id);
       category.spend = category.expenses.reduce((sum, exp) => sum + exp.amount, 0);
@@ -60,8 +59,8 @@ class Main extends React.Component {
   }
 
   renderExpenseCreateModal() {
-    if (!this.state.showExpenseCreateModal) { return '' }
-    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={this.state.categories} />;
+    if (!this.state.showExpenseCreateModal) { return ''; }
+    return <ExpenseFormModal categories={this.state.categories} onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} />;
   }
 
   render() {
