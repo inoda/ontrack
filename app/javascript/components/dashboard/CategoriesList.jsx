@@ -44,7 +44,6 @@ class CategoriesList extends React.Component {
         <CategoryTile
           categoryWithExpensesAndSpend={category}
           colorsToSkip={this.colorsToSkip()}
-          expenseCategoryOptions={this.props.categoriesWithExpensesAndSpend}
           onChange={this.props.onChange}
         />
       );

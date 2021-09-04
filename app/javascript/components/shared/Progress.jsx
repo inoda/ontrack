@@ -12,7 +12,7 @@ class Progress extends React.Component {
 
   render() {
     return (
-      <div className={`progress-bar ${this.props.small ? 'progress-bar-sm' : ''}`}>
+      <div className="progress-bar">
         {this.props.data.map((value, idx) => this.renderData(value, idx))}
       </div>
     );
@@ -21,12 +21,10 @@ class Progress extends React.Component {
 
 Progress.defaultProps = {
   data: [],
-  small: false,
 };
 
 Progress.propTypes = {
   data: PropTypes.array,
-  small: PropTypes.bool,
 };
 
 export default Progress;
