@@ -1,10 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Numerics } from '../../helpers/main'
-import Progress from '../shared/Progress'
-import CategoryFormModal from '../categories/FormModal'
-import ExpenseFormModal from '../expenses/FormModal'
-import moment from 'moment'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Numerics } from '../../helpers/main';
+import Progress from '../shared/Progress';
+import CategoryFormModal from '../categories/FormModal';
+import ExpenseFormModal from '../expenses/FormModal';
 
 class CategoryTile extends React.Component {
   constructor(props) {
@@ -26,12 +25,12 @@ class CategoryTile extends React.Component {
   }
 
   goalDiff() {
-    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) return 0;
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 0; }
     return this.props.categoryWithExpensesAndSpend.monthly_goal - this.props.categoryWithExpensesAndSpend.spend;
   }
 
   goalComparisonDisplay() {
-    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) return 'No goal set'
+    if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 'No goal set'; }
 
     const diff = this.goalDiff();
     return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
@@ -43,13 +42,27 @@ class CategoryTile extends React.Component {
   }
 
   renderCategoryEditModal() {
-    if (!this.state.showCategoryEditModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryEdit} onSave={this.onCategorySave} category={this.props.categoryWithExpensesAndSpend} colorsToSkip={this.props.colorsToSkip} />;
+    if (!this.state.showCategoryEditModal) { return ''; }
+    return (
+      <CategoryFormModal
+        onClose={this.closeCategoryEdit}
+        onSave={this.onCategorySave}
+        category={this.props.categoryWithExpensesAndSpend}
+        colorsToSkip={this.props.colorsToSkip}
+      />
+    );
   }
 
   renderExpenseCreateModal() {
-    if (!this.state.showExpenseCreateModal) { return '' }
-    return <ExpenseFormModal onClose={this.closeExpenseCreate} onSave={this.onExpenseSave} categories={this.props.expenseCategoryOptions} categoryId={this.props.categoryWithExpensesAndSpend.id} />;
+    if (!this.state.showExpenseCreateModal) { return ''; }
+    return (
+      <ExpenseFormModal
+        onClose={this.closeExpenseCreate}
+        onSave={this.onExpenseSave}
+        categories={this.props.expenseCategoryOptions}
+        categoryId={this.props.categoryWithExpensesAndSpend.id}
+      />
+    );
   }
 
   render() {
@@ -60,28 +73,28 @@ class CategoryTile extends React.Component {
         <div className="flex flex-space-between title">
           <div>
             <div className="flex">
-              <a href={null} onClick={this.openCategoryEdit} className="dim-on-hover flex flex-baseline">
+              <a className="dim-on-hover flex flex-baseline" href={null} onClick={this.openCategoryEdit}>
                 <h3 className="mr-4 d-inline-block">{this.props.categoryWithExpensesAndSpend.name}</h3>
-                <i className="far fa-edit dim-til-hover"></i>
+                <i className="far fa-edit dim-til-hover" />
               </a>
             </div>
           </div>
 
           <div className="text-right">
             <h2>{Numerics.centsToDollars(this.props.categoryWithExpensesAndSpend.spend)}</h2>
-            <div className={this.goalDiff() < 0 ? "text-warning" : "text-muted"}>
+            <div className={this.goalDiff() < 0 ? 'text-warning' : 'text-muted'}>
               {this.goalDiff() < 0 && (
-                <i className="fas fa-exclamation-circle mr-4"></i>
+                <i className="fas fa-exclamation-circle mr-4" />
               )}
               {this.goalComparisonDisplay()}
             </div>
           </div>
         </div>
 
-        <Progress data={[{ percentage: this.normalizedPercentage() }]} small={true} />
+        <Progress data={[{ percentage: this.normalizedPercentage() }]} small />
 
         <div className='add-expense'>
-          <img className="mt-50" src={window.iconPlus} onClick={this.openExpenseCreate} />
+          <img className="mt-50" onClick={this.openExpenseCreate} src={window.iconPlus} />
         </div>
       </div>
     );
@@ -90,15 +103,15 @@ class CategoryTile extends React.Component {
 
 CategoryTile.defaultProps = {
   categoryWithExpensesAndSpend: {},
+  colorsToSkip: [],
   expenseCategoryOptions: [],
-  colorsToSkip: []
-}
+};
 
 CategoryTile.propTypes = {
   categoryWithExpensesAndSpend: PropTypes.object,
-  expenseCategoryOptions: PropTypes.array,
   colorsToSkip: PropTypes.array,
-  onChange: PropTypes.func
-}
+  expenseCategoryOptions: PropTypes.array,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default CategoryTile;

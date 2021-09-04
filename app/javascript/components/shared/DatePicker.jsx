@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import DatePicker from "react-datepicker";
+import React from 'react';
+import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
 
 class Picker extends React.Component {
   constructor(props) {
@@ -23,12 +23,12 @@ class Picker extends React.Component {
 Picker.defaultProps = {
   value: new Date(),
   className: '',
-}
+};
 
 Picker.propTypes = {
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   className: PropTypes.string,
-}
+};
 
 export default Picker;

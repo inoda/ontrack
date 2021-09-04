@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class FieldErrors extends React.Component {
   constructor(props) {
@@ -19,10 +19,10 @@ class FieldErrors extends React.Component {
 
   valRequired() {
     const val = this.props.val;
-    if (typeof val == "number") {
+    if (typeof val == 'number') {
       if (val == undefined || val == null || isNaN(parseInt(val.toString()))) { return false; }
-    } else {
-      if (!val) { return false; }
+    } else if (!val) {
+      return false;
     }
 
     return true;
@@ -35,18 +35,17 @@ class FieldErrors extends React.Component {
   }
 
   buildErrorMessages() {
-    const val = this.props.val;
-    let errs = [];
+    const errs = [];
 
     if (this.props.validations.required && !this.valRequired()) { errs.push(`${this.props.label} is required`); }
     if (this.props.validations.greaterThan != undefined && !this.valGreaterThan()) { errs.push(`${this.props.label} must be greater than ${this.props.validations.greaterThan}`); }
 
     this.setState({ errors: errs });
-    if (this.props.handleErrors) { this.props.handleErrors(this.props.label, errs) }
+    if (this.props.handleErrors) { this.props.handleErrors(this.props.label, errs); }
   }
 
   renderError(e, idx) {
-    return <li key={idx}>{e}</li>
+    return <li key={idx}>{e}</li>;
   }
 
   render() {
@@ -54,7 +53,7 @@ class FieldErrors extends React.Component {
 
     return (
       <ul className="errors">
-        {this.state.errors.map((e, idx) => { return this.renderError(e, idx) })}
+        {this.state.errors.map((e, idx) => this.renderError(e, idx))}
       </ul>
     );
   }
@@ -65,7 +64,8 @@ FieldErrors.defaultProps = {
   validations: {},
   show: false,
   handleErrors: null,
-}
+  label: '',
+};
 
 FieldErrors.propTypes = {
   val: PropTypes.any,
@@ -73,6 +73,6 @@ FieldErrors.propTypes = {
   show: PropTypes.bool,
   handleErrors: PropTypes.func,
   label: PropTypes.string,
-}
+};
 
 export default FieldErrors;

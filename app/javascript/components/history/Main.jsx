@@ -1,12 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
-import Paginator from '../shared/Paginator'
-import DatePicker from '../shared/DatePicker'
-import CurrencyInput from '../shared/CurrencyInput'
-import { Alerts } from '../../helpers/main'
-import { Expenses } from '../../api/main'
-import { Numerics } from '../../helpers/main'
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Paginator from '../shared/Paginator';
+import DatePicker from '../shared/DatePicker';
+import CurrencyInput from '../shared/CurrencyInput';
+import { Alerts } from '../../helpers/main';
+import { Expenses } from '../../api/main';
 
 class Main extends React.Component {
   constructor(props) {
@@ -18,32 +17,31 @@ class Main extends React.Component {
       categoryId: this.props.categoryId || '',
       sort: 'paid_at',
       sortDesc: true,
-      total: 1,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
     };
   }
 
-  onLoad = (payload) => { this.setState({ expenses: payload.items, total: payload.total }); }
+  onLoad = (payload) => { this.setState({ expenses: payload.items }); }
   handlePaidAtMinChange = (val) => { this.setState({ minPaidAt: moment(val).unix() }); }
   handlePaidAtMaxChange = (val) => { this.setState({ maxPaidAt: moment(val).unix() }); }
   handleCategoryFilterChange = (e) => { this.setState({ categoryId: e.target.value }); }
-  toggleSortDir = (e) => { this.setState({ sortDesc: !this.state.sortDesc }) }
-  changeSort = (s) => { this.setState({ sort: s, sortDesc: true }) }
+  toggleSortDir = () => { this.setState({ sortDesc: !this.state.sortDesc }); }
+  changeSort = (s) => { this.setState({ sort: s, sortDesc: true }); }
   updateExpense = (id, updates) => {
     Expenses.update(id, updates).then(
       () => { this.setState({ reloadPageTrigger: this.state.reloadPageTrigger + 1 }); },
-      (error) => { Alerts.genericError(); },
-    )
+      () => { Alerts.genericError(); },
+    );
   }
   handleExpenseDelete = (id) => {
     Alerts.genericDelete('expense').then((result) => {
       if (!result.value) { return; }
       Expenses.delete(id).then(
         () => { this.setState({ reloadTrigger: this.state.reloadTrigger + 1 }); },
-        (error) => { Alerts.genericError(); },
-      )
-    })
+        () => { Alerts.genericError(); },
+      );
+    });
   }
 
   url() {
@@ -52,14 +50,14 @@ class Main extends React.Component {
 
   renderSort(key) {
     if (this.state.sort == key) {
-      return <i onClick={this.toggleSortDir} className={`fas fa-sort-${this.state.sortDesc ? 'down' : 'up'} ml-2 hover-pointer`}></i>;
+      return <i onClick={this.toggleSortDir} className={`fas fa-sort-${this.state.sortDesc ? 'down' : 'up'} ml-2 hover-pointer`} />;
     } else {
-      return <i onClick={() => { this.changeSort(key) }} className="fas fa-sort ml-2 hover-pointer"></i>;
+      return <i onClick={() => { this.changeSort(key); }} className="fas fa-sort ml-2 hover-pointer" />;
     }
   }
 
   renderEmptyState() {
-    if (this.props.hasData) { return '' }
+    if (this.props.hasData) { return ''; }
     return (
       <div className="empty-or-error-status">
         <div className="status-text">
@@ -68,11 +66,11 @@ class Main extends React.Component {
         </div>
         <img className="status-image" src={window.historian} />
       </div>
-    )
+    );
   }
 
   renderTable() {
-    if (!this.props.hasData) { return '' }
+    if (!this.props.hasData) { return ''; }
     return (
       <div>
         <div className="flex row-flex flex-space-between">
@@ -80,7 +78,7 @@ class Main extends React.Component {
           <div className="input-group inline small-datepicker mt-10-sm">
             <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
               <option value="">All categories</option>
-              {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+              {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
 
             <div className="mt-10">
@@ -98,11 +96,11 @@ class Main extends React.Component {
                 <th>Category</th>
                 <th>Amount {this.renderSort('amount')}</th>
                 <th>Description</th>
-                <th></th>
+                <th />
               </tr>
             </thead>
             <tbody>
-              {this.state.expenses.map((exp) => { return this.renderExpense(exp) })}
+              {this.state.expenses.map((exp) => this.renderExpense(exp))}
             </tbody>
           </table>
         </div>
@@ -116,7 +114,7 @@ class Main extends React.Component {
           />
         </div>
       </div>
-    )
+    );
   }
 
   renderExpense(expense) {
@@ -128,23 +126,28 @@ class Main extends React.Component {
 
         <td className="input-group mw-200">
           <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(expense.id, { category_id: e.target.value })} className="bg-gray-slight-contrast">
-            {this.props.categories.map((c) => { return <option key={c.id} value={c.id}>{c.name}</option> })}
+            {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
         </td>
 
         <td className="input-group mw-100">
-          <CurrencyInput initialValue={expense.amount} onBlur={(val) => this.updateExpense(expense.id, { amount: val })} allowNegative={true} className="bg-gray-slight-contrast" />
+          <CurrencyInput
+            initialValue={expense.amount}
+            onBlur={(val) => this.updateExpense(expense.id, { amount: val })}
+            className="bg-gray-slight-contrast"
+            allowNegative
+          />
         </td>
 
         <td className="input-group mw-300">
-          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(expense.id, { description: e.target.value.trim() }) } } className="bg-gray-slight-contrast"></input>
+          <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) this.updateExpense(expense.id, { description: e.target.value.trim() }); } } className="bg-gray-slight-contrast" />
         </td>
 
         <td>
-          <a onClick={() => this.handleExpenseDelete(expense.id)} className="dim-til-hover"><i className="fa fa-times"></i></a>
+          <a onClick={() => this.handleExpenseDelete(expense.id)} className="dim-til-hover"><i className="fa fa-times" /></a>
         </td>
       </tr>
-    )
+    );
   }
 
   render() {
@@ -160,13 +163,15 @@ class Main extends React.Component {
 Main.defaultProps = {
   hasData: false,
   categories: [],
-}
+  categoryId: null,
+  paidAfter: null,
+};
 
 Main.propTypes = {
   hasData: PropTypes.bool,
   categories: PropTypes.array,
   categoryId: PropTypes.any,
   paidAfter: PropTypes.any,
-}
+};
 
 export default Main;

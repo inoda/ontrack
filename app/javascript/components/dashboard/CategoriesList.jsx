@@ -1,9 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Arr } from '../../helpers/main'
-import Modal from '../shared/Modal'
-import CategoryTile from './CategoryTile'
-import CategoryFormModal from '../categories/FormModal'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Arr } from '../../helpers/main';
+import CategoryTile from './CategoryTile';
+import CategoryFormModal from '../categories/FormModal';
 
 class CategoriesList extends React.Component {
   constructor(props) {
@@ -19,21 +18,21 @@ class CategoriesList extends React.Component {
   }
 
   colorsToSkip() {
-    return this.props.categoriesWithExpensesAndSpend.map((cat) => { return cat.color });
+    return this.props.categoriesWithExpensesAndSpend.map((cat) => cat.color);
   }
 
   chunkedCategories() {
-    const categoriesAndAddButton = this.props.categoriesWithExpensesAndSpend.concat('addButton')
+    const categoriesAndAddButton = this.props.categoriesWithExpensesAndSpend.concat('addButton');
     return Arr.chunk(categoriesAndAddButton, 2);
   }
 
   renderCategoryCreateModal() {
-    if (!this.state.showCategoryCreateModal) { return '' }
-    return <CategoryFormModal onClose={this.closeCategoryCreate} onSave={this.onCategorySave} colorsToSkip={this.colorsToSkip()} />;
+    if (!this.state.showCategoryCreateModal) { return ''; }
+    return <CategoryFormModal colorsToSkip={this.colorsToSkip()} onClose={this.closeCategoryCreate} onSave={this.onCategorySave} />;
   }
 
   renderCategory(category, idx) {
-    let markup = ''
+    let markup = '';
     if (category == 'addButton') {
       markup = (
         <div className="category-tile dim-til-hover hover-pointer no-border" onClick={this.openCategoryCreate}>
@@ -41,7 +40,14 @@ class CategoriesList extends React.Component {
         </div>
       );
     } else {
-      markup = <CategoryTile categoryWithExpensesAndSpend={category} onChange={this.props.onChange} colorsToSkip={this.colorsToSkip()} expenseCategoryOptions={this.props.categoriesWithExpensesAndSpend} />;
+      markup = (
+        <CategoryTile
+          categoryWithExpensesAndSpend={category}
+          colorsToSkip={this.colorsToSkip()}
+          expenseCategoryOptions={this.props.categoriesWithExpensesAndSpend}
+          onChange={this.props.onChange}
+        />
+      );
     }
 
     return <div className="six columns" key={idx}>{markup}</div>;
@@ -50,7 +56,7 @@ class CategoriesList extends React.Component {
   renderRow(listChunk, idx) {
     return (
       <div className="row" key={idx}>
-        {listChunk.map((category, idx) => { return this.renderCategory(category, idx) })}
+        {listChunk.map((category, i) => this.renderCategory(category, i))}
       </div>
     );
   }
@@ -59,19 +65,19 @@ class CategoriesList extends React.Component {
     return (
       <div>
         {this.renderCategoryCreateModal()}
-        {this.chunkedCategories().map((listChunk, idx) => { return this.renderRow(listChunk, idx) })}
+        {this.chunkedCategories().map((listChunk, idx) => this.renderRow(listChunk, idx))}
       </div>
     );
   }
 }
 
 CategoriesList.defaultProps = {
-  categoriesWithExpensesAndSpend: []
-}
+  categoriesWithExpensesAndSpend: [],
+};
 
 CategoriesList.propTypes = {
   categoriesWithExpensesAndSpend: PropTypes.array,
-  onChange: PropTypes.func
-}
+  onChange: PropTypes.func.isRequired,
+};
 
 export default CategoriesList;

@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
-import { Numerics } from '../../helpers/main'
-import Progress from '../shared/Progress'
-import GoalFormModal from '../goals/FormModal'
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Numerics } from '../../helpers/main';
+import Progress from '../shared/Progress';
+import GoalFormModal from '../goals/FormModal';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Overview extends React.Component {
   }
 
   goalDiff() {
-    if (!this.props.monthlyGoal) return 0;
+    if (!this.props.monthlyGoal) { return 0; }
     return this.props.monthlyGoal - this.totalSpend();
   }
 
@@ -29,9 +29,7 @@ class Overview extends React.Component {
 
   percentages() {
     const outOf = Math.max(this.props.monthlyGoal, this.totalSpend());
-    return this.props.categoriesWithExpensesAndSpend.map((category) => {
-      return { percentage: (category.spend / outOf) * 100, color: category.color }
-    })
+    return this.props.categoriesWithExpensesAndSpend.map((category) => ({ percentage: (category.spend / outOf) * 100, color: category.color }));
   }
 
   goalComparisonDisplay() {
@@ -40,7 +38,7 @@ class Overview extends React.Component {
   }
 
   renderGoalModal() {
-    if (!this.state.showGoalModal) { return '' }
+    if (!this.state.showGoalModal) { return ''; }
     return <GoalFormModal onClose={this.closeGoal} onSave={this.onGoalSave} goals={{ monthly: this.props.monthlyGoal }} />;
   }
 
@@ -57,13 +55,13 @@ class Overview extends React.Component {
           )}
           {!!this.props.monthlyGoal && (
             <div className="flex flex-baseline">
-              <div className={this.goalDiff() < 0 ? "text-warning mr-4" : "text-muted mr-4"}>
+              <div className={this.goalDiff() < 0 ? 'text-warning mr-4' : 'text-muted mr-4'}>
                 {this.goalDiff() < 0 && (
-                  <i className="fas fa-exclamation-circle mr-4"></i>
+                  <i className="fas fa-exclamation-circle mr-4" />
                 )}
                 {this.goalComparisonDisplay()}
               </div>
-              <i className="far fa-edit dim-til-hover hover-pointer text-muted" onClick={this.openGoal}></i>
+              <i className="far fa-edit dim-til-hover hover-pointer text-muted" onClick={this.openGoal} />
             </div>
           )}
         </div>
@@ -77,12 +75,12 @@ class Overview extends React.Component {
 Overview.defaultProps = {
   categoriesWithExpensesAndSpend: [],
   monthlyGoal: 0,
-}
+};
 
 Overview.propTypes = {
   categoriesWithExpensesAndSpend: PropTypes.array,
   monthlyGoal: PropTypes.number,
-  onChange: PropTypes.func
-}
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Overview;

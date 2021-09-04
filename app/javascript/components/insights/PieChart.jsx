@@ -20,14 +20,14 @@ const PieChart = ({ data, labels, colors }) => {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           callbacks: {
-            label: t => `${labels[t.index]}: $${Numerics.commify(data[t.index].toFixed(2))}`
+            label: t => `${labels[t.index]}: $${Numerics.commify(data[t.index].toFixed(2))}`,
           },
         },
-      }
+      },
     };
 
     const newInstance = new Chart(document.getElementById(randomId), config);
@@ -35,8 +35,8 @@ const PieChart = ({ data, labels, colors }) => {
     setInstance(newInstance);
   }, [data, labels]);
 
-  return <canvas id={randomId}></canvas>;
-}
+  return <canvas id={randomId} />;
+};
 
 PieChart.propTypes = {
   data: PropTypes.array.isRequired,

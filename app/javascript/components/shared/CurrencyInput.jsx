@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import MaskedInput from 'react-text-mask'
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import React from 'react';
+import PropTypes from 'prop-types';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 class CurrencyInput extends React.Component {
   handleChange = (e) => {
     if (!this.props.onChange) { return; }
     const num = e.target.value.replace(/\$|,/g, '');
-    const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ""))
+    const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ''));
     const normalized = isNaN(cents) ? 0 : cents;
     this.props.onChange(normalized);
   }
@@ -15,7 +15,7 @@ class CurrencyInput extends React.Component {
   handleBlur = (e) => {
     if (!this.props.onBlur) { return; }
     const num = e.target.value.replace(/\$|,/g, '');
-    const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ""))
+    const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ''));
     const normalized = isNaN(cents) ? 0 : cents;
     this.props.onBlur(normalized);
   }
@@ -31,7 +31,7 @@ class CurrencyInput extends React.Component {
       integerLimit: 7,
       allowLeadingZeroes: false,
       allowNegative: this.props.allowNegative,
-    }
+    };
     const currencyMask = createNumberMask(defaultMaskOptions);
 
     return (
@@ -44,7 +44,7 @@ class CurrencyInput extends React.Component {
         defaultValue={this.props.initialValue ? (this.props.initialValue / 100).toFixed(2) : ''}
         className={this.props.className}
       />
-    )
+    );
   }
 }
 
@@ -52,7 +52,9 @@ CurrencyInput.defaultProps = {
   initialValue: 0,
   allowNegative: false,
   className: '',
-}
+  onBlur: null,
+  onChange: null,
+};
 
 CurrencyInput.propTypes = {
   initialValue: PropTypes.number,
@@ -60,6 +62,6 @@ CurrencyInput.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   className: PropTypes.string,
-}
+};
 
 export default CurrencyInput;

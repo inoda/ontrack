@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import Year from './Year';
 import Month from './Month';
 
@@ -25,12 +25,12 @@ const Main = ({ hasData, availableYears, availableMonths }) => {
       </div>
     </div>
   );
-}
+};
 
 Main.propTypes = {
   availableYears: PropTypes.array.isRequired,
   availableMonths: PropTypes.array.isRequired,
   hasData: PropTypes.bool.isRequired,
-}
+};
 
 export default Main;

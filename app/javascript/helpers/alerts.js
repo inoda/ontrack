@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const Alerts = {
   genericError() {
@@ -6,11 +6,11 @@ const Alerts = {
       title: 'Uh oh!',
       text: 'Something went wrong. Refreshing the page and trying again might help.',
       type: 'error',
-      confirmButtonText: 'Refresh'
+      confirmButtonText: 'Refresh',
     }).then((result) => {
       if (!result.value) { return; }
       window.location.reload();
-    })
+    });
   },
 
   error(errorText, onClose) {
@@ -18,10 +18,10 @@ const Alerts = {
       title: 'Uh oh!',
       text: errorText,
       type: 'error',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
     }).then(() => {
-      if (onClose) onClose();
-    })
+      if (onClose) { onClose(); }
+    });
   },
 
   success(successText, onClose) {
@@ -29,10 +29,10 @@ const Alerts = {
       title: 'Woohoo!',
       text: successText,
       type: 'success',
-      confirmButtonText: 'Ok'
+      confirmButtonText: 'Ok',
     }).then(() => {
-      if (onClose) onClose();
-    })
+      if (onClose) { onClose(); }
+    });
   },
 
   genericDelete(label) {
@@ -44,7 +44,7 @@ const Alerts = {
       showCancelButton: true,
       focusCancel: true,
       confirmButtonColor: '#bd4d4d',
-    })
+    });
   },
 
   genericConflict(description) {
@@ -52,8 +52,8 @@ const Alerts = {
       title: 'Hold on',
       text: description,
       type: 'warning',
-    })
+    });
   },
-}
+};
 
 export default Alerts;
