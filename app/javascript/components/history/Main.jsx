@@ -87,7 +87,7 @@ class Main extends React.Component {
               {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
 
-            <div className="mt-10">
+            <div className="mt-10 flex">
               <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
               <span className="mh-5 mt-5">-</span>
               <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
