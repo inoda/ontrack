@@ -12,8 +12,6 @@ const Base = {
     const csrfToken = document.querySelector('meta[name=csrf-token]').content;
     apiAxiosInstance.defaults.headers.common['X-CSRF-Token'] = csrfToken;
 
-    requestObj.data = JSON.stringify(requestObj.data);
-
     return new Promise((resolve, reject) => {
       apiAxiosInstance(requestObj).then(
         (success) => { resolve(success.data); },
