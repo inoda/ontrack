@@ -10,9 +10,15 @@ import { Expenses } from '../../api/main';
 class Main extends React.Component {
   constructor(props) {
     super(props);
+
+    let defaultMinPaidAt = moment().startOf('month').unix();
+    if (moment().date() === 1) {
+      defaultMinPaidAt = moment().subtract(1, 'months').unix();
+    }
+
     this.state = {
       expenses: [],
-      minPaidAt: this.props.paidAfter || moment().subtract(365, 'd').unix(),
+      minPaidAt: this.props.paidAfter || defaultMinPaidAt,
       maxPaidAt: moment().unix(),
       categoryId: this.props.categoryId || '',
       sort: 'paid_at',
