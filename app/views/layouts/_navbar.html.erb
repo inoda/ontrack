@@ -7,6 +7,7 @@
 
       <ul class="nav-items-default nav-items nav-items-right">
         <li class="<%= controller_name == "dashboard" ? "active" : '' %>"><%= link_to "dashboard", root_path %></li>
+        <li class="<%= controller_name == "expense_uploads" ? "active" : '' %>"><%= link_to "import", new_expense_upload_path %></li>
         <li class="<%= controller_name == "expenses" ? "active" : '' %>"><%= link_to "history", expenses_path %></li>
         <li class="<%= controller_name == "insights" ? "active" : '' %>"><%= link_to "insights", insights_path %></li>
         <li><%= link_to "logout", logout_sessions_path %></li>
