@@ -94,60 +94,55 @@ class Main extends React.Component {
   renderTable() {
     if (!this.props.hasData) { return ''; }
     return (
-      <div>
-        <div className="flex row-flex flex-space-between">
-          <b className="mt-10">Expense history ({moment.unix(this.state.minPaidAt).format('MM/DD/YY')} - {moment.unix(this.state.maxPaidAt).format('MM/DD/YY')})</b>
-          <div className="input-group inline mt-10-sm">
-            <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
-              <option value="">All categories</option>
-              {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-            </select>
+      <div className="content-with-sidebar mt-30">
+        <div className="sidebar input-group">
+          <select onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
+            <option value="">All categories</option>
+            {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
 
-            <select className="w-auto mt-10" onChange={this.handleTimeframeChange} defaultValue={this.state.timeframe}>
-              <option value='current_month'>Current month</option>
-              <option value='last_90_days'>Last 90 days</option>
-              <option value='ytd'>Year to date</option>
-              <option value='custom'>Custom timeframe</option>
-            </select>
-          </div>
-        </div>
+          <select className="mt-10" onChange={this.handleTimeframeChange} defaultValue={this.state.timeframe}>
+            <option value='current_month'>Current month</option>
+            <option value='last_90_days'>Last 90 days</option>
+            <option value='ytd'>Year to date</option>
+            <option value='custom'>Custom timeframe</option>
+          </select>
 
-        {this.state.timeframe === 'custom' && (
-          <div className="flex row-flex flex-end">
-            <div className="input-group inline small-datepicker mt-10-sm">
-              <div className="mt-10 flex">
-                <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
-                <span className="mh-5 mt-5">-</span>
-                <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
-              </div>
+          {this.state.timeframe === 'custom' && (
+            <div className="mt-10">
+              <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
+              <div className="text-center">to</div>
+              <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
             </div>
-          </div>
-        )}
-
-        <div className="overflow-x mt-30 bg-gray p-10">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Date {this.renderSort('paid_at')}</th>
-                <th>Category</th>
-                <th>Amount {this.renderSort('amount')}</th>
-                <th>Description</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.expenses.map((exp) => this.renderExpense(exp))}
-            </tbody>
-          </table>
+          )}
         </div>
 
-        <div className="mt-20">
-          <Paginator
-            url={this.url()}
-            onLoad={this.onLoad}
-            reloadTrigger={this.state.reloadTrigger}
-            reloadPageTrigger={this.state.reloadPageTrigger}
-          />
+        <div className="content">
+          <div className="overflow-x bg-gray p-10">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Date {this.renderSort('paid_at')}</th>
+                  <th>Category</th>
+                  <th>Amount {this.renderSort('amount')}</th>
+                  <th>Description</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.expenses.map((exp) => this.renderExpense(exp))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-20">
+            <Paginator
+              url={this.url()}
+              onLoad={this.onLoad}
+              reloadTrigger={this.state.reloadTrigger}
+              reloadPageTrigger={this.state.reloadPageTrigger}
+            />
+          </div>
         </div>
       </div>
     );
@@ -156,11 +151,11 @@ class Main extends React.Component {
   renderExpense(expense) {
     return (
       <tr key={expense.id}>
-        <td className="input-group mw-150">
+        <td className="input-group mw-120">
           <DatePicker onChange={(val) => this.updateExpense(expense.id, { paid_at: val })} value={new Date(expense.paid_at)} className="bg-gray-slight-contrast" />
         </td>
 
-        <td className="input-group mw-200">
+        <td className="input-group mw-150">
           <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(expense.id, { category_id: e.target.value })} className="bg-gray-slight-contrast">
             {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
@@ -175,7 +170,7 @@ class Main extends React.Component {
           />
         </td>
 
-        <td className="input-group mw-300">
+        <td className="input-group">
           <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) { this.updateExpense(expense.id, { description: e.target.value.trim() }); } } } className="bg-gray-slight-contrast" />
         </td>
 
@@ -188,7 +183,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container wide">
         {this.renderEmptyState()}
         {this.renderTable()}
       </div>
