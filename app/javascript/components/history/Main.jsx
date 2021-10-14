@@ -11,20 +11,18 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    let defaultMinPaidAt = moment().startOf('month').unix();
-    if (moment().date() === 1) {
-      defaultMinPaidAt = moment().subtract(1, 'months').unix();
-    }
+    const [minPaidAt, maxPaidAt] = this.minAndMaxForTimeframe('current_month');
 
     this.state = {
       expenses: [],
-      minPaidAt: this.props.paidAfter || defaultMinPaidAt,
-      maxPaidAt: moment().unix(),
+      minPaidAt,
+      maxPaidAt,
       categoryId: this.props.categoryId || '',
       sort: 'paid_at',
       sortDesc: true,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
+      timeframe: 'current_month',
     };
   }
 
@@ -49,6 +47,24 @@ class Main extends React.Component {
       );
     });
   }
+  handleTimeframeChange = (e) => {
+    const timeframe = e.target.value;
+    const [minPaidAt, maxPaidAt] = this.minAndMaxForTimeframe(timeframe);
+
+    this.setState({ timeframe, minPaidAt, maxPaidAt });
+  }
+  minAndMaxForTimeframe = (timeframe) => {
+    switch (timeframe) {
+    case 'current_month':
+      return [moment().startOf('month').unix(), moment().unix()];
+    case 'last_90_days':
+      return [moment().subtract(90, 'days').unix(), moment().unix()];
+    case 'ytd':
+      return [moment().startOf('year').unix(), moment().unix()];
+    case 'custom':
+      return [this.state.minPaidAt, this.state.maxPaidAt];
+    }
+  };
 
   url() {
     return `/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}&sort=${this.state.sort}&sort_desc=${this.state.sortDesc}`;
@@ -80,20 +96,34 @@ class Main extends React.Component {
     return (
       <div>
         <div className="flex row-flex flex-space-between">
-          <b className="mt-10">Expense history</b>
-          <div className="input-group inline small-datepicker mt-10-sm">
+          <b className="mt-10">Expense history ({moment.unix(this.state.minPaidAt).format('MM/DD/YY')} - {moment.unix(this.state.maxPaidAt).format('MM/DD/YY')})</b>
+          <div className="input-group inline mt-10-sm">
             <select className="mr-10 w-auto mt-10" onChange={this.handleCategoryFilterChange} defaultValue={this.state.categoryId}>
               <option value="">All categories</option>
               {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
 
-            <div className="mt-10 flex">
-              <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
-              <span className="mh-5 mt-5">-</span>
-              <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
-            </div>
+            <select className="w-auto mt-10" onChange={this.handleTimeframeChange} defaultValue={this.state.timeframe}>
+              <option value='current_month'>Current month</option>
+              <option value='last_90_days'>Last 90 days</option>
+              <option value='ytd'>Year to date</option>
+              <option value='custom'>Custom timeframe</option>
+            </select>
           </div>
         </div>
+
+        {this.state.timeframe === 'custom' && (
+          <div className="flex row-flex flex-end">
+            <div className="input-group inline small-datepicker mt-10-sm">
+              <div className="mt-10 flex">
+                <DatePicker onChange={this.handlePaidAtMinChange} value={moment.unix(this.state.minPaidAt).toDate()} />
+                <span className="mh-5 mt-5">-</span>
+                <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="overflow-x mt-30 bg-gray p-10">
           <table className="table">
             <thead>
