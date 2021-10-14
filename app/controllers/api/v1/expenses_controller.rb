@@ -4,6 +4,7 @@ module Api; module V1
       expenses = ::Expense.all
       expenses = expenses.where('paid_at >= ?', Time.at(params[:paid_after].to_i).to_datetime) if params[:paid_after].present?
       expenses = expenses.where('paid_at <= ?', Time.at(params[:paid_before].to_i).to_datetime) if params[:paid_before].present?
+      expenses = expenses.where("lower(description) ILIKE ?", "%#{params[:search].strip}%") if params[:search]&.strip.present?
       expenses = expenses.where(category_id: params[:category_id]) if params[:category_id].present?
       expenses = expenses.includes(:category) if params[:include_category] == true.to_s
       expenses = expenses.paginate(params[:page], params[:per_page]) if params[:page]

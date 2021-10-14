@@ -20,6 +20,10 @@ b, span {
   position: relative;
 }
 
+.container.wide {
+  max-width: 1200px;
+}
+
 .bg-art {
   background-image: url(asset_path('background.png'));
   background-repeat: repeat;

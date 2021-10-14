@@ -1,0 +1,13 @@
+.content-with-sidebar {
+  display: flex;
+
+  .sidebar {
+    width: 200px;
+    margin-right: 20px;
+    flex: none;
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+}
