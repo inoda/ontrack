@@ -1,15 +1,15 @@
 const Util = {
   debounce(func, wait) {
+    let timeout;
     return function() {
       const context = this;
       const args = arguments;
-      let timeout;
-
-      clearTimeout(timeout);
-      timeout = setTimeout(function() {
+      const later = function() {
         timeout = null;
         func.apply(context, args);
-      }, wait);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
     };
   },
 };

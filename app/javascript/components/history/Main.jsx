@@ -4,7 +4,7 @@ import moment from 'moment';
 import Paginator from '../shared/Paginator';
 import DatePicker from '../shared/DatePicker';
 import CurrencyInput from '../shared/CurrencyInput';
-import { Alerts } from '../../helpers/main';
+import { Alerts, Util } from '../../helpers/main';
 import { Expenses } from '../../api/main';
 
 class Main extends React.Component {
@@ -23,6 +23,7 @@ class Main extends React.Component {
       reloadTrigger: 0,
       reloadPageTrigger: 0,
       timeframe: 'current_month',
+      search: '',
     };
   }
 
@@ -53,6 +54,9 @@ class Main extends React.Component {
 
     this.setState({ timeframe, minPaidAt, maxPaidAt });
   }
+  handleSearchChange = Util.debounce((search) => {
+    this.setState({ search });
+  }, 500);
   minAndMaxForTimeframe = (timeframe) => {
     switch (timeframe) {
     case 'current_month':
@@ -67,7 +71,7 @@ class Main extends React.Component {
   };
 
   url() {
-    return `/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}&sort=${this.state.sort}&sort_desc=${this.state.sortDesc}`;
+    return `/expenses?include_category=true&paid_before=${this.state.maxPaidAt}&paid_after=${this.state.minPaidAt}&category_id=${this.state.categoryId}&sort=${this.state.sort}&sort_desc=${this.state.sortDesc}&search=${this.state.search}`;
   }
 
   renderSort(key) {
@@ -115,6 +119,8 @@ class Main extends React.Component {
               <DatePicker onChange={this.handlePaidAtMaxChange} value={moment.unix(this.state.maxPaidAt).toDate()} />
             </div>
           )}
+
+          <input className="mt-10" placeholder="Search for description" onChange={e => this.handleSearchChange(e.target.value)} />
         </div>
 
         <div className="content">
