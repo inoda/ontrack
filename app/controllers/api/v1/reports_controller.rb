@@ -1,23 +1,49 @@
 module Api; module V1
   class ReportsController < BaseController
     def year
-      results = ActiveRecord::Base.connection.execute(%{
-        select categories.name AS category, to_char(date_trunc('month', paid_at), 'Mon') AS month, sum(expenses.amount)/100.0 AS amount
-        from expenses
-        join categories on expenses.category_id = categories.id
-        where paid_at >= '#{params[:year].to_i}-01-01'
-        and paid_at < '#{params[:year].to_i + 1}-01-01'
-        group by month, categories.name;
-      })
-
       total = ActiveRecord::Base.connection.execute(%{
         select sum(expenses.amount) as amount
         from expenses
         where paid_at >= '#{params[:year].to_i}-01-01'
         and paid_at < '#{params[:year].to_i + 1}-01-01'
+      }).first['amount']
+
+      category_percentages = ActiveRecord::Base.connection.execute(%{
+        select categories.name AS category, sum(expenses.amount) / #{total.to_f} AS percentage
+        from expenses
+        join categories on expenses.category_id = categories.id
+        where paid_at >= '#{params[:year].to_i}-01-01'
+        and paid_at < '#{params[:year].to_i + 1}-01-01'
+        group by categories.id
+        order by percentage;
       })
 
-      render json: { results: results, total: total.first['amount'], categories: Category.all.select(:id, :name, :color).order(:name) }
+      category_totals = ActiveRecord::Base.connection.execute(%{
+        select categories.name AS category, sum(expenses.amount) AS amount
+        from expenses
+        join categories on expenses.category_id = categories.id
+        where paid_at >= '#{params[:year].to_i}-01-01'
+        and paid_at < '#{params[:year].to_i + 1}-01-01'
+        group by categories.id
+        order by amount;
+      })
+
+      category_amounts_by_month = ActiveRecord::Base.connection.execute(%{
+        select categories.name AS category, to_char(date_trunc('month', paid_at), 'Mon') AS month, sum(expenses.amount) AS amount
+        from expenses
+        join categories on expenses.category_id = categories.id
+        where paid_at >= '#{params[:year].to_i}-01-01'
+        and paid_at < '#{params[:year].to_i + 1}-01-01'
+        group by month, categories.id;
+      })
+
+      render json: {
+        category_percentages: category_percentages,
+        category_totals: category_totals,
+        category_amounts_by_month: category_amounts_by_month,
+        total: total,
+        categories: Category.all.select(:id, :name, :color).order(:name)
+      }
     end
 
     def month

@@ -9,6 +9,7 @@ import { Numerics } from '../../helpers/main';
 const Year = ({ availableYears }) => {
   const [year, setYear] = useState(availableYears[0]);
   const [yearTotal, setYearTotal] = useState(0);
+  const [categoryTotals, setCategoryTotals] = useState([]);
   const barChartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const [barChartData, setBarChartData] = useState([]);
   const [pieChartData, setPieChartData] = useState({
@@ -22,28 +23,27 @@ const Year = ({ availableYears }) => {
   useEffect(() => {
     Reports.year({ year }).then(
       (resp) => {
-        const barChartDatasets = [];
-        resp.categories.forEach((category) => {
-          const dataPoints = [];
-          barChartLabels.forEach((mon) => {
-            const spendForCategoryAndMonth = resp.results.find((monthData) => monthData.month == mon && monthData.category == category.name);
-            dataPoints.push(spendForCategoryAndMonth ? spendForCategoryAndMonth.amount : 0);
+        const barChartDatasets = resp.categories.map((c) => {
+          const dataPoints = barChartLabels.map((mon) => {
+            const amount = resp.category_amounts_by_month.find((a) => a.month == mon && a.category == c.name)?.amount;
+            return Numerics.centsToFloat(amount || 0);
           });
-          barChartDatasets.push({ label: category.name, data: dataPoints, backgroundColor: category.color });
+          return { label: c.name, data: dataPoints, backgroundColor: c.color };
         });
 
         const pieChartDatasets = [];
         const pieChartLabels = [];
         const pieChartColors = [];
-        resp.categories.forEach((category) => {
-          pieChartLabels.push(category.name);
-          pieChartColors.push(category.color);
-          const totalForCategory = resp.results.filter((monthData) => monthData.category === category.name).reduce((a, b) => a + parseFloat(b.amount), 0);
-          pieChartDatasets.push(totalForCategory);
+        resp.categories.forEach((c) => {
+          pieChartLabels.push(c.name);
+          pieChartColors.push(c.color);
+          const percentage = resp.category_percentages.find((p) => p.category === c.name)?.percentage;
+          pieChartDatasets.push(Numerics.floatToPercent(percentage || 0));
         });
 
         setBarChartData(barChartDatasets);
         setPieChartData({ data: pieChartDatasets, colors: pieChartColors, labels: pieChartLabels });
+        setCategoryTotals(resp.category_totals);
         setYearTotal(resp.total);
       },
       () => { Alerts.genericError(); },
@@ -53,9 +53,6 @@ const Year = ({ availableYears }) => {
   return (
     <div>
       <div className="flex flex-space-between mb-30">
-        <b>
-          Total spend: {Numerics.centsToDollars(yearTotal)}
-        </b>
         <div className="input-group inline">
           <select value={year} onChange={handleYearChange}>
             {availableYears.map(yr => <option key={yr} value={yr}>{yr}</option>)}
@@ -64,11 +61,33 @@ const Year = ({ availableYears }) => {
       </div>
 
       <div className="chart-container">
-        <BarChart data={barChartData} labels={barChartLabels} />
+        <BarChart data={barChartData} labels={barChartLabels} hideLegend />
       </div>
 
-      <div className="chart-container mt-50">
-        <PieChart data={pieChartData.data} labels={pieChartData.labels} colors={pieChartData.colors} />
+      <div className="row row-flex flex mt-100">
+        <div className="six columns">
+          <div className="chart-container">
+            <PieChart data={pieChartData.data} labels={pieChartData.labels} colors={pieChartData.colors} />
+          </div>
+        </div>
+
+        <div className="totals six columns mt-50-sm">
+          <table>
+            <tbody>
+              {categoryTotals.map(t => (
+                <tr key={t.category} >
+                  <td>{t.category}</td>
+                  <td>{Numerics.centsToDollars(t.amount)}</td>
+                </tr>
+              ))}
+
+              <tr>
+                <td><b>Total</b></td>
+                <td className="total"><b>{Numerics.centsToDollars(yearTotal)}</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -5,3 +5,18 @@
   box-shadow: 2px 2px #d6d4d4;
   margin-top: 30px;
 }
+
+#insights .totals table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    border: 1px solid #d3d3d3;
+    text-align: left;
+    padding: 15px 10px;
+  }
+
+  td.total {
+    background-color: #e7e7e7;
+  }
+}

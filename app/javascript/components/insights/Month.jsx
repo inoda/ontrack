@@ -54,6 +54,14 @@ const Month = ({ availableMonths }) => {
 
       <div className="row">
         <div className="six columns">
+          <div className="month flex flex-space-between">
+            <b>Total spend</b>
+            <h2>
+              {Numerics.centsToDollars(spend)}
+            </h2>
+          </div>
+        </div>
+        <div className="six columns">
           {!goal && (
             <a className="month flex flex-space-between" href="/">
               <div className="text-muted">Set a total monthly goal</div>
@@ -69,14 +77,6 @@ const Month = ({ availableMonths }) => {
               </h2>
             </div>
           )}
-        </div>
-        <div className="six columns">
-          <div className="month flex flex-space-between">
-            <b>Total spend</b>
-            <h2>
-              {Numerics.centsToDollars(spend)}
-            </h2>
-          </div>
         </div>
       </div>
 

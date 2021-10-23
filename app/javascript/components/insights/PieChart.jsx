@@ -24,7 +24,7 @@ const PieChart = ({ data, labels, colors }) => {
         },
         tooltips: {
           callbacks: {
-            label: t => `${labels[t.index]}: $${Numerics.commify(data[t.index].toFixed(2))}`,
+            label: t => `${labels[t.index]}: ${data[t.index]}%`,
           },
         },
       },
