@@ -66,7 +66,7 @@ deploy a Rails app. Keep it awake with my [Heroku Pinger](https://github.com/ino
 Once your instance is deployed, do the "Creating a user" steps
 above after [spinning up Heroku's console](https://devcenter.heroku.com/articles/heroku-dashboard#application-overview).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/inoda/ontrack/tree/main)
 
 ## Usage and feedback
 Feel free to use this however you'd like! If you use this, credit
