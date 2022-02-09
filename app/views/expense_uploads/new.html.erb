@@ -27,3 +27,19 @@
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  const fileInput = document.querySelector('input[name=file]');
+  const configSelect = document.querySelector('select[name=csv_config_id]');
+  const categorySelect = document.querySelector('select[name=default_category_id]');
+  const autoDetectConfig = <%= @auto_detect_data.to_json.html_safe %>;
+
+  fileInput.addEventListener('change', (e) => {
+    autoDetectConfig.forEach(c => {
+      if (e.target.value.indexOf(c.filename_substring) > -1) {
+        configSelect.value = c.csv_config_id;
+        if (c.default_category_id) categorySelect.value = c.default_category_id;
+      }
+    });
+  });
+</script>

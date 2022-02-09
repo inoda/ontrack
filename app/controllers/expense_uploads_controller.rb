@@ -4,6 +4,19 @@ class ExpenseUploadsController < ApplicationController
   def new
     @categories = Category.all.order(:name)
     @csv_configs = CsvConfig.all.order(:name)
+
+    @auto_detect_data = @csv_configs.map do |c|
+      config = JSON.parse(c.config_json)
+      filename_substring = config.dig('auto_detect', 'filename_substring')
+      default_category = config.dig('auto_detect', 'default_category')
+      next unless filename_substring && default_category
+
+      {
+        filename_substring: filename_substring,
+        csv_config_id: c.id,
+        default_category_id: @categories.find { |c| c.name == default_category }&.id
+      }
+    end.compact
   end
 
   def preview

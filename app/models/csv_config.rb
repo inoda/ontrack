@@ -20,6 +20,10 @@
 #   'timestamps' => {
 #     'index' => 3,
 #   },
+#   'auto_detect' => {
+#     'filename_substring' => 'account1234',
+#     'default_category' => 'Uncategorized'
+#   },
 # }
 #
 # CsvConfig.create!(name: 'Checking account CSVs', config_json: config.to_json)
