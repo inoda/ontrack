@@ -11,7 +11,8 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
-    const [minPaidAt, maxPaidAt] = this.minAndMaxForTimeframe('current_month');
+    const defaultTimeframe = 'last_90_days';
+    const [minPaidAt, maxPaidAt] = this.minAndMaxForTimeframe(defaultTimeframe);
 
     this.state = {
       expenses: [],
@@ -22,7 +23,7 @@ class Main extends React.Component {
       sortDesc: true,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
-      timeframe: 'current_month',
+      timeframe: 'defaultTimeframe',
       search: '',
     };
   }
