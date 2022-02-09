@@ -23,7 +23,7 @@ class Main extends React.Component {
       sortDesc: true,
       reloadTrigger: 0,
       reloadPageTrigger: 0,
-      timeframe: 'defaultTimeframe',
+      timeframe: defaultTimeframe,
       search: '',
     };
   }
