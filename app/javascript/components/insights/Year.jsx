@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
-import BarChart from './BarChart';
+import BarChart from '../shared/BarChart';
 import PieChart from './PieChart';
 import { Reports } from '../../api/main';
 import { Alerts } from '../../helpers/main';
@@ -10,6 +11,8 @@ const Year = ({ availableYears }) => {
   const [year, setYear] = useState(availableYears[0]);
   const [yearTotal, setYearTotal] = useState(0);
   const [categoryTotals, setCategoryTotals] = useState([]);
+  const [categoryAverages, setCategoryAverages] = useState([]);
+  const [averageRange, setAverageRange] = useState([]);
   const barChartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const [barChartData, setBarChartData] = useState([]);
   const [pieChartData, setPieChartData] = useState({
@@ -44,6 +47,8 @@ const Year = ({ availableYears }) => {
         setBarChartData(barChartDatasets);
         setPieChartData({ data: pieChartDatasets, colors: pieChartColors, labels: pieChartLabels });
         setCategoryTotals(resp.category_totals);
+        setCategoryAverages(resp.category_averages_for_year.averages);
+        setAverageRange([resp.category_averages_for_year.start_date, resp.category_averages_for_year.end_date]);
         setYearTotal(resp.total);
       },
       () => { Alerts.genericError(); },
@@ -61,7 +66,12 @@ const Year = ({ availableYears }) => {
       </div>
 
       <div className="chart-container">
-        <BarChart data={barChartData} labels={barChartLabels} hideLegend />
+        <BarChart
+          data={barChartData}
+          labels={barChartLabels}
+          hideLegend
+          stacked
+        />
       </div>
 
       <div className="row row-flex flex mt-100">
@@ -73,17 +83,38 @@ const Year = ({ availableYears }) => {
 
         <div className="totals six columns mt-50-sm">
           <table>
+            <thead>
+              <tr>
+                <td className='grey'>Category</td>
+                <td className='grey'>
+                  Total
+                  <br />
+                  <span className="text-small">
+                    (as of today)
+                  </span>
+                </td>
+                <td className='grey'>
+                  Average
+                  <br />
+                  <span className="text-small">
+                    ({moment(averageRange[0]).format('M/D')} - {moment(averageRange[1]).format('M/D')})
+                  </span>
+                </td>
+              </tr>
+            </thead>
             <tbody>
               {categoryTotals.map(t => (
                 <tr key={t.category} >
                   <td>{t.category}</td>
                   <td>{Numerics.centsToDollars(t.amount)}</td>
+                  <td>{Numerics.centsToDollars(categoryAverages.find(a => t.category === a.category)?.amount || 0)}</td>
                 </tr>
               ))}
 
               <tr>
-                <td><b>Total</b></td>
-                <td className="total"><b>{Numerics.centsToDollars(yearTotal)}</b></td>
+                <td>All</td>
+                <td>{Numerics.centsToDollars(yearTotal)}</td>
+                <td>{Numerics.centsToDollars(categoryAverages.find(a => a.category === 'All')?.amount || 0)}</td>
               </tr>
             </tbody>
           </table>
