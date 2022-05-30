@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BarChart from './BarChart';
+import BarChart from '../shared/BarChart';
 import { Reports } from '../../api/main';
 import { Alerts } from '../../helpers/main';
 import { Numerics } from '../../helpers/main';
@@ -17,17 +17,13 @@ const Month = ({ availableMonths }) => {
   useEffect(() => {
     Reports.month({ month }).then(
       (resp) => {
-        const labels = resp.results.map((r) => r.category);
+        const labels = resp.category_totals.map((r) => r.category);
         const datasets = [
-          { label: 'Within goal', backgroundColor: '#8295e0', data: [] },
-          { label: 'Over goal', backgroundColor: '#cc654b', data: [] },
+          { label: 'Spend', backgroundColor: '#8295e0', data: [] },
         ];
 
-        resp.results.forEach((r) => {
-          const amountOver = parseFloat(r.spend) - parseFloat(r.monthly_goal);
-          const normalizedAmountOver = r.monthly_goal && amountOver > 0 ? amountOver : 0;
-          datasets[0].data.push((r.spend - normalizedAmountOver) / 100);
-          datasets[1].data.push(normalizedAmountOver / 100);
+        resp.category_totals.forEach((r) => {
+          datasets[0].data.push(r.spend / 100);
         });
 
         setChartdata({ data: datasets, labels });

@@ -3,6 +3,7 @@ import moment from 'moment';
 import Overview from './Overview';
 import CategoriesList from './CategoriesList';
 import ExpenseFormModal from '../expenses/FormModal';
+import Chart from './Chart';
 import { Categories, Expenses, Goals } from '../../api/main';
 import { Alerts } from '../../helpers/main';
 
@@ -72,6 +73,10 @@ class Main extends React.Component {
 
         <div className="container">
           <Overview categoriesWithExpensesAndSpend={this.categoriesWithExpensesAndSpend()} monthlyGoal={this.state.monthlyGoal} onChange={this.loadData} />
+        </div>
+
+        <div className="container mt-100">
+          <Chart month={moment().format('MMMM YYYY')} />
         </div>
 
         <div className="bg-art mt-150">
