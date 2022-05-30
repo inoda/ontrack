@@ -90,7 +90,7 @@ const Year = ({ availableYears }) => {
                   Total
                   <br />
                   <span className="text-small">
-                    (as of today)
+                    (All of {year})
                   </span>
                 </td>
                 <td className='grey'>
