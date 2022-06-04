@@ -43,10 +43,12 @@ class Overview extends React.Component {
   }
 
   render() {
+    const today = moment();
+    const daysLeftInMonth = moment().endOf('month').diff(today, 'days');
+
     return (
       <div>
-        {this.renderGoalModal()}
-        <div className="mb-10">{moment().format('MMMM')}</div>
+        <div className="mb-10">{today.format('MMMM')} ({daysLeftInMonth} days left)</div>
 
         <div className="flex row-flex flex-space-between flex-baseline mb-10">
           <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>

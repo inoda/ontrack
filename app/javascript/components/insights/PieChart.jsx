@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Numerics } from '../../helpers/main';
 import Chart from 'chart.js';
 
 const PieChart = ({ data, labels, colors }) => {

@@ -35,7 +35,7 @@ const Chart = ({ month }) => {
   }, [month]);
 
   return (
-    <div className="chart-container">
+    <div className="chart-container-short">
       <BarChart data={chartdata.data} labels={chartdata.labels} hideLegend />
     </div>
   );

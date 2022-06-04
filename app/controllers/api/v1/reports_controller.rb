@@ -25,7 +25,7 @@ module Api; module V1
         where paid_at >= '#{params[:year].to_i}-01-01'
         and paid_at < '#{params[:year].to_i + 1}-01-01'
         group by categories.id
-        order by amount;
+        order by amount desc;
       })
 
       category_amounts_by_month = ActiveRecord::Base.connection.execute(%{
@@ -34,7 +34,8 @@ module Api; module V1
         join categories on expenses.category_id = categories.id
         where paid_at >= '#{params[:year].to_i}-01-01'
         and paid_at < '#{params[:year].to_i + 1}-01-01'
-        group by month, categories.id;
+        group by month, categories.id
+        order by categories.rank asc, categories.id asc
       })
 
       render json: {
@@ -57,7 +58,8 @@ module Api; module V1
         join categories on expenses.category_id = categories.id
         where paid_at >= '#{start_date}'
         and paid_at < '#{end_date}'
-        group by categories.name, categories.monthly_goal
+        group by categories.rank, categories.id
+        order by categories.rank asc, categories.id asc
       })
 
       averages = average_by_category(start_date.year)
