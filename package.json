@@ -12,7 +12,7 @@
     "axios": "^0.21.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chart.js": "^2.8.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
     "react-datepicker": "^2.9.6",
