@@ -105,7 +105,10 @@ const Year = ({ availableYears }) => {
             <tbody>
               {categoryTotals.map(t => (
                 <tr key={t.category} >
-                  <td>{t.category}</td>
+                  <td className="flex">
+                    <span className="color-tile" style={{ backgroundColor: t.color }} />
+                    {t.category}
+                  </td>
                   <td>{Numerics.centsToDollars(t.amount)}</td>
                   <td>{Numerics.centsToDollars(categoryAverages.find(a => t.category === a.category)?.amount || 0)}</td>
                 </tr>

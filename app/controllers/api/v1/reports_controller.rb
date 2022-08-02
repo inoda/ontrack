@@ -19,7 +19,7 @@ module Api; module V1
       })
 
       category_totals = ActiveRecord::Base.connection.execute(%{
-        select categories.name AS category, sum(expenses.amount) AS amount
+        select categories.name AS category, sum(expenses.amount) AS amount, categories.color as color
         from expenses
         join categories on expenses.category_id = categories.id
         where paid_at >= '#{params[:year].to_i}-01-01'
