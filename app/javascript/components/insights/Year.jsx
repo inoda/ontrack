@@ -105,7 +105,7 @@ const Year = ({ availableYears }) => {
             <tbody>
               {categoryTotals.map(t => (
                 <tr key={t.category} >
-                  <td className="flex">
+                  <td>
                     <span className="color-tile" style={{ backgroundColor: t.color }} />
                     {t.category}
                   </td>
