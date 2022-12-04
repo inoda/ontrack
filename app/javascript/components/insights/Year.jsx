@@ -3,12 +3,14 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import BarChart from '../shared/BarChart';
 import PieChart from './PieChart';
+import LineChart from '../shared/LineChart';
 import { Reports } from '../../api/main';
 import { Alerts } from '../../helpers/main';
 import { Numerics } from '../../helpers/main';
 
 const Year = ({ availableYears }) => {
   const [year, setYear] = useState(availableYears[0]);
+  const [chartType, setChartType] = useState('Bar');
   const [yearTotal, setYearTotal] = useState(0);
   const [categoryTotals, setCategoryTotals] = useState([]);
   const [categoryAverages, setCategoryAverages] = useState([]);
@@ -22,6 +24,7 @@ const Year = ({ availableYears }) => {
   });
 
   const handleYearChange = e => setYear(e.target.value);
+  const handleChartTypeChange = e => setChartType(e.target.value);
 
   useEffect(() => {
     Reports.year({ year }).then(
@@ -31,7 +34,7 @@ const Year = ({ availableYears }) => {
             const amount = resp.category_amounts_by_month.find((a) => a.month == mon && a.category == c.name)?.amount;
             return Numerics.centsToFloat(amount || 0);
           });
-          return { label: c.name, data: dataPoints, backgroundColor: c.color };
+          return { label: c.name, data: dataPoints, backgroundColor: c.color, borderColor: c.color };
         });
 
         const pieChartDatasets = [];
@@ -57,22 +60,38 @@ const Year = ({ availableYears }) => {
 
   return (
     <div>
-      <div className="flex flex-space-between mb-30">
+      <div className="flex mb-30">
         <div className="input-group inline">
           <select value={year} onChange={handleYearChange}>
             {availableYears.map(yr => <option key={yr} value={yr}>{yr}</option>)}
           </select>
         </div>
+
+        <div className="input-group inline ml-10">
+          <select value={chartType} onChange={handleChartTypeChange}>
+            {['Bar', 'Line'].map(t => <option key={t} value={t}>{t}</option>)}
+          </select>
+        </div>
       </div>
 
-      <div className="chart-container">
-        <BarChart
-          data={barChartData}
-          labels={barChartLabels}
-          hideLegend
-          stacked
-        />
-      </div>
+      {chartType === 'Bar' && (
+        <div className="chart-container">
+          <BarChart
+            data={barChartData}
+            labels={barChartLabels}
+            stacked
+          />
+        </div>
+      )}
+
+      {chartType === 'Line' && (
+        <div className="chart-container">
+          <LineChart
+            data={barChartData}
+            labels={barChartLabels}
+          />
+        </div>
+      )}
 
       <div className="row row-flex flex mt-100">
         <div className="six columns">

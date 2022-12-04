@@ -27,7 +27,7 @@ const toggleCategory = function (_, legendItem) {
   ci.update();
 };
 
-const BarChart = ({ data, labels, hideLegend, stacked }) => {
+const LineChart = ({ data, labels, hideLegend, stacked }) => {
   const [randomId] = useState(Math.random().toString());
   const [instance, setInstance] = useState(null);
 
@@ -38,7 +38,7 @@ const BarChart = ({ data, labels, hideLegend, stacked }) => {
     instance?.destroy();
 
     const config = {
-      type: 'bar',
+      type: 'line',
       data: {
         datasets: data,
         labels,
@@ -68,12 +68,18 @@ const BarChart = ({ data, labels, hideLegend, stacked }) => {
         },
         scales: {
           yAxes: [{
+            display: true,
             stacked,
             ticks: {
               callback: label => `$${Numerics.commify(label)}`,
             },
           }],
           xAxes: [{ stacked }],
+        },
+        elements: {
+          line: {
+            fill: false,
+          },
         },
       },
     };
@@ -86,16 +92,16 @@ const BarChart = ({ data, labels, hideLegend, stacked }) => {
   return <canvas id={randomId} />;
 };
 
-BarChart.propTypes = {
+LineChart.propTypes = {
   data: PropTypes.array.isRequired,
   labels: PropTypes.array.isRequired,
   hideLegend: PropTypes.bool,
   stacked: PropTypes.bool,
 };
 
-BarChart.defaultProps = {
+LineChart.defaultProps = {
   hideLegend: false,
   stacked: false,
 };
 
-export default BarChart;
+export default LineChart;
