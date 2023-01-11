@@ -76,6 +76,7 @@ module Api; module V1
 
     def average_by_category(year)
       months_to_average = year == Date.today.year ? Date.today.month - 1 : 12
+      months_to_average = [months_to_average, 1].max
       start_date = Date.new(year, 1, 1)
       end_date = start_date + months_to_average.month
 
