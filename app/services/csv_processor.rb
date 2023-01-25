@@ -90,7 +90,7 @@ class CsvProcessor
   def get_category_id(row)
     category = row[category_index]
     mapped_category = category_mappings[category] || category
-    @categories_ids_by_lower_name[mapped_category.downcase] || @default_category_id
+    @categories_ids_by_lower_name[mapped_category&.downcase] || @default_category_id
   end
 
   def format_description(s)
