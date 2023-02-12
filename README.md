@@ -54,7 +54,10 @@ friendly.
 
 ### Creating a user
 - `bundle exec rails c` to run Rails console
-- `User.create!(username: "...", password: "...")` The username and password will be hashed.
+- `User.create!(username: "...", password: "...", locale: "en-US", currency_iso: "USD")`
+  - The username and password will be hashed.
+  - Locale support [IETF BCP 47 language tag](https://en.wikipedia.org/wiki/IETF_language_tag) format
+  - Currency supports [ISO_4217](https://en.wikipedia.org/wiki/ISO_4217) format
 - If you ever need to change your username/password: `User.first.update!(username: "...", password: "...")`
 
 ## Hosting your own
