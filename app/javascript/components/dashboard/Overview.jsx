@@ -34,7 +34,7 @@ class Overview extends React.Component {
 
   goalComparisonDisplay() {
     const diff = this.goalDiff();
-    return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
+    return (diff >= 0) ? `${Numerics.currency(diff)} remaining` : `${Numerics.currency(Math.abs(diff))} over`;
   }
 
   renderGoalModal() {
@@ -51,7 +51,7 @@ class Overview extends React.Component {
         <div className="mb-10">{today.format('MMMM')} ({daysLeftInMonth} days left)</div>
 
         <div className="flex row-flex flex-space-between flex-baseline mb-10">
-          <div><h1>{Numerics.centsToDollars(this.totalSpend())}</h1></div>
+          <div><h1>{Numerics.currency(this.totalSpend())}</h1></div>
           {!this.props.monthlyGoal && (
             <a href={null} onClick={this.openGoal} className="dim-til-hover">Set a monthly goal</a>
           )}

@@ -23,7 +23,7 @@ const Month = ({ availableMonths }) => {
         ];
 
         resp.category_totals.forEach((r) => {
-          datasets[0].data.push(r.spend / 100);
+          datasets[0].data.push(r.spend);
         });
 
         setChartdata({ data: datasets, labels });
@@ -53,7 +53,7 @@ const Month = ({ availableMonths }) => {
           <div className="month flex flex-space-between">
             <b>Total spend</b>
             <h2>
-              {Numerics.centsToDollars(spend)}
+              {Numerics.currency(spend)}
             </h2>
           </div>
         </div>
@@ -68,7 +68,7 @@ const Month = ({ availableMonths }) => {
             <div className="month flex flex-space-between">
               <b>Goal comparison</b>
               <h2 className={goalComparison <= 0 ? 'text-success' : 'text-warning'}>
-                {Numerics.centsToDollars(Math.abs(goalComparison))}
+                {Numerics.currency(Math.abs(goalComparison))}
                 {goalComparison >= 0 ? ' over' : ' under'}
               </h2>
             </div>

@@ -22,10 +22,10 @@ const Chart = ({ month }) => {
           { label: 'Goal', backgroundColor: '#d8a384', data: [] },
         ];
         resp.category_totals.forEach((r) => {
-          datasets[0].data.push(r.spend / 100);
+          datasets[0].data.push(r.spend);
           const avg = resp.category_averages_for_year.averages.find(a => a.category === r.category)?.amount || 0;
-          datasets[1].data.push(avg / 100);
-          datasets[2].data.push(r.monthly_goal / 100);
+          datasets[1].data.push(avg);
+          datasets[2].data.push(r.monthly_goal);
         });
 
         setChartdata({ data: datasets, labels });

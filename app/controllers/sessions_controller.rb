@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create]
-  before_action :require_no_login, only: [:new, :create]
+  skip_before_action :redirect_to_login, only: [:new, :create]
+  before_action :redirect_to_dashboard, only: [:new, :create], if: :current_user
 
   def new
   end
@@ -10,11 +10,13 @@ class SessionsController < ApplicationController
 
     unless user
       flash[:error] = "No user found"
-      redirect_to :root and return
+      return redirect_to :root
     end
 
     if BCrypt::Password.new(user.password) == params[:password] && BCrypt::Password.new(user.username) == params[:username]
-      cookies.signed[:logged_in] = true
+      session[:current_user_id] = user.id
+      cookies[:currency_iso] = user.currency_iso
+      cookies[:locale] = user.locale
     else
       flash[:error] = "Incorrect login"
     end
@@ -23,7 +25,9 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    cookies.signed[:logged_in] = false
-    redirect_to :root
+    reset_session
+    cookies.delete :locale
+    cookies.delete :currency_iso
+    redirect_to root_path, notice: "Signed out."
   end
 end
