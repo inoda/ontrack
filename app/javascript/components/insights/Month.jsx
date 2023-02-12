@@ -23,7 +23,7 @@ const Month = ({ availableMonths }) => {
         ];
 
         resp.category_totals.forEach((r) => {
-          datasets[0].data.push(r.spend / 100);
+          datasets[0].data.push(r.spend);
         });
 
         setChartdata({ data: datasets, labels });

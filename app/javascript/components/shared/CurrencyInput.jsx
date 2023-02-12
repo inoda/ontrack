@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-text-mask';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import Numerics from '../../helpers/numerics';
 
 class CurrencyInput extends React.Component {
   handleChange = (e) => {
@@ -36,7 +37,7 @@ class CurrencyInput extends React.Component {
 
     return (
       <MaskedInput
-        placeholder="$0.00"
+        placeholder={Numerics.currency(0)}
         inputMode="decimal"
         mask={currencyMask}
         onBlur={this.handleBlur}
