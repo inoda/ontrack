@@ -1,5 +1,5 @@
 class ErrorsController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :redirect_to_login
   
   def not_found
     render status: 400

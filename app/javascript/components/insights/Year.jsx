@@ -31,8 +31,7 @@ const Year = ({ availableYears }) => {
       (resp) => {
         const barChartDatasets = resp.categories.map((c) => {
           const dataPoints = barChartLabels.map((mon) => {
-            const amount = resp.category_amounts_by_month.find((a) => a.month == mon && a.category == c.name)?.amount;
-            return Numerics.centsToFloat(amount || 0);
+            return resp.category_amounts_by_month.find((a) => a.month === mon && a.category === c.name)?.amount;
           });
           return { label: c.name, data: dataPoints, backgroundColor: c.color, borderColor: c.color };
         });
@@ -128,15 +127,15 @@ const Year = ({ availableYears }) => {
                     <span className="color-tile" style={{ backgroundColor: t.color }} />
                     {t.category}
                   </td>
-                  <td>{Numerics.centsToDollars(t.amount)}</td>
-                  <td>{Numerics.centsToDollars(categoryAverages.find(a => t.category === a.category)?.amount || 0)}</td>
+                  <td>{Numerics.currency(t.amount)}</td>
+                  <td>{Numerics.currency(categoryAverages.find(a => t.category === a.category)?.amount || 0)}</td>
                 </tr>
               ))}
 
               <tr>
                 <td>All</td>
-                <td>{Numerics.centsToDollars(yearTotal)}</td>
-                <td>{Numerics.centsToDollars(categoryAverages.find(a => a.category === 'All')?.amount || 0)}</td>
+                <td>{Numerics.currency(yearTotal)}</td>
+                <td>{Numerics.currency(categoryAverages.find(a => a.category === 'All')?.amount || 0)}</td>
               </tr>
             </tbody>
           </table>

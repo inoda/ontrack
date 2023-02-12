@@ -63,14 +63,14 @@ const BarChart = ({ data, labels, hideLegend, stacked }) => {
         },
         tooltips: {
           callbacks: {
-            label: t => `${data[t.datasetIndex].label}: $${Numerics.commify(parseFloat(t.yLabel).toFixed(2))}`,
+            label: t => `${data[t.datasetIndex].label}: $${Numerics.currency(t.yLabel)}`,
           },
         },
         scales: {
           yAxes: [{
             stacked,
             ticks: {
-              callback: label => `$${Numerics.commify(label)}`,
+              callback: label => `$${Numerics.currency(label)}`,
             },
           }],
           xAxes: [{ stacked }],

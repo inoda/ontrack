@@ -29,7 +29,7 @@ class CategoryTile extends React.Component {
     if (!this.props.categoryWithExpensesAndSpend.monthly_goal) { return 'No goal set'; }
 
     const diff = this.goalDiff();
-    return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
+    return (diff >= 0) ? `${Numerics.currency(diff)} remaining` : `${Numerics.currency(Math.abs(diff))} over`;
   }
 
   normalizedPercentage() {
@@ -61,7 +61,7 @@ class CategoryTile extends React.Component {
           <h3>{category.name}</h3>
 
           <div className="text-right">
-            <h2 className={category.spend > 0 ? '' : 'text-muted'}>{Numerics.centsToDollars(category.spend)}</h2>
+            <h2 className={category.spend > 0 ? '' : 'text-muted'}>{Numerics.currency(category.spend)}</h2>
             <div className={this.goalDiff() < 0 ? 'text-warning' : 'text-muted'}>
               {this.goalDiff() < 0 && (
                 <i className="fas fa-exclamation-circle mr-4" />
