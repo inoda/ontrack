@@ -26,6 +26,8 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
+    cookies.delete :locale
+    cookies.delete :currency_iso
     redirect_to root_path, notice: "Signed out."
   end
 end

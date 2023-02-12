@@ -24,4 +24,10 @@ group :development do
   gem 'pry', '~> 0.13.1'
 end
 
+group :test do
+  gem "factory_bot_rails", "~> 6.2.0"
+  gem 'rspec-rails', '~> 6.0.1'
+  gem 'faker', '~> 2.22.0'
+end
+
 gem 'tzinfo-data'
