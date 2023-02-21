@@ -37,11 +37,6 @@ class Overview extends React.Component {
     return (diff >= 0) ? `${Numerics.centsToDollars(diff)} remaining` : `${Numerics.centsToDollars(Math.abs(diff))} over`;
   }
 
-  renderGoalModal() {
-    if (!this.state.showGoalModal) { return ''; }
-    return <GoalFormModal onClose={this.closeGoal} onSave={this.onGoalSave} goals={{ monthly: this.props.monthlyGoal }} />;
-  }
-
   render() {
     const today = moment();
     const daysLeftInMonth = moment().endOf('month').diff(today, 'days');
@@ -69,6 +64,10 @@ class Overview extends React.Component {
         </div>
 
         <Progress data={this.percentages()} />
+
+        {this.state.showGoalModal && (
+          <GoalFormModal onClose={this.closeGoal} onSave={this.onGoalSave} goals={{ monthly: this.props.monthlyGoal }} />
+        )}
       </div>
     );
   }

@@ -69,12 +69,6 @@ class UploadPreview extends React.Component {
           <DatePicker onChange={(val) => this.updateExpense(idx, { paid_at: val })} value={new Date(expense.paid_at)} className="bg-gray-slight-contrast" />
         </td>
 
-        <td className="input-group mw-200">
-          <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(idx, { category_id: e.target.value })} className="bg-gray-slight-contrast">
-            {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
-        </td>
-
         <td className="input-group mw-100">
           <CurrencyInput
             initialValue={expense.amount}
@@ -86,6 +80,12 @@ class UploadPreview extends React.Component {
 
         <td className="input-group mw-300">
           <input defaultValue={expense.description} onBlur={(e) => { if (e.target.value.trim() != expense.description) { this.updateExpense(idx, { description: e.target.value.trim() }); } } } className="bg-gray-slight-contrast" />
+        </td>
+
+        <td className="input-group mw-200">
+          <select defaultValue={expense.category_id} onChange={(e) => this.updateExpense(idx, { category_id: e.target.value })} className="bg-gray-slight-contrast">
+            {this.props.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
         </td>
 
         <td>
@@ -111,7 +111,7 @@ class UploadPreview extends React.Component {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>Date</th>
+                      <th>Dateasdasd</th>
                       <th>Category</th>
                       <th>Amount</th>
                       <th>Description</th>
