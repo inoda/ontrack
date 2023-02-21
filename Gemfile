@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '3.1.2'
 
 gem 'rails', '~> 6.1'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.3.12'
-gem 'sass-rails', '~> 5'
+gem 'sass-rails', '~> 6'
 gem 'webpacker', '~> 6.0.0.beta.2'
 gem 'bcrypt', '~> 3.1.7'
 gem 'chronic', '~> 0.10.2'
