@@ -20,7 +20,7 @@
     "react-text-mask": "^5.4.3",
     "sweetalert2": "^8.18.0",
     "text-mask-addons": "^3.8.0",
-    "webpack": "^5.11.0",
+    "webpack": "^5.76.0",
     "webpack-cli": "^4.2.0"
   },
   "version": "0.1.0",
