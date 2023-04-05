@@ -5,7 +5,7 @@ const Numerics = {
     if (value == null || value == undefined) { return ''; }
 
     try {
-      return '$' + ((value / 100).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return '€' + ((value / 100).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(value, error);
@@ -49,7 +49,7 @@ const Numerics = {
     if (value == null || value == undefined) { return ''; }
 
     try {
-      return moment(value).format('MM/DD/YYYY');
+      return moment(value).format('DD/MM/YYYY');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(value, error);

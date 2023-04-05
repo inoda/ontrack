@@ -15,7 +15,7 @@ const Chart = ({ month }) => {
         const datasets = [
           { label: 'Spend', backgroundColor: '#8295e0', data: [] },
           {
-            label: `Average (${moment(resp.category_averages_for_year.start_date).format('M/D')} - ${moment(resp.category_averages_for_year.end_date).format('M/D')})`,
+            label: `Average (${moment(resp.category_averages_for_year.start_date).format('D/M')} - ${moment(resp.category_averages_for_year.end_date).format('D/M')})`,
             backgroundColor: '#deeefe',
             data: [],
           },

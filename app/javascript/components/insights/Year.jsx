@@ -116,7 +116,7 @@ const Year = ({ availableYears }) => {
                   Average
                   <br />
                   <span className="text-small">
-                    ({moment(averageRange[0]).format('M/D')} - {moment(averageRange[1]).format('M/D')})
+                    ({moment(averageRange[0]).format('D/M')} - {moment(averageRange[1]).format('D/M')})
                   </span>
                 </td>
               </tr>
