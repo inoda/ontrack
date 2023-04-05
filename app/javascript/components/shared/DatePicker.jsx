@@ -15,7 +15,7 @@ class Picker extends React.Component {
 
   render() {
     return (
-      <DatePicker onChange={this.handleChange} selected={this.state.startDate} className={this.props.className} />
+      <DatePicker dateFormat="dd/MM/yyyy" onChange={this.handleChange} selected={this.state.startDate} className={this.props.className} />
     );
   }
 }

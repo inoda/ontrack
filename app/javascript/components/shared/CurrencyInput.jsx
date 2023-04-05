@@ -6,7 +6,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 class CurrencyInput extends React.Component {
   handleChange = (e) => {
     if (!this.props.onChange) { return; }
-    const num = e.target.value.replace(/\$|,/g, '');
+    const num = e.target.value.replace(/\€|,/g, '');
     const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ''));
     const normalized = isNaN(cents) ? 0 : cents;
     this.props.onChange(normalized);
@@ -14,7 +14,7 @@ class CurrencyInput extends React.Component {
 
   handleBlur = (e) => {
     if (!this.props.onBlur) { return; }
-    const num = e.target.value.replace(/\$|,/g, '');
+    const num = e.target.value.replace(/\€|,/g, '');
     const cents = parseInt(parseFloat(num).toFixed(2).replace(/\./g, ''));
     const normalized = isNaN(cents) ? 0 : cents;
     this.props.onBlur(normalized);
@@ -22,7 +22,7 @@ class CurrencyInput extends React.Component {
 
   render() {
     const defaultMaskOptions = {
-      prefix: '$',
+      prefix: '€',
       includeThousandsSeparator: true,
       thousandsSeparatorSymbol: ',',
       allowDecimal: true,
@@ -36,7 +36,7 @@ class CurrencyInput extends React.Component {
 
     return (
       <MaskedInput
-        placeholder="$0.00"
+        placeholder="€0.00"
         inputMode="decimal"
         mask={currencyMask}
         onBlur={this.handleBlur}
