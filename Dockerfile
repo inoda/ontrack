@@ -1,4 +1,4 @@
-FROM ruby:2.6.6-alpine
+FROM ruby:3.1.2-alpine
 
 WORKDIR /ontrack
 
