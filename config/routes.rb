@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post :preview
     end
   end
+  resources :exports, only: [:new, :create]
 
   namespace :api do
     namespace :v1 do

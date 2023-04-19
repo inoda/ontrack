@@ -2,9 +2,9 @@
   "name": "ontrack",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.4",
+    "@babel/preset-react": "^7.0.0",
     "@rails/actioncable": "^6.0.3-2",
     "@rails/activestorage": "^6.0.3-2",
     "@rails/ujs": "^6.0.3-2",
