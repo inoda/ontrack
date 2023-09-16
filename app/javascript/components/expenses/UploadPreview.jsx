@@ -111,7 +111,7 @@ class UploadPreview extends React.Component {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>Dateasdasd</th>
+                      <th>Date</th>
                       <th>Category</th>
                       <th>Amount</th>
                       <th>Description</th>
