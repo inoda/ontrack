@@ -1,5 +1,5 @@
 #!/bin/sh
-rails db:migrate
+bundle exec rails db:migrate
 if [ $RAILS_ENV = "production" ]; then
   export RAILS_SERVE_STATIC_FILES=true
   bundle exec rake assets:precompile
