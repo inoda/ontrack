@@ -1,5 +1,7 @@
 ![logo](./app/assets/images/readme/logo.png)
 
+**:warning: I am no longer maintaining this repository.**
+
 ## About
 
 In a nutshell: a private budgeting tool that can be self-hosted.
