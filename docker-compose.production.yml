@@ -2,6 +2,21 @@
 version: "3.4"
 
 services:
+  proxy:
+    image: nginx:alpine
+    container_name: ontrack-proxy
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+      - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+
   app:
     build:
       context: .
@@ -9,11 +24,10 @@ services:
     restart: always
     depends_on:
       - database
-    ports:
-      - "3000:3000"
     environment:
-      NODE_ENV: development
-      RAILS_ENV: development
+      NODE_ENV: production
+      RAILS_ENV: production
+      FORCE_SSL: "false"
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       DATABASE_URL: postgres://ontrack:${POSTGRES_PASSWORD}@database/ontrack
 
